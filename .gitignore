@@ -1,0 +1,12 @@
+node_modules/
+.next/
+out/
+public/_pagefind/
+*.tsbuildinfo
+.env
+.env.*
+!.env.example
+.DS_Store
+.vercel/
+
+doctor.config.json
