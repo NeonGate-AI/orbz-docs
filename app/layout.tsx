@@ -1,15 +1,15 @@
+import type { ReactNode } from 'react'
 import type { Metadata, Viewport } from 'next'
+import Link from 'next/link'
 import { Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import { Layout, Navbar } from 'nextra-theme-docs'
-import 'nextra-theme-docs/style.css'
-import type { ReactNode } from 'react'
 
-import { siteConfig } from '../site.config'
-
-import { OrbzMark } from './orbz-mark.client'
 import { RegisterElement } from './register-element.client'
 import { ThemeToggle } from './theme-toggle.client'
+import { siteConfig } from '../site.config'
+
+import 'nextra-theme-docs/style.css'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -46,21 +46,17 @@ export const viewport: Viewport = {
 function NeongateBrand() {
   return (
     <span className="neongate-brand">
-      <OrbzMark size="1.45rem" />
+      <orb-z size="1.45rem" speed={0.78} state="thinking" />
       <span className="neongate-brand__wordmark">Neongate AI</span>
     </span>
   )
 }
 
 const navbar = (
-  <Navbar
-    key="neongate-navbar"
-    logo={<NeongateBrand />}
-    logoLink={siteConfig.companyUrl}
-  >
-    <a className="neongate-navbar-link" href="/" key="docs-link">
+  <Navbar key="neongate-navbar" logo={<NeongateBrand />} logoLink="/">
+    <Link className="neongate-navbar-link" href="/orbz/getting-started">
       Docs
-    </a>
+    </Link>
     <ThemeToggle key="theme-toggle" />
     <div className="neongate-navbar-search" key="docs-search">
       <Search placeholder="Search docs…" />
@@ -72,29 +68,23 @@ const footer = (
   <footer className="neongate-footer" key="neongate-footer">
     <div className="neongate-footer__glow" key="footer-glow" />
     <div className="neongate-footer__inner" key="footer-inner">
-      <a
-        className="neongate-footer__brand"
-        href={siteConfig.companyUrl}
-        key="footer-brand"
-      >
-        <OrbzMark
+      <Link className="neongate-footer__brand" href="/" key="footer-brand">
+        <orb-z
           elevated
           preset="magenta"
           size="2.4rem"
           speed={0.78}
-          states={['listening', 'thinking', 'idle']}
+          state="idle"
         />
         <span>
           <strong>Neongate AI</strong>
           <small>Voice interfaces with presence.</small>
         </span>
-      </a>
+      </Link>
       <div className="neongate-footer__meta" key="footer-meta">
         <span>© {new Date().getFullYear()}</span>
         <span aria-hidden="true">•</span>
-        <a href={`${siteConfig.products.orbz.github}/blob/main/LICENSE`}>
-          MIT License
-        </a>
+        <Link href="/">MIT License</Link>
         <span aria-hidden="true">•</span>
         <span>Orbz documentation</span>
       </div>
