@@ -35,14 +35,14 @@ are structured values rather than HTML strings.
 
 | Property | Type | Default |
 | --- | --- | --- |
-| `voiceEngine` | `OrbzVoiceEnginePort \| undefined` | `WebSpeechAdapter` |
+| `voiceEngine` | `OrbzVoiceEnginePort \| undefined` | `undefined` |
 | `talkFlow` | `readonly OrbzTalkStep[] \| undefined` | `DEFAULT_TALK_FLOW` |
 | `talkContext` | Read-only `OrbzTalkContext` | Empty runtime memory |
 | `intelligence` | `OrbzIntelligencePort \| undefined` | `undefined` |
 
-Set a custom engine or flow before appending a programmatically created
-element so the mandatory first utterance uses that configuration.
-Assigning `undefined` restores the corresponding built-in default.
+Set an engine before calling `startTalking()`. Connecting an element and
+assigning an engine are both silent until that explicit method call. Assigning
+`undefined` removes the configured engine.
 
 ## States
 
@@ -177,10 +177,10 @@ orb?.restart();
 await orb?.receive('Jonatas');
 ```
 
-Orbz automatically calls `startTalking()` after its first connection. The
-default flow stores the captured name only in the current element instance.
-See [Voice and talk runtime](/orbz/guides/voice-assistant) for custom flows and
-engines.
+Orbz runs a talk flow only after the host calls `startTalking()`. The default
+flow stores the captured name only in the current element instance. See
+[Voice and talk runtime](/orbz/guides/voice-assistant) for an explicit opt-in
+control, custom flows, and engines.
 
 ## Observed attributes
 

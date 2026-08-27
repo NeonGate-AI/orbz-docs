@@ -1,11 +1,11 @@
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://docs.neongate.com.br'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://orbz.site'
 
 export const siteConfig = Object.freeze({
   companyUrl: 'https://neongate.com.br',
-  description: 'Technical documentation for Neongate AI products and engineering.',
+  description:
+    'Technical documentation for the @neongate-ai/orbz web component.',
   github: 'https://github.com/NeonGate-AI/docs',
-  name: 'Neongate AI Docs',
+  name: 'Orbz Docs',
   url: siteUrl,
   products: Object.freeze({
     orbz: Object.freeze({
@@ -20,7 +20,7 @@ export const siteConfig = Object.freeze({
       github: 'https://github.com/NeonGate-AI/orbz',
       npm: 'https://www.npmjs.com/package/@neongate-ai/orbz',
       path: '/orbz',
-      version: '0.3.0'
+      version: '0.3.1'
     })
   })
 })

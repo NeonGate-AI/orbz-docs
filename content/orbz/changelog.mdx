@@ -15,7 +15,22 @@ are available on [npm](https://www.npmjs.com/package/@neongate-ai/orbz), and
 the complete documentation is available at
 [orbz.site](https://orbz.site).
 
-## 0.3.0 — Unreleased
+## 0.3.1 — 2026-08-25
+
+### Explicit speech opt-in
+
+- Connecting or upgrading `<orb-z>` no longer creates a default voice engine or
+  starts a talk flow.
+- `voiceEngine` now defaults to `undefined`. Applications explicitly provide an
+  engine and call `startTalking()` after the visitor opts in.
+- Assigning a voice engine remains silent; `stopTalking()` stops an active flow,
+  and assigning `undefined` removes the configured engine.
+- Numeric strings passed through HTML or server-rendered markup now normalize to
+  pixel lengths consistently with numeric property values.
+
+[View `0.3.1` on npm](https://www.npmjs.com/package/@neongate-ai/orbz/v/0.3.1)
+
+## 0.3.0 — 2026-08-23
 
 ### React and Next.js typing
 
@@ -24,7 +39,7 @@ the complete documentation is available at
 - React remains absent from the Orbz runtime dependency surface; React types are used only to build the optional declaration entry.
 
 
-## 0.2.0 — 2026-08-21
+## 0.2.0 — 2026-08-22
 
 Orbz `0.2.0` expands the original visual assistant component into a
 voice-capable, framework-agnostic custom element. This release introduces a
@@ -304,15 +319,15 @@ import {
 Call `defineOrbz()` explicitly when registration needs to be controlled by the
 host application.
 
-#### Account for first-render speech
+#### Opt in to speech
 
-Orbz now schedules its talk flow after its first connected render.
-
-When creating an element programmatically, assign `voiceEngine`, `talkFlow`,
-and `intelligence` before appending it so the first run uses the intended
-configuration:
+Versions `0.2.0` and `0.3.0` scheduled a talk flow after the first connected
+render. Version `0.3.1` removed that behavior: current applications assign
+`voiceEngine`, `talkFlow`, and `intelligence`, then explicitly call
+`startTalking()` after the visitor opts in.
 
 ```ts
+import '@neongate-ai/orbz/browser'
 import {
   OpenAISpeechAdapter,
   type OrbzElement
@@ -325,10 +340,16 @@ orb.voiceEngine = new OpenAISpeechAdapter({
 });
 
 document.body.append(orb);
+
+const startVoiceButton = document.querySelector<HTMLButtonElement>("[data-start-voice]");
+
+startVoiceButton?.addEventListener("click", async () => {
+  await orb.startTalking();
+});
 ```
 
-Browsers may require user activation before audio can begin. Orbz retries the
-flow on the first interaction when automatic playback is blocked.
+If a browser rejects requested audio despite the explicit control, Orbz retries
+that requested flow on the next interaction.
 
 ## 0.1.0 — Initial public release
 

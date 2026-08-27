@@ -1,4 +1,4 @@
 export default {
-  index: "Element API",
-  exports: "Package exports",
-};
+  index: 'Element API',
+  exports: 'Package exports'
+}

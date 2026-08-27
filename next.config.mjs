@@ -1,12 +1,12 @@
-import nextra from "nextra";
+import nextra from 'nextra'
 
 const withNextra = nextra({
   search: {
-    codeblocks: false,
-  },
-});
+    codeblocks: false
+  }
+})
 
 export default withNextra({
   agentRules: false,
-  reactStrictMode: true,
-});
+  reactStrictMode: true
+})

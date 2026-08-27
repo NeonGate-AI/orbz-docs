@@ -9,16 +9,15 @@ The `@neongate-ai/orbz/standalone` entry is a self-contained ES module for
 pages that do not use a package manager or bundler. It registers `<orb-z>` as a
 side effect and includes the same native component API as `/browser`.
 
-> **Release note:** these URLs target the staged `0.3.0` release and will work
-> after `0.3.0` is published to npm. Until then, use
-> the source workspace or an installed version whose API matches your code.
+These URLs pin the published `0.3.1` release so a future `latest` tag cannot
+change the component contract unexpectedly.
 
 ## jsDelivr
 
 ```html
 <script
   type="module"
-  src="https://cdn.jsdelivr.net/npm/@neongate-ai/orbz@0.3.0/dist/standalone/orbz.js"
+  src="https://cdn.jsdelivr.net/npm/@neongate-ai/orbz@0.3.1/dist/standalone/orbz.js"
 ></script>
 ```
 
@@ -27,7 +26,7 @@ side effect and includes the same native component API as `/browser`.
 ```html
 <script
   type="module"
-  src="https://unpkg.com/@neongate-ai/orbz@0.3.0/dist/standalone/orbz.js"
+  src="https://unpkg.com/@neongate-ai/orbz@0.3.1/dist/standalone/orbz.js"
 ></script>
 ```
 
@@ -45,7 +44,7 @@ metadata. The explicit file URL above makes the artifact and version obvious.
     <title>Orbz voice assistant</title>
     <script
       type="module"
-      src="https://cdn.jsdelivr.net/npm/@neongate-ai/orbz@0.3.0/dist/standalone/orbz.js"
+      src="https://cdn.jsdelivr.net/npm/@neongate-ai/orbz@0.3.1/dist/standalone/orbz.js"
     ></script>
   </head>
   <body>
@@ -90,7 +89,7 @@ properties or methods immediately.
 Use an exact package version in production:
 
 ```text
-@neongate-ai/orbz@0.3.0
+@neongate-ai/orbz@0.3.1
 ```
 
 Avoid an unversioned URL or a moving `latest` tag. Pinning keeps the component

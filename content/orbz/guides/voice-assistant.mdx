@@ -1,13 +1,13 @@
 ---
 title: Voice and talk runtime
-description: Use automatic first-render speech, English browser voices, OpenAI speech, runtime memory, and custom talk flows.
+description: Add explicit speech opt-in, English browser voices, OpenAI speech, runtime memory, and custom talk flows.
 ---
 
 # Voice and talk runtime
 
-Orbz schedules its talk flow after the element's first connected render. The
-built-in flow is deterministic and keeps captured values only in the element's
-runtime memory:
+Orbz remains silent when an element connects. After the host configures a voice
+engine and explicitly calls `startTalking()`, the built-in flow is deterministic
+and keeps captured values only in the element's runtime memory:
 
 1. Ana introduces herself.
 2. Ana asks for the visitor's name.
@@ -16,8 +16,9 @@ runtime memory:
 5. A response step uses an intelligence provider when configured, or a local
    fallback otherwise.
 
-`startTalking()` resets the runtime context. Orbz does not persist the
-conversation in cookies, local storage, IndexedDB, or a backend.
+`startTalking()` is the opt-in boundary and resets the runtime context. Orbz
+does not persist the conversation in cookies, local storage, IndexedDB, or a
+backend.
 
 ## Built-in talk data
 
@@ -43,7 +44,7 @@ console.log(orb?.talkContext.fullName);
 
 ## English browser speech
 
-The zero-configuration engine is `WebSpeechAdapter`. It now:
+For browser-provided speech, configure `WebSpeechAdapter`. It:
 
 - requests `en-US` explicitly;
 - waits for the browser's asynchronous voice list;
@@ -52,6 +53,7 @@ The zero-configuration engine is `WebSpeechAdapter`. It now:
   voices when the browser exposes them.
 
 ```ts
+import '@neongate-ai/orbz/browser'
 import {
   WebSpeechAdapter,
   type OrbzElement
@@ -63,6 +65,12 @@ orb.voiceEngine = new WebSpeechAdapter({
   preferredVoices: ["Google US English", "Microsoft Aria Online"]
 });
 document.body.append(orb);
+
+const startVoiceButton = document.querySelector<HTMLButtonElement>("[data-start-voice]");
+
+startVoiceButton?.addEventListener("click", async () => {
+  await orb.startTalking();
+});
 ```
 
 The actual installed voices still belong to the visitor's browser and operating
@@ -76,6 +84,7 @@ Use `OpenAISpeechAdapter` for OpenAI text-to-speech quality. Its defaults are
 instructions.
 
 ```ts
+import '@neongate-ai/orbz/browser'
 import {
   OpenAISpeechAdapter,
   type OrbzElement
@@ -86,6 +95,12 @@ orb.voiceEngine = new OpenAISpeechAdapter({
   endpoint: "/api/orbz/speech"
 });
 document.body.append(orb);
+
+const startVoiceButton = document.querySelector<HTMLButtonElement>("[data-start-voice]");
+
+startVoiceButton?.addEventListener("click", async () => {
+  await orb.startTalking();
+});
 ```
 
 The endpoint is owned by the implementing application. It receives an
@@ -97,19 +112,21 @@ in the npm package.
 Applications using generated speech should clearly disclose that the voice is
 AI-generated.
 
-## First-render behavior and browser activation
+## Explicit activation and browser policy
 
-Orbz attempts speech after the first rendered frame. If the browser rejects
-automatic audio with `NotAllowedError`, Orbz listens for the first pointer,
-keyboard, or touch interaction and retries the talk flow automatically. Reset
-controls should never remount the element merely to unlock speech.
+Render a native `<button>` with a clear label such as **Start voice**, then call
+`startTalking()` from its click handler. Connecting the orb, assigning a voice
+engine, or navigating to a page never starts audio.
 
-The component dispatches `orbz-talk-error` with the original error, so hosts can
-also show an explicit accessible “Start voice” control.
+If the browser still rejects the requested audio with `NotAllowedError`, Orbz
+dispatches `orbz-talk-error` with the original error and retries the requested
+flow after the next pointer, keyboard, or touch interaction. Reset controls
+should not remount the element merely to unlock speech.
 
 ## Supply a custom flow
 
 ```ts
+import '@neongate-ai/orbz/browser'
 import {
   talk,
   type OrbzElement,
@@ -127,8 +144,8 @@ orb.talkFlow = flow;
 document.body.append(orb);
 ```
 
-Assign `voiceEngine`, `talkFlow`, and `intelligence` before appending a
-programmatically created element so the first scheduled run uses them.
+Assign `voiceEngine`, `talkFlow`, and `intelligence` before calling
+`startTalking()` so the explicit run uses them.
 
 ## Optional intelligence
 

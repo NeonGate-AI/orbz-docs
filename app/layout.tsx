@@ -16,11 +16,10 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
     default: 'Orbz Docs | Neongate AI',
-    template: '%s | Neongate AI Docs'
+    template: '%s | Orbz Docs'
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
-  alternates: { canonical: '/' },
   openGraph: {
     description: siteConfig.description,
     siteName: siteConfig.name,

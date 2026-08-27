@@ -29,24 +29,27 @@ That gives every host the same vocabulary:
 - `size`, `speed`, `paused`, `elevated`, and `reduced-motion`
 - `play()`, `pause()`, and `restart()` methods
 
-The [six examples](/orbz/examples) intentionally present the same interface. Their
+The [six sandboxes](/orbz/examples) intentionally present the same interface. Their
 framework code is different; the component contract and user experience are
 not.
 
-## A visual primitive, not an assistant SDK
+## A visual primitive with optional speech ports
 
-Orbz owns visual expression. Your application owns everything that gives that
-expression meaning:
+Orbz owns visual expression and provides an optional talk flow with browser and
+OpenAI-compatible speech adapters. Your application owns the decision and
+security boundaries that give that expression meaning:
 
-- microphone permission and audio capture
-- speech recognition and synthesis
+- when voice starts or stops and how the visitor opts in
+- microphone permission, audio capture, and speech recognition
+- voice-engine selection, protected speech endpoints, and credentials
 - model requests, tool calls, and streaming
 - turn-taking, cancellation, errors, and retries
 - transcripts, buttons, labels, and other semantic UI
 
 This boundary keeps the package useful with any voice vendor, AI SDK, state
 manager, or backend. An application translates its domain events into one of
-the five Orbz states; Orbz renders the corresponding presence.
+the five Orbz states and, when needed, explicitly starts the configured talk
+runtime; Orbz renders the corresponding presence.
 
 See [Building a voice assistant](/orbz/guides/voice-assistant) for a practical state
 mapping.
@@ -88,21 +91,21 @@ when the tag is not already registered.
 
 This makes the native element compatible with server-rendered shells while
 preserving a browser-native runtime. The server can emit the element; the
-client upgrades it when Orbz is registered. The React entry adds a strict
-Client Component adapter for React and Next.js projects that prefer JSX props.
+client upgrades it when Orbz is registered. The optional `react-types` entry
+adds JSX typing without introducing a React wrapper or runtime adapter.
 
 Read [SSR and hydration](/orbz/guides/ssr) for the recommended patterns.
 
-## Repository layout is not the runtime architecture
+## Repositories follow the public boundaries
 
-The Orbz repository uses workspace tooling to develop the package and its
-examples together. That does not make consumers part of a monorepo and does
-not make the examples part of the published package.
+The Orbz package, this documentation site, and the Orbz Sandbox are independent
+projects. The Sandbox applications consume `@neongate-ai/orbz@0.3.1` from npm;
+neither the Docs nor the Sandbox imports a sibling package workspace or private
+source path.
 
-Each showcase can be deployed as an independent Vercel project and consume
-`@neongate-ai/orbz` from npm. A microfrontend shell can do the same. The durable
-boundary is the published package and the `<orb-z>` contract—not the repository
-folder structure.
+Each sandbox can be deployed as an independent Vercel project. A microfrontend
+shell can consume the same package. The durable boundary is the published
+package and the `<orb-z>` contract—not a shared repository layout.
 
 ## The test for a new feature
 

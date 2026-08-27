@@ -1,6 +1,6 @@
-# Neongate AI Docs Engineering Instructions
+# Orbz Docs Engineering Instructions
 
-This repository owns the central Neongate AI technical documentation site.
+This repository owns the public documentation site for `@neongate-ai/orbz`.
 
 Read and follow:
 
@@ -11,7 +11,7 @@ Read and follow:
 ## Product boundaries
 
 - Orbz implementation belongs to `NeonGate-AI/orbz`.
-- Orbz framework showcases belong to `NeonGate-AI/orbz-examples`.
+- Orbz framework sandboxes belong to `NeonGate-AI/orbz-sandbox`.
 - This repository consumes the published `@neongate-ai/orbz` package.
 - Do not reintroduce `workspace:*` dependencies on product repositories.
 - Run `pnpm check` before merging documentation application changes.

@@ -28,9 +28,9 @@ existing tags when the custom element is defined.
 <orb-z state="idle" preset="neongate" size="18rem"></orb-z>
 ```
 
-After its first connection, the upgraded element immediately starts its
-built-in deterministic talk flow. It introduces Ana and asks the visitor's
-name using the browser speech service.
+Connecting or upgrading the element never starts speech. The host must
+explicitly configure a voice engine and call `startTalking()` when the visitor
+opts in.
 
 ## Explicit registration
 
@@ -91,14 +91,17 @@ if (orb) {
 Every public property reflects through its matching attribute. `size` accepts a
 number, which becomes pixels, or a CSS length string such as `"20rem"`.
 
-Voice engines and talk flows are JavaScript-only properties. Configure them
-before appending an element that you create programmatically:
+Voice engines and talk flows are JavaScript-only properties. Prepare the flow,
+append the element, then configure the engine and start talking only after
+explicit user input:
 
 ```ts
+import '@neongate-ai/orbz/browser'
 import {
   talk,
   type OrbzElement,
-  type OrbzTalkStep
+  type OrbzTalkStep,
+  WebSpeechAdapter
 } from '@neongate-ai/orbz'
 
 const orb = document.createElement('orb-z') as OrbzElement
@@ -109,7 +112,12 @@ orb.talkFlow = [
 ] satisfies readonly OrbzTalkStep[]
 document.body.append(orb)
 
-await orb.receive('Jonatas')
+const startVoiceButton = document.querySelector<HTMLButtonElement>('[data-start-voice]')
+
+startVoiceButton?.addEventListener('click', async () => {
+  orb.voiceEngine = new WebSpeechAdapter({ language: 'en-US' })
+  await orb.startTalking()
+})
 ```
 
 ## Boolean attributes
@@ -222,4 +230,4 @@ native tag after importing `/browser` once. There is no framework adapter or
 shared runtime between the application and Orbz.
 
 See the complete applications in the
-[examples directory](https://github.com/NeonGate-AI/orbz-examples/tree/main).
+[sandbox workspace](https://github.com/NeonGate-AI/orbz-sandbox/tree/main/sandbox).

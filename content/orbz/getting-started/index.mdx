@@ -79,13 +79,12 @@ TypeScript projects can import `@neongate-ai/orbz/react-types` once to add
 `orb-z` to `React.JSX.IntrinsicElements` without creating a framework wrapper
 component.
 
-## Automatic talk startup
+## Opt in to speech
 
-The element schedules its talk flow after its first connected render. The
+Connecting the element is silent. To start a talk flow, explicitly configure a
+voice engine and call `startTalking()` from a user-initiated control. The
 built-in `WebSpeechAdapter` requests `en-US`, waits for the browser voice list,
-and prefers an English voice. A browser may still require user activation for
-audio; in that case Orbz retries the flow after the first pointer, keyboard, or
-touch interaction.
+and prefers an English voice.
 
 Continue with [Native web component](/orbz/getting-started/native),
 [React and Next.js](/orbz/getting-started/react-next), or the

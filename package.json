@@ -1,8 +1,8 @@
 {
-  "name": "@neongate-ai/docs",
+  "name": "@neongate-ai/orbz-docs",
   "version": "0.1.0",
   "private": true,
-  "description": "Technical documentation for Neongate AI products and engineering.",
+  "description": "Technical documentation for @neongate-ai/orbz.",
   "type": "module",
   "license": "MIT",
   "packageManager": "pnpm@10.32.1",
@@ -19,11 +19,12 @@
     "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "check": "biome lint . && pnpm typecheck && pnpm build",
+    "check": "pnpm format:check && biome lint . && pnpm typecheck && pnpm build",
+    "format:check": "biome format .",
     "neon": "neon"
   },
   "dependencies": {
-    "@neongate-ai/orbz": "0.3.0",
+    "@neongate-ai/orbz": "0.3.1",
     "next": "16.3.1",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",

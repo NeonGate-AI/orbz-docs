@@ -1,8 +1,8 @@
-"use client";
+'use client'
 
-import "@neongate-ai/orbz/react-types";
-import "@neongate-ai/orbz/browser";
+import '@neongate-ai/orbz/react-types'
+import '@neongate-ai/orbz/browser'
 
 export function RegisterElement() {
-  return null;
+  return null
 }
