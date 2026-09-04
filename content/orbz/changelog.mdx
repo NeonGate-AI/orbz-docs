@@ -15,6 +15,23 @@ are available on [npm](https://www.npmjs.com/package/@neongate-ai/orbz), and
 the complete documentation is available at
 [orbz.site](https://orbz.site).
 
+## 0.4.3 — 2026-09-04
+
+### Highlights since 0.3.1
+
+- Added the published `orb` POSIX shell CLI as the package binary. Run it
+  transiently with `npx -y --package=@neongate-ai/orbz@latest orb`.
+- Orb project setup detects npm, pnpm, Yarn, or Bun from project metadata and
+  lockfiles, installs the executing Orbz version, and does not generate or
+  overwrite application source files.
+- `WebSpeechAdapter` now defaults to Brazilian Portuguese (`pt-BR`). Applications
+  can override `language`, including `en-US`, when another locale is required.
+- Orbz now ships without a canned greeting, persona, or default conversation
+  flow. Consumers provide `speech` or `talkFlow`, configure a `voiceEngine`, and
+  explicitly call `startTalking()`.
+
+[View `0.4.3` on npm](https://www.npmjs.com/package/@neongate-ai/orbz/v/0.4.3)
+
 ## 0.3.1 — 2026-08-25
 
 ### Explicit speech opt-in
