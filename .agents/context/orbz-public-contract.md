@@ -1,7 +1,7 @@
 # Orbz Public Contract Snapshot
 
 This is a navigation aid for agents working on the documentation. It summarizes
-what the current docs say about the published `@neongate-ai/orbz@0.3.1`
+what the current docs say about the published `@neongate-ai/orbz@0.4.3`
 contract. It is not an independent source of product truth.
 
 When changing public API documentation, verify the published package and the
@@ -69,14 +69,19 @@ attribute/property into examples unless the product contract changes first.
 ## Voice and talk runtime
 
 Structured voice/talk configuration uses JavaScript properties rather than HTML
-string attributes. The documented properties include `voiceEngine`, `talkFlow`,
-read-only `talkContext`, and optional `intelligence`.
+string attributes. The documented properties include `speech`, `voiceEngine`,
+`talkFlow`, read-only `talkContext`, and optional `intelligence`.
 
-Talking is explicit: connecting the element does not start speech. Hosts call
-`startTalking()` after configuring the desired engine/flow. Browser or external
-speech integrations must preserve user activation and privacy/security
-requirements. OpenAI credentials belong behind an implementer-owned secure
-endpoint, never in browser-delivered docs examples.
+Talking is explicit: connecting the element does not start speech. Hosts provide
+the desired speech or talk flow, configure a voice engine, and call
+`startTalking()` after the visitor opts in. Orbz `0.4.3` ships without a canned
+greeting, persona, or default conversation flow.
+
+`WebSpeechAdapter` defaults to Brazilian Portuguese (`pt-BR`). Applications can
+override the adapter language, including `en-US`, when another locale is
+required. Browser or external speech integrations must preserve user activation
+and privacy/security requirements. OpenAI credentials belong behind an
+implementer-owned secure endpoint, never in browser-delivered docs examples.
 
 ## Methods
 
@@ -88,6 +93,19 @@ The current element reference documents:
 - `startTalking()`
 - `receive(input)`
 - `stopTalking()`
+
+## Orb CLI
+
+The published package exposes the POSIX shell binary `orb`. The canonical
+transient installer is:
+
+```bash
+npx -y --package=@neongate-ai/orbz@latest orb
+```
+
+Project setup detects npm, pnpm, Yarn, or Bun from project metadata and
+lockfiles, installs the executing Orbz version into an existing JavaScript
+project, and does not generate or overwrite application source files.
 
 ## Package entry points
 
