@@ -1,3 +1,5 @@
+import packageJson from './package.json'
+
 function normalizeSiteUrl(value: string) {
   const url = new URL(value)
 
@@ -17,7 +19,7 @@ function normalizeSiteUrl(value: string) {
 const siteUrl = normalizeSiteUrl(
   process.env.NEXT_PUBLIC_SITE_URL ?? 'https://orbz.site'
 )
-const orbzVersion = '0.4.3'
+const orbzVersion = packageJson.dependencies['@neongate-ai/orbz']
 const searchIndexable =
   process.env.NODE_ENV === 'production' && process.env.VERCEL_ENV !== 'preview'
 
