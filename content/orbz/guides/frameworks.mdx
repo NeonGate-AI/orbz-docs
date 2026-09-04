@@ -36,7 +36,7 @@ export function Assistant() {
   return (
     <>
       <orb-z state={state} preset="neongate" size="300px" />
-      <button onClick={() => setState("listening")}>Listen</button>
+      <button type="button" onClick={() => setState("listening")}>Listen</button>
     </>
   );
 }

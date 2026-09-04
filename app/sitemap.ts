@@ -4,7 +4,6 @@ import { siteConfig } from '../site.config'
 
 const paths = [
   '',
-  '/orbz',
   '/orbz/getting-started',
   '/orbz/getting-started/native',
   '/orbz/getting-started/react-next',

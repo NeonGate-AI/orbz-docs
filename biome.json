@@ -50,14 +50,22 @@
     }
   },
   "linter": {
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    },
     "enabled": true,
     "rules": {
+      "recommended": true,
       "correctness": {
         "noUnusedImports": "error",
         "noUnusedVariables": "warn"
       },
       "style": {
         "useImportType": "off"
+      },
+      "nursery": {
+        "noSecrets": "error"
       }
     }
   }

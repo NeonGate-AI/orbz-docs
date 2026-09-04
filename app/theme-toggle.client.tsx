@@ -1,7 +1,6 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
 
 function MoonIcon() {
   return (
@@ -42,12 +41,7 @@ function SunIcon() {
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => setMounted(true), [])
-
-  const isDark = mounted ? resolvedTheme === 'dark' : true
-  const nextTheme = isDark ? 'light' : 'dark'
+  const nextTheme = resolvedTheme === 'dark' ? 'light' : 'dark'
 
   return (
     <button
@@ -57,7 +51,12 @@ export function ThemeToggle() {
       title={`Switch to ${nextTheme} theme`}
       type="button"
     >
-      {isDark ? <SunIcon /> : <MoonIcon />}
+      <span className="neongate-theme-toggle__sun">
+        <SunIcon />
+      </span>
+      <span className="neongate-theme-toggle__moon">
+        <MoonIcon />
+      </span>
     </button>
   )
 }

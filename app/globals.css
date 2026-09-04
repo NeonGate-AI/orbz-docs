@@ -330,7 +330,6 @@ a.orbz-card:hover {
   .orbz-frameworks {
     grid-template-columns: 1fr;
   }
-
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -338,13 +337,20 @@ a.orbz-card:hover {
     scroll-behavior: auto;
   }
 
+  .neongate-theme-toggle,
   .orbz-button,
   .orbz-card {
     transition: none;
   }
+
+  .neongate-theme-toggle:hover,
+  .orbz-button:hover,
+  a.orbz-card:hover {
+    transform: none;
+  }
 }
 
-/* Neongate docs chrome ----------------------------------------------------- */
+/* OrbZ docs chrome --------------------------------------------------------- */
 
 .neongate-brand {
   align-items: center;
@@ -360,6 +366,22 @@ a.orbz-card:hover {
   font-weight: 780;
 }
 
+.neongate-brand__version {
+  align-items: center;
+  background: color-mix(in srgb, var(--orbz-brand-primary) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--orbz-brand-primary) 28%, transparent);
+  border-radius: 999px;
+  color: var(--orbz-muted);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 720;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-inline-start: -0.2rem;
+  min-block-size: 1.35rem;
+  padding-inline: 0.42rem;
+}
+
 .neongate-orbz-mark {
   align-items: center;
   display: inline-flex;
@@ -369,10 +391,13 @@ a.orbz-card:hover {
 }
 
 .neongate-navbar-link {
+  align-items: center;
   color: var(--orbz-muted);
+  display: inline-flex;
   font-size: 0.86rem;
   font-weight: 700;
   letter-spacing: -0.01em;
+  min-block-size: 2rem;
   text-decoration: none;
   transition: color 150ms ease;
   white-space: nowrap;
@@ -409,6 +434,28 @@ a.orbz-card:hover {
 .neongate-theme-toggle svg {
   height: 1.15rem;
   width: 1.15rem;
+}
+
+.neongate-theme-toggle__moon,
+.neongate-theme-toggle__sun {
+  align-items: center;
+  justify-content: center;
+}
+
+.neongate-theme-toggle__sun {
+  display: none;
+}
+
+.neongate-theme-toggle__moon {
+  display: inline-flex;
+}
+
+html.dark .neongate-theme-toggle__sun {
+  display: inline-flex;
+}
+
+html.dark .neongate-theme-toggle__moon {
+  display: none;
 }
 
 .neongate-navbar-search {
@@ -517,6 +564,12 @@ a.orbz-card:hover {
     font-size: 0.91rem;
   }
 
+  .neongate-brand__version {
+    font-size: 0.62rem;
+    min-block-size: 1.25rem;
+    padding-inline: 0.36rem;
+  }
+
   .neongate-navbar-link {
     font-size: 0.78rem;
   }
@@ -531,5 +584,29 @@ a.orbz-card:hover {
 
   .neongate-footer__meta {
     justify-content: flex-start;
+  }
+}
+
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 3px solid CanvasText;
+  }
+
+  .orbz-gradient-text {
+    -webkit-text-fill-color: CanvasText;
+    background: none;
+    color: CanvasText;
+  }
+
+  .orbz-proof li::before {
+    background: CanvasText;
+    box-shadow: none;
+  }
+
+  .neongate-brand__version,
+  .orbz-button,
+  .orbz-card,
+  .orbz-frameworks a {
+    border-color: CanvasText;
   }
 }

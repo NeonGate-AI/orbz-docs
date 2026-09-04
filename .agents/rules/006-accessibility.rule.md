@@ -1,5 +1,5 @@
 ---
-version: 1
+version: 2
 name: Accessibility
 description: WCAG 2.2 AA constraints for documentation UI and content.
 alwaysApply: true
@@ -16,3 +16,6 @@ tags: [a11y, wcag]
 - Respect `prefers-reduced-motion` and Orbz reduced-motion behavior in examples.
 - Preserve document language, landmark structure, accessible names and logical heading order.
 - Automated accessibility checks are evidence of detected defects, not proof of conformance.
+- Nextra owns the page-level `main` landmark; authored MDX must not create a second `main` outside code examples.
+- Custom controls must meet WCAG 2.2 target-size and focus requirements without shrinking Nextra native interaction areas.
+- High-contrast/forced-colors behavior is part of authored UI review, not an optional enhancement.

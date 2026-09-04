@@ -1,36 +1,61 @@
-import type { ReactNode } from 'react'
 import type { Metadata, Viewport } from 'next'
 import Link from 'next/link'
 import { Head, Search } from 'nextra/components'
 import { getPageMap } from 'nextra/page-map'
 import { Layout, Navbar } from 'nextra-theme-docs'
+import type { ReactNode } from 'react'
 
+import { siteConfig } from '../site.config'
 import { RegisterElement } from './register-element.client'
 import { ThemeToggle } from './theme-toggle.client'
-import { siteConfig } from '../site.config'
 
 import 'nextra-theme-docs/style.css'
 import './globals.css'
 
+const socialImage = {
+  alt: 'OrbZ documentation',
+  height: 630,
+  url: siteConfig.socialImage,
+  width: 1200
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'Orbz Docs | Neongate AI',
-    template: '%s | Orbz Docs'
+    default: 'OrbZ Docs | NeonGate AI',
+    template: '%s | OrbZ Docs'
   },
   description: siteConfig.description,
   applicationName: siteConfig.name,
+  authors: [{ name: siteConfig.publisher, url: siteConfig.companyUrl }],
+  creator: siteConfig.publisher,
+  publisher: siteConfig.publisher,
+  category: 'technology',
+  robots: {
+    follow: siteConfig.searchIndexable,
+    index: siteConfig.searchIndexable,
+    googleBot: {
+      follow: siteConfig.searchIndexable,
+      index: siteConfig.searchIndexable,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1
+    }
+  },
   openGraph: {
     description: siteConfig.description,
+    images: [socialImage],
+    locale: 'en_US',
     siteName: siteConfig.name,
-    title: 'Orbz Docs | Neongate AI',
+    title: 'OrbZ Docs | NeonGate AI',
     type: 'website',
     url: siteConfig.url
   },
   twitter: {
     card: 'summary_large_image',
     description: siteConfig.description,
-    title: 'Orbz Docs | Neongate AI'
+    images: [socialImage],
+    title: 'OrbZ Docs | NeonGate AI'
   }
 }
 
@@ -42,17 +67,26 @@ export const viewport: Viewport = {
   ]
 }
 
-function NeongateBrand() {
+function OrbzBrand() {
   return (
     <span className="neongate-brand">
-      <orb-z size="1.45rem" speed={0.78} state="thinking" />
-      <span className="neongate-brand__wordmark">Neongate AI</span>
+      <orb-z
+        aria-hidden="true"
+        reduced-motion="system"
+        size="1.45rem"
+        speed={0.78}
+        state="thinking"
+      />
+      <span className="neongate-brand__wordmark">OrbZ</span>
+      <span className="neongate-brand__version">
+        v{siteConfig.products.orbz.version}
+      </span>
     </span>
   )
 }
 
 const navbar = (
-  <Navbar key="neongate-navbar" logo={<NeongateBrand />} logoLink="/">
+  <Navbar key="neongate-navbar" logo={<OrbzBrand />} logoLink="/">
     <Link className="neongate-navbar-link" href="/orbz/getting-started">
       Docs
     </Link>
@@ -69,8 +103,10 @@ const footer = (
     <div className="neongate-footer__inner" key="footer-inner">
       <Link className="neongate-footer__brand" href="/" key="footer-brand">
         <orb-z
+          aria-hidden="true"
           elevated
           preset="magenta"
+          reduced-motion="system"
           size="2.4rem"
           speed={0.78}
           state="idle"
@@ -83,7 +119,9 @@ const footer = (
       <div className="neongate-footer__meta" key="footer-meta">
         <span>© {new Date().getFullYear()}</span>
         <span aria-hidden="true">•</span>
-        <Link href="/">MIT License</Link>
+        <a href="https://github.com/NeonGate-AI/docs/blob/main/LICENSE">
+          MIT License
+        </a>
         <span aria-hidden="true">•</span>
         <span>Orbz documentation</span>
       </div>

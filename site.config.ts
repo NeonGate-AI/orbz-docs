@@ -1,11 +1,37 @@
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://orbz.site'
+import packageJson from './package.json'
+
+function normalizeSiteUrl(value: string) {
+  const url = new URL(value)
+
+  if (url.protocol !== 'https:' && url.hostname !== 'localhost') {
+    throw new Error('NEXT_PUBLIC_SITE_URL must use HTTPS outside localhost')
+  }
+
+  if (url.pathname !== '/' || url.search || url.hash) {
+    throw new Error(
+      'NEXT_PUBLIC_SITE_URL must be an origin without path/query/hash'
+    )
+  }
+
+  return url.origin
+}
+
+const siteUrl = normalizeSiteUrl(
+  process.env.NEXT_PUBLIC_SITE_URL ?? 'https://orbz.site'
+)
+const orbzVersion = packageJson.dependencies['@neongate-ai/orbz']
+const searchIndexable =
+  process.env.NODE_ENV === 'production' && process.env.VERCEL_ENV !== 'preview'
 
 export const siteConfig = Object.freeze({
   companyUrl: 'https://neongate.com.br',
   description:
     'Technical documentation for the @neongate-ai/orbz web component.',
   github: 'https://github.com/NeonGate-AI/docs',
-  name: 'Orbz Docs',
+  name: 'OrbZ Docs',
+  publisher: 'NeonGate AI',
+  searchIndexable,
+  socialImage: '/og/orbz-docs.png',
   url: siteUrl,
   products: Object.freeze({
     orbz: Object.freeze({
@@ -20,7 +46,7 @@ export const siteConfig = Object.freeze({
       github: 'https://github.com/NeonGate-AI/orbz',
       npm: 'https://www.npmjs.com/package/@neongate-ai/orbz',
       path: '/orbz',
-      version: '0.3.1'
+      version: orbzVersion
     })
   })
 })
