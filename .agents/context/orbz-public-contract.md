@@ -1,0 +1,116 @@
+# Orbz Public Contract Snapshot
+
+This is a navigation aid for agents working on the documentation. It summarizes
+what the current docs say about the published `@neongate-ai/orbz@0.3.1`
+contract. It is not an independent source of product truth.
+
+When changing public API documentation, verify the published package and the
+canonical product repository first. Then update this snapshot when the durable
+contract materially changes.
+
+## Native element
+
+The public UI primitive is the native `<orb-z>` custom element. Every framework
+recipe renders the same tag rather than a framework-specific Orbz component.
+Internal closed-Shadow-DOM nodes and CSS variables are not documented extension
+points.
+
+### Visual state
+
+`state` accepts five documented values:
+
+- `idle`
+- `listening`
+- `thinking`
+- `speaking`
+- `asleep`
+
+Unsupported state input normalizes to `idle`. State animation is presentation;
+domain meaning must also be available outside motion/color where users need it.
+
+### Size, motion and elevation
+
+- `size`: CSS length in markup; the JavaScript property also accepts a positive
+  number interpreted as pixels. Default: `16rem`.
+- `speed`: positive multiplier. Default: `1`.
+- `paused`: boolean attribute/property. Presence means true.
+- `elevated`: boolean attribute/property. Presence means true.
+- `reduced-motion` / `reducedMotion`: `system`, `always`, or `never`. Default:
+  `system`.
+
+`paused` and reduced motion have different semantics: pause freezes the active
+presentation; reduced motion selects a calmer presentation policy.
+
+### Appearance
+
+The public appearance selector is `preset`, not `palette`.
+
+Documented presets are:
+
+- `neongate`
+- `periwinkle`
+- `magenta`
+- `peach`
+- `mocha`
+- `ivory`
+
+Custom appearance uses five native color attributes:
+
+- `color-primary`
+- `color-secondary`
+- `color-accent`
+- `color-highlight`
+- `color-background`
+
+Preset mode and custom-color mode are mutually exclusive. If both are supplied,
+the documented behavior is that the preset wins. Do not introduce a `palette`
+attribute/property into examples unless the product contract changes first.
+
+## Voice and talk runtime
+
+Structured voice/talk configuration uses JavaScript properties rather than HTML
+string attributes. The documented properties include `voiceEngine`, `talkFlow`,
+read-only `talkContext`, and optional `intelligence`.
+
+Talking is explicit: connecting the element does not start speech. Hosts call
+`startTalking()` after configuring the desired engine/flow. Browser or external
+speech integrations must preserve user activation and privacy/security
+requirements. OpenAI credentials belong behind an implementer-owned secure
+endpoint, never in browser-delivered docs examples.
+
+## Methods
+
+The current element reference documents:
+
+- `pause()`
+- `play()`
+- `restart()`
+- `startTalking()`
+- `receive(input)`
+- `stopTalking()`
+
+## Package entry points
+
+The docs distinguish these entry points:
+
+- `@neongate-ai/orbz`: pure root API; importing it does not register the tag.
+- `@neongate-ai/orbz/browser`: root API plus guarded `defineOrbz()` side effect.
+- `@neongate-ai/orbz/react-types`: optional JSX type augmentation; no React
+  runtime component.
+- `@neongate-ai/orbz/standalone`: self-contained browser bundle that registers
+  the element.
+- `@neongate-ai/orbz/index.css`: published source stylesheet used by the element.
+
+`defineOrbz()` is documented as the normal explicit, idempotent, SSR-safe
+registration helper.
+
+## Canonical documentation sources
+
+For details, start at:
+
+- `content/orbz/api/index.mdx` for the element API.
+- `content/orbz/api/exports.mdx` for package exports and entry points.
+- `content/orbz/concepts/appearance.mdx` for preset/custom-color semantics.
+- `content/orbz/concepts/states.mdx` for state meaning.
+- `content/orbz/concepts/motion-accessibility.mdx` for motion/A11y semantics.
+- `content/orbz/guides/voice-assistant.mdx` for talk/speech integration.

@@ -2,36 +2,76 @@ name: CI
 
 on:
   push:
+    branches:
+      - main
+      - develop
+      - feat/**
+      - fix/**
+      - docs/**
+      - perf/**
+      - refactor/**
+      - chore/**
   pull_request:
+    branches:
+      - main
+      - develop
 
 permissions:
   contents: read
 
-concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+env:
+  NODE_VERSION: 24
 
 jobs:
-  docs:
+  validate:
+    name: Validate docs
     runs-on: ubuntu-latest
-    timeout-minutes: 15
 
     steps:
-      - name: Check out repository
+      - name: Checkout
         uses: actions/checkout@v4
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
         with:
-          version: 10.32.1
+          fetch-depth: 0
 
-      - name: Set up Node.js
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version-file: .nvmrc
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install --no-frozen-lockfile
 
-      - name: Check documentation
+      - name: Harness contracts
+        run: pnpm harness:check
+
+      - name: Commitlint
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PR_HEAD: ${{ github.event.pull_request.head.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            pnpm exec commitlint --from "$PR_BASE" --to "$PR_HEAD" --verbose
+          else
+            base="$PUSH_BEFORE"
+            if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+              base="$(git rev-list --max-parents=0 HEAD)"
+            fi
+            pnpm exec commitlint --from "$base" --to "$HEAD_SHA" --verbose
+          fi
+
+      - name: Static quality and production build
         run: pnpm check
+
+      - name: Git hook contract smoke test
+        shell: sh
+        run: |
+          grep -F 'lint-staged' .husky/pre-commit
+          grep -F 'commitlint' .husky/commit-msg

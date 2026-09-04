@@ -9,18 +9,23 @@ metadata:
 
 # Accessibility (a11y)
 
-Comprehensive accessibility guidelines based on WCAG 2.2 and Lighthouse accessibility audits. Goal: make content usable by everyone, including people with disabilities.
+Comprehensive accessibility guidelines based on WCAG 2.2. Goal: make content usable by everyone, including people with disabilities.
+
+## Orbz Docs repository policy
+
+WCAG 2.2 Level AA is the normative target for the authored documentation and documentation-specific UI. Treat WCAG 2.5.8's 24 by 24 CSS-pixel minimum (with its defined exceptions) as the conformance floor and prefer larger touch targets where the Nextra/theme surface allows it without distorting inline controls.
+
+Use the repository's layered evidence model. Static source checks in `.audits/` are always allowed. Browser/lab automation such as axe or Lighthouse may be used when the task environment provides it and the active spec calls for it. Keyboard and screen-reader checks remain necessary for interaction changes. No automated score or source inspection alone establishes WCAG conformance.
 
 ## Evidence-led audit workflow
 
-When a rendered page is available:
+1. Identify the affected route, state, viewport, theme and interaction from the active spec and Nextra content tree.
+2. Inspect semantic HTML/MDX, accessible names, landmarks, heading order, focus behavior, keyboard operation, target geometry, reflow, contrast, motion and live regions.
+3. Run `.audits/content.audit.sh` and `.audits/web-quality.audit.sh` for deterministic source contracts.
+4. When browser tooling is available and relevant, run automated checks to localize issues, then manually verify keyboard and assistive-technology behavior for the changed flow.
+5. Separate source facts, lab observations, manual observations and production evidence. Fix at the highest semantic layer possible; prefer native HTML before ARIA.
 
-1. Run a live Lighthouse Accessibility audit when that capability is available; with Chrome DevTools MCP, use `lighthouse_audit`. Use mobile navigation mode for a general public page or snapshot mode when reloading would lose authenticated or user-created state.
-2. Use failed audit nodes to localize the relevant component or template instead of searching the whole repository for generic patterns.
-3. Inspect a rendered accessibility-tree snapshot for names, roles, states, landmarks, and heading structure; with Chrome DevTools MCP, use `take_snapshot`. Exercise the affected flow with the keyboard.
-4. Fix the source, then re-run the same audit and manual interaction.
-
-If the live tools are unavailable, use Lighthouse CLI or axe for automated coverage and complete the same manual checks. Automated tools detect only a subset of accessibility barriers: a score of 100 is not WCAG conformance, and a low score does not replace issue-level evidence.
+Automated tools detect only a subset of accessibility barriers. Report the evidence actually collected and never promote an automated score to a WCAG conformance claim.
 
 ## WCAG Principles: POUR
 
@@ -36,7 +41,7 @@ If the live tools are unavailable, use Lighthouse CLI or axe for automated cover
 | Level | Requirement | Target |
 |-------|-------------|--------|
 | **A** | Minimum accessibility | Must pass |
-| **AA** | Standard compliance | Should pass (legal requirement in many jurisdictions) |
+| **AA** | Standard compliance | Normative Orbz Docs target |
 | **AAA** | Enhanced accessibility | Nice to have |
 
 ---
@@ -58,7 +63,7 @@ If the live tools are unavailable, use Lighthouse CLI or axe for automated cover
 
 <!-- ✅ Complex image with longer description -->
 <figure>
-  <img src="infographic.png" alt="2024 market trends infographic" 
+  <img src="infographic.png" alt="2024 market trends infographic"
        aria-describedby="infographic-desc">
   <figcaption id="infographic-desc">
     <!-- Detailed description -->
@@ -242,6 +247,8 @@ Provide a skip link so keyboard users can bypass repetitive navigation. See the 
 
 Interactive targets must be at least **24 × 24 CSS pixels** (AA). Exceptions: inline text links, elements where the browser controls the size, and targets where a 24px circle centered on the bounding box does not overlap another target.
 
+For touch-heavy documentation controls, prefer a larger target (often around **44 × 44 CSS pixels**) when practical. Do not misstate that preference as the WCAG 2.5.8 conformance threshold.
+
 ```css
 /* ✅ Minimum target size */
 button,
@@ -404,18 +411,9 @@ Use `aria-live` regions to announce dynamic content changes without moving focus
 
 ## Testing checklist
 
-### Automated testing
+### Automated verification
 
-Prefer a live Lighthouse audit that returns failing rendered nodes directly to the agent. With Chrome DevTools MCP, this is `lighthouse_audit`. Otherwise:
-
-```bash
-# Lighthouse accessibility audit
-npx lighthouse https://example.com --only-categories=accessibility
-
-# axe-core
-npm install @axe-core/cli -g
-axe https://example.com
-```
+Run deterministic repository checks first. When a browser-capable audit environment is available, axe/Lighthouse can help identify candidate failures; retain manual keyboard, screen-reader, zoom/reflow and visual checks for criteria automation cannot establish. Record tool/version, route and viewport with any automated evidence.
 
 ### Manual testing
 
@@ -425,7 +423,7 @@ axe https://example.com
 - [ ] **High contrast:** Test with Windows High Contrast Mode
 - [ ] **Reduced motion:** Test with `prefers-reduced-motion: reduce`
 - [ ] **Focus order:** Logical and follows visual order
-- [ ] **Target size:** Interactive elements meet 24×24px minimum
+- [ ] **Target size:** Interactive elements meet the 24×24px WCAG minimum where applicable and a larger practical touch target where appropriate
 
 See the [screen reader commands reference](references/A11Y-PATTERNS.md#screen-reader-commands) for VoiceOver and NVDA shortcuts.
 

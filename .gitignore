@@ -10,3 +10,10 @@ public/_pagefind/
 .vercel/
 
 doctor.config.json
+
+# Transient audit evidence
+.audits/*.json
+.audits/*.html
+.audits/*.log
+.audits/*.txt
+!.audits/README.md

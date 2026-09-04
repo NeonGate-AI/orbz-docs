@@ -11,16 +11,21 @@ metadata:
 
 Targeted optimization for the three Core Web Vitals using field data to identify user impact and browser traces to diagnose causes.
 
+## Orbz Docs repository policy
+
+Core Web Vitals are field metrics, not source-code properties. Target Google's current “Good” thresholds at the 75th percentile: LCP ≤ 2.5 s, INP ≤ 200 ms and CLS ≤ 0.1. Source audits and lab traces are diagnostic evidence only; they must not be reported as production p75 results.
+
+For this Nextra site, optimize the server-first content path, avoid unnecessary Client Components, preserve stable geometry around the Orbz custom element/examples, and treat search/theme/client registration code as interaction and bundle-budget surfaces.
+
 ## Measure before optimizing
 
-When a runnable URL is available, read [the performance measurement workflow](../performance/references/MEASUREMENT.md). Prefer this sequence:
+1. Define route, state, viewport/device class and expected primary content.
+2. Check existing field evidence first (CrUX/Search Console/RUM) when available and record its URL/origin scope, time window and percentile.
+3. Use source inspection and browser traces/lab tools to diagnose resource discovery, main-thread work, event latency and layout movement.
+4. Apply the narrowest fix supported by evidence, then repeat the same lab conditions.
+5. Validate production impact with field data when making a Core Web Vitals pass/improvement claim.
 
-1. Check page-level CrUX p75 data, with a clearly labeled origin fallback when page data is unavailable.
-2. Record a browser performance trace under stated conditions. With Chrome DevTools MCP, trace summaries can include CrUX alongside the observed lab metrics.
-3. Analyze only the insights associated with the failing metric, then inspect the implicated code and resources.
-4. Re-run equivalent lab measurements after the fix. Do not claim an immediate field improvement; CrUX and first-party RUM need new user visits.
-
-If only source code is available, identify likely causes but do not claim that LCP, INP, or CLS is failing without runtime evidence.
+Use [the performance measurement workflow](../performance/references/MEASUREMENT.md) for detailed diagnostic procedures and keep field and lab samples explicitly separate.
 
 ## The three metrics
 
@@ -56,7 +61,7 @@ Fix: CDN, caching, optimized backend, edge rendering
 
 <!-- ✅ Critical CSS inlined, rest deferred -->
 <style>/* Critical above-fold CSS */</style>
-<link rel="preload" href="/styles.css" as="style" 
+<link rel="preload" href="/styles.css" as="style"
       onload="this.onload=null;this.rel='stylesheet'">
 ```
 
@@ -163,21 +168,16 @@ When field CLS is poor or a trace reports shifts, read [the CLS reference](refer
 
 ---
 
-## Measurement sources
+## Evidence hierarchy
 
-| Source | Use |
-|--------|-----|
-| Browser performance trace (Chrome DevTools MCP: `performance_start_trace`) | Observe one load or interaction and diagnose focused insights; use included CrUX context when available |
-| CrUX or Search Console | Prioritize aggregated real-user outcomes at p75 |
-| Lighthouse CLI or PageSpeed Insights | Controlled lab fallback when DevTools tools are unavailable |
-| First-party RUM | Segment current production experience by route, device, release, and attribution |
-| Raw `PerformanceObserver` | Inspect one page session during debugging |
+| Source | What it can establish |
+|---|---|
+| `.audits/` and source inspection | Deterministic repository contracts and risk patterns, not metric values |
+| Local/browser lab traces | Reproducible diagnosis under stated conditions |
+| Lighthouse/PageSpeed lab output | Synthetic audit evidence for the tested environment |
+| CrUX/Search Console/RUM | Real-user field evidence when scope, period and percentile are known |
 
-Do not route performance through Chrome DevTools MCP's `lighthouse_audit`; that capability intentionally covers non-performance Lighthouse categories. Do not compare a single lab value directly with a field p75 as if they were equivalent samples.
-
-When adding or reviewing production collection, read [the first-party RUM reference](../performance/references/RUM.md). Prefer the `web-vitals` library because raw browser APIs do not by themselves implement every Core Web Vital's lifecycle and reporting rules.
-
----
+Never compare a single lab value directly with a field p75 as if they were equivalent samples. Keep before/after conditions stable and cite the evidence source with every quantitative claim.
 
 ## Framework quick fixes
 

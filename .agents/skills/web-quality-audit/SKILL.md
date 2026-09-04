@@ -11,29 +11,32 @@ metadata:
 
 Comprehensive quality review that combines live browser evidence with source inspection. Covers Performance, Accessibility, SEO, Best Practices, and Agentic Browsing without treating an aggregate score as proof of quality.
 
-> **Lighthouse 13+.** The Performance category now uses shared **Performance Insights** across Lighthouse and the DevTools Performance panel ([announcement](https://developer.chrome.com/blog/moving-lighthouse-to-insights)). Follow current insight names and evidence. Do not require removed audit IDs or automatically recreate their recommendations; some were retired because they were noisy, inactionable, or easy to over-recommend.
+## Orbz Docs repository policy
+
+Audit this repository as a public Nextra documentation site. WCAG 2.2 AA, technical SEO/crawlability and Core Web Vitals field thresholds are durable targets, but the evidence needed for each target differs. Static checks may prove source contracts; browser tools may prove lab behavior; field data is required for production CWV claims; manual assistive-technology work is required for claims automation cannot establish.
+
+Do not collapse Performance, Accessibility, SEO, Best Practices or Agentic Browsing into one synthetic quality claim. Never invent scores, indexing outcomes, rankings, WCAG conformance or production metric improvements.
 
 ## How it works
 
-1. Establish the audit target: representative URLs, important states and journeys, public versus authenticated access, and mobile/desktop scope.
-2. If a page can run, read [the measurement workflow](../performance/references/MEASUREMENT.md) and collect a minimal live baseline before searching the codebase broadly.
-3. Use runtime failures to localize source inspection. Keep measured findings separate from hypotheses found only in code.
-4. Categorize by user impact and confidence, then make or recommend specific fixes.
-5. Re-run equivalent automated checks and the affected manual flows. Report what is verified and what still needs field or human validation.
+1. Establish representative public routes and important states, including mobile/desktop and light/dark theme where relevant.
+2. Load the active spec, applicable rules and the smallest source/content surface.
+3. Run `pnpm harness:check` for deterministic architecture/content/SEO wiring checks.
+4. Inspect rendered semantics, search, navigation, Orbz examples, assets and interaction behavior. Use browser/lab tools when available and justified by the spec.
+5. Compare findings against source contracts and, when available, production Search Console/CrUX/RUM evidence.
+6. Classify each finding by severity, confidence and evidence class; propose the smallest durable fix.
+7. Re-run the exact relevant checks after changes and state what remains unverified.
 
 ## Tool routing
 
-Use the best capability already available; do not block the audit on optional setup.
-
-| Need | Preferred route | Fallback |
-|------|-----------------|----------|
-| Performance and Core Web Vitals | Record a browser performance trace and analyze focused insights; with Chrome DevTools MCP, use `performance_start_trace` then `performance_analyze_insight` | Lighthouse CLI or PageSpeed Insights lab data |
-| Real-user performance | CrUX values included in current DevTools trace summaries | PageSpeed Insights/CrUX Vis; direct CrUX API only when a key is already available or automation is requested |
-| Accessibility, SEO, Best Practices, Agentic Browsing | Run a live Lighthouse audit; with Chrome DevTools MCP, use `lighthouse_audit` | Category-specific Lighthouse CLI audits plus manual checks |
-| Rendered semantics and interaction | Inspect the accessibility tree and exercise the UI; with Chrome DevTools MCP, use `take_snapshot` and focused `evaluate_script` | Browser/manual testing |
-| Source smoke test | `scripts/analyze.sh <path>` | Direct source inspection |
-
-Chrome DevTools MCP's `lighthouse_audit` intentionally excludes performance. Its navigation mode reloads the page; use snapshot mode when preserving the current authenticated or user-created state matters. The static analyzer is a fast smoke test, not a substitute for a rendered-page audit.
+| Need | Primary route | Required caution |
+|---|---|---|
+| Harness/content correctness | `.audits/*.audit.sh`, Biome, TypeScript, production build | Static checks do not establish runtime conformance |
+| Performance diagnosis | DevTools trace/Lighthouse/PageSpeed when available | Record route/device/conditions; lab ≠ field p75 |
+| Real-user performance | CrUX, Search Console CWV, approved RUM | Record URL/origin scope and period |
+| Accessibility | Semantic source review + axe/Lighthouse where available + manual keyboard/screen reader | Automated pass ≠ WCAG conformance |
+| SEO | Rendered metadata, status/redirects, robots, sitemap, canonical, structured data, Search Console | Crawlability/indexability ≠ ranking guarantee |
+| Agentic browsing | Semantic/accessibility tree and explicit machine-facing interfaces when actually supported | Keep separate from ranking/AI-citation claims |
 
 ## Audit categories
 
@@ -96,7 +99,7 @@ Chrome DevTools MCP's `lighthouse_audit` intentionally excludes performance. Its
 * **Descriptive link text.** Not "click here" or "read more".
 
 **Technical SEO:**
-* **Mobile-friendly.** Responsive design. Tap targets ≥ 48px.
+* **Mobile-friendly.** Responsive design. Apply the 24×24 CSS-pixel WCAG 2.5.8 minimum with its defined exceptions and a larger practical touch target where appropriate.
 * **HTTPS.** Secure connection required.
 * **Page experience signals.** Use field Core Web Vitals as evidence, without promising a ranking change.
 * **Structured data.** JSON-LD for rich snippets (Article, Product, FAQ, etc.).
@@ -122,7 +125,7 @@ Chrome DevTools MCP's `lighthouse_audit` intentionally excludes performance. Its
 
 ### Agentic browsing
 
-Use the Lighthouse Agentic Browsing results as technical signals for how well assistants can understand and interact with the rendered page.
+In the current phase, inspect semantic HTML, labels, names, roles, states, and deterministic interaction contracts statically and manually as signals for how well assistants can understand and interact with the rendered page. If the owner later re-enables Lighthouse Agentic Browsing, keep its results separate as automated technical evidence rather than treating them as authority.
 
 * **Accessible interaction surface.** Semantic HTML, labels, names, roles, and states must expose meaningful controls in the accessibility tree.
 * **WebMCP integrations are valid when present.** Review registered tools, schemas, and form coverage; do not add WebMCP solely to raise an audit score.
@@ -149,7 +152,7 @@ When performing an audit, structure findings as:
 | Signal | Scope/conditions | Result | Source |
 |--------|------------------|--------|--------|
 | LCP | URL, phone, p75/28 days | 3.1s (needs improvement) | CrUX |
-| Accessibility | URL, mobile navigation | 92 | Lighthouse |
+| Accessibility | Mobile source and manual keyboard flow | Label-in-name failure on dismiss control | Source plus manual observation |
 
 ### Critical issues (X found)
 - **[Category]** Issue description. File: `path/to/file.js:123`
@@ -162,7 +165,7 @@ When performing an audit, structure findings as:
 
 ### Summary
 - Performance: measured status and X findings
-- Accessibility: automated status, X findings, manual checks pending/passed
+- Accessibility: source/manual status, X findings, automated validation deferred
 - SEO: X findings
 - Best Practices: X findings
 - Agentic Browsing: X findings or not available
@@ -173,16 +176,16 @@ When performing an audit, structure findings as:
 3. Finally optimize...
 
 ### Verification
-- Re-run results under the same conditions
+- Repeat the same static review and permitted manual flow
 - Manual checks completed
-- Field validation still pending
+- Automated, quantitative, field, and real-device validation still pending where applicable
 ```
 
 ## Quick checklist
 
 ### Before every deploy
-- [ ] Core Web Vitals passing
-- [ ] No accessibility errors (axe/Lighthouse)
+- [ ] No unresolved source-backed Core Web Vitals risks; quantitative status is not claimed without field evidence
+- [ ] Static accessibility review completed against WCAG 2.2 AA; automated conformance is not claimed
 - [ ] No console errors
 - [ ] HTTPS working
 - [ ] Meta tags present
@@ -194,8 +197,7 @@ When performing an audit, structure findings as:
 - [ ] Test with screen reader
 
 ### Monthly deep dive
-- [ ] Full Lighthouse audit
-- [ ] Performance profiling
+- [ ] Revisit deferred performance and accessibility evidence
 - [ ] Accessibility audit with real users
 - [ ] SEO keyword review
 

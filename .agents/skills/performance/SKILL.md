@@ -11,6 +11,10 @@ metadata:
 
 Evidence-led performance optimization using real-user signals for prioritization and browser traces for diagnosis. Focuses on loading speed, runtime responsiveness, and resource delivery.
 
+## Orbz Docs repository profile
+
+The default performance architecture is server-first Nextra content with minimal client JavaScript. Treat `app/register-element.client.tsx`, theme/search UI, live Orbz examples, fonts/assets and Pagefind output as explicit performance surfaces. Preserve stable layout geometry and avoid adding dependencies or hydration solely to implement content presentation. Field Core Web Vitals claims require field evidence; lab/source work is diagnostic.
+
 ## How it works
 
 1. If a page can run, read [the measurement workflow](references/MEASUREMENT.md) and establish a field-plus-lab baseline before editing.
@@ -143,29 +147,29 @@ debounce(fn, 300);
 ```html
 <picture>
   <!-- AVIF for modern browsers -->
-  <source 
+  <source
     type="image/avif"
     srcset="hero-400.avif 400w,
             hero-800.avif 800w,
             hero-1200.avif 1200w"
     sizes="(max-width: 600px) 100vw, 50vw">
-  
+
   <!-- WebP fallback -->
-  <source 
+  <source
     type="image/webp"
     srcset="hero-400.webp 400w,
             hero-800.webp 800w,
             hero-1200.webp 1200w"
     sizes="(max-width: 600px) 100vw, 50vw">
-  
+
   <!-- JPEG fallback -->
-  <img 
+  <img
     src="hero-800.jpg"
     srcset="hero-400.jpg 400w,
             hero-800.jpg 800w,
             hero-1200.jpg 1200w"
     sizes="(max-width: 600px) 100vw, 50vw"
-    width="1200" 
+    width="1200"
     height="600"
     alt="Hero image"
     loading="lazy"
@@ -176,16 +180,16 @@ debounce(fn, 300);
 ### LCP image priority
 ```html
 <!-- Above-fold LCP image: eager loading, high priority -->
-<img 
-  src="hero.webp" 
+<img
+  src="hero.webp"
   fetchpriority="high"
   loading="eager"
   decoding="sync"
   alt="Hero">
 
 <!-- Below-fold images: lazy loading -->
-<img 
-  src="product.webp" 
+<img
+  src="product.webp"
   loading="lazy"
   decoding="async"
   alt="Product">
@@ -197,7 +201,7 @@ debounce(fn, 300);
 ```css
 /* System font stack as fallback */
 body {
-  font-family: 'Custom Font', -apple-system, BlinkMacSystemFont, 
+  font-family: 'Custom Font', -apple-system, BlinkMacSystemFont,
                'Segoe UI', Roboto, sans-serif;
 }
 
@@ -373,8 +377,8 @@ document.addEventListener('DOMContentLoaded', () => {
 ### Facade pattern
 ```html
 <!-- Show static placeholder until interaction -->
-<div class="youtube-facade" 
-     data-video-id="abc123" 
+<div class="youtube-facade"
+     data-video-id="abc123"
      onclick="loadYouTube(this)">
   <img src="/thumbnails/abc123.jpg" alt="Video title">
   <button aria-label="Play video">▶</button>

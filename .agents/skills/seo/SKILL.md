@@ -11,6 +11,10 @@ metadata:
 
 Search engine optimization based on Lighthouse SEO audits and Google Search guidelines. Focus on technical SEO, on-page optimization, and structured data.
 
+## Orbz Docs repository profile
+
+This repository owns one canonical public documentation surface. Use the Next.js Metadata API/Nextra metadata flow already present in `app/layout.tsx` and `app/[[...mdxPath]]/page.tsx`; keep `app/robots.ts` and `app/sitemap.ts` synchronized with indexable content. MDX pages require useful titles/descriptions and semantic headings. Search Console or crawler evidence is required for indexing/ranking claims; metadata correctness alone is not proof of search outcomes.
+
 ## Evidence-led audit workflow
 
 When a rendered page is available:
