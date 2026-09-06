@@ -2,7 +2,7 @@
 id: SPEC-003
 title: Adopt the published Orbz 1.0.0 release
 type: feature
-status: in-progress
+status: implemented
 mode: prospective
 created: 2026-09-06
 updated: 2026-09-06
@@ -96,9 +96,9 @@ follow-up. This changes the verification order, not its acceptance criteria.
 - [x] Changelog describes supported additions and credential ownership accurately.
 - [x] Historical release notes remain intact and the contract snapshot is current.
 - [x] Production build, static gates and content checks pass.
-- [ ] Browser inspection confirms native registration and visible rendering.
-- [ ] Accessibility, metadata, static rendering and permission boundaries are preserved.
-- [ ] Standards and spec-fidelity reviews pass on the final PR head.
+- [x] Browser inspection confirms native registration and visible rendering.
+- [x] Accessibility, metadata, static rendering and permission boundaries are preserved.
+- [x] Standards and spec-fidelity reviews pass on the final PR head.
 
 ## Failure Behavior
 
@@ -132,3 +132,22 @@ production site after the authorized main merge. The initial PR CI and Vercel
 deployment passed. The initial branch-creation push rechecked an old main commit
 and failed its historical body length; this release commit passed commitlint.
 Final CI, browser and review evidence belongs in the PR.
+
+Production acceptance completed on 2026-09-06 after PR #5 merged as
+`b424fd5c010a7ffa76bd0929b9890cd1459a8a4b`. Both final-head CI runs and Vercel
+passed for `f96e493d3a82462d3701da7740d9ebf1b219d781`; independent Standards and
+Spec-fidelity reviews passed for that same head with the sequence exception
+documented. The production Vercel deployment also passed.
+
+Browser inspection of https://orbz.site confirmed the v1.0.0 badge and all three
+native orb-z elements registered with nonzero dimensions. A screenshot confirmed
+the visible main orb; decorative elements retain aria-hidden and tabIndex -1.
+The rendered changelog exposes the 1.0.0 entry and preserved older entries, and
+the current CDN guide renders 1.0.0 pins. No application-origin console errors
+were observed during this production inspection; unrelated browser-extension
+and earlier Vercel-login messages were excluded. No microphone or provider call
+was initiated. These observations establish this Docs integration's rendering,
+not voice-provider behavior, full WCAG conformance or field CWV.
+
+This documentation-only closure records the completed post-deployment criteria.
+Its final head must independently pass the existing CI and both review axes.
