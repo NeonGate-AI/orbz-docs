@@ -82,6 +82,14 @@ lock resolution, changelog ordering, stable-version wording and CDN pin alignmen
 Inspect the built site in a browser for registration, visible orbs, version badge
 and changelog. Obtain green CI and applicable Vercel status before main merge.
 
+Validation-sequence revision, 2026-09-06: the local browser cannot access the
+development server, and the Vercel connection lacks access to this team's
+protected preview. Respect both access boundaries. Under the owner's existing
+authorization to deploy directly through main, inspect the public production
+site immediately after the green, reviewed merge. Keep this spec in-progress
+until that browser evidence is recorded, then close it in a documentation-only
+follow-up. This changes the verification order, not its acceptance criteria.
+
 ## Acceptance Criteria
 
 - [x] Dependency, lockfile, version badge and current CDN examples use 1.0.0.
@@ -95,7 +103,9 @@ and changelog. Obtain green CI and applicable Vercel status before main merge.
 ## Failure Behavior
 
 An unavailable package, failed build, registration error or failed deployment
-blocks merge. Correct the consumer integration without changing the Orbz package
+blocks delivery. Build and deployment failures block merge; a browser failure
+after promotion keeps this spec open and requires a fix or rollback. Correct
+the consumer integration without changing the Orbz package
 or weakening docs security headers. Revert this bounded update if rollback is
 required after deployment.
 
@@ -118,4 +128,7 @@ pnpm postbuild indexed all 19 documentation pages. Historical entries were
 compared byte-for-byte with main. The content audit failed on the old mismatched
 CDN pins and passes with the release aligned. The browser cannot access the
 local server in this environment; live rendering will be checked on the Vercel
-preview before merge. Final CI, browser and review evidence belongs in the PR.
+production site after the authorized main merge. The initial PR CI and Vercel
+deployment passed. The initial branch-creation push rechecked an old main commit
+and failed its historical body length; this release commit passed commitlint.
+Final CI, browser and review evidence belongs in the PR.
