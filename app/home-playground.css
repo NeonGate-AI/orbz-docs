@@ -60,16 +60,13 @@
   align-items: start;
   column-gap: clamp(2rem, 5vw, 5rem);
   display: grid;
-  grid-template-areas:
-    "editor preview"
-    "appearance preview";
   grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-  grid-template-rows: max-content minmax(0, 1fr);
-  row-gap: 1rem;
 }
 
-.orbz-playground-editor {
-  grid-area: editor;
+.orbz-playground-workspace {
+  display: grid;
+  gap: 1rem;
+  min-inline-size: 0;
 }
 
 .orbz-playground-editor,
@@ -170,7 +167,6 @@ html.dark .orbz-code-string {
   align-items: start;
   column-gap: 1.5rem;
   display: grid;
-  grid-area: appearance;
   grid-template-columns: minmax(0, 1fr) minmax(7rem, 0.6fr);
   row-gap: 1rem;
 }
@@ -375,7 +371,6 @@ html.dark .orbz-code-string {
 
 .orbz-playground-preview {
   align-self: start;
-  grid-area: preview;
   max-block-size: calc(100dvh - 6rem);
   overflow-y: auto;
   padding-block-start: 0.25rem;
@@ -410,12 +405,12 @@ html.dark .orbz-code-string {
   padding: 0.15rem 0.6rem;
 }
 
-.orbz-playground-summary {
-  margin-block-start: 1.5rem;
+.orbz-component-proof {
+  padding-block: 2rem;
   text-align: center;
 }
 
-.orbz-preview-tagline {
+.orbz-component-proof h2 {
   color: var(--orbz-text);
   font-size: 1.25rem;
   font-weight: 650;
@@ -423,10 +418,14 @@ html.dark .orbz-code-string {
   margin: 0;
 }
 
-.orbz-playground-summary .orbz-proof {
+.orbz-component-proof .orbz-proof {
   align-items: baseline;
   justify-content: center;
   margin-block-start: 0.75rem;
+}
+
+.orbz-component-proof .orbz-proof li {
+  align-items: baseline;
 }
 
 @media (max-width: 1050px) {
@@ -453,6 +452,7 @@ html.dark .orbz-code-string {
     gap: 2rem;
   }
 
+  .orbz-playground-workspace,
   .orbz-playground-editor,
   .orbz-appearance-controls,
   .orbz-speech-controls,
