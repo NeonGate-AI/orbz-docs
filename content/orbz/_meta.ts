@@ -20,6 +20,7 @@ const meta: MetaRecord = {
   guides: 'Guides',
   examples: 'Sandbox',
   api: 'API reference',
+  // biome-ignore lint/nursery/noSecrets: Public navigation label.
   troubleshooting: 'Troubleshooting',
   changelog: 'Changelog'
 }

@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       '@neongate-ai/orbz':
-        specifier: 0.4.3
-        version: 0.4.3
+        specifier: 1.0.0
+        version: 1.0.0
       next:
         specifier: 16.3.4
         version: 16.3.4(@types/node@26.2.0)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -551,8 +551,8 @@ packages:
     engines: {node: '>=20.11.0', pnpm: '>=9.0.0'}
     hasBin: true
 
-  '@neongate-ai/orbz@0.4.3':
-    resolution: {integrity: sha512-/EhQdlyZrR2UnpjdfonkVHgBTduHPzr0GIBqpgRoMk69slcRD0Ya7C4BCO6YTULWCsjXG+UcHDeNIVmZuRfOCQ==}
+  '@neongate-ai/orbz@1.0.0':
+    resolution: {integrity: sha512-aS8+AJ5txO2wrra3xbis6WhF6HDKjqeWLm/eCQNu0RyM3TwUGLLLLWR6hYQ6Cr78HCqbLWlTXkcdEePH1tDp3A==}
     engines: {node: 24.x}
     hasBin: true
 
@@ -2788,7 +2788,7 @@ snapshots:
       prettier: 3.9.6
       semver: 7.8.5
 
-  '@neongate-ai/orbz@0.4.3': {}
+  '@neongate-ai/orbz@1.0.0': {}
 
   '@next/env@16.3.4': {}
 

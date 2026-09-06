@@ -15,6 +15,53 @@ are available on [npm](https://www.npmjs.com/package/@neongate-ai/orbz), and
 the complete documentation is available at
 [orbz.site](https://orbz.site).
 
+## 1.0.0 — 2026-09-06
+
+### Voice models and Realtime conversations
+
+- Added the typed JavaScript `voiceModel` property for `web-speech`,
+  `openai-speech`, and `openai-realtime`. Selecting a provider remains silent;
+  the host explicitly starts speech or a conversation after user activation.
+- Added `OpenAIRealtimeAdapter` and direct browser-to-provider WebRTC audio.
+  Applications authorize session setup through `realtimeSession`, using their
+  own endpoint or an async callback that returns an SDP answer.
+- Added `startConversation()`, `stopConversation()`, `interruptConversation()`,
+  read-only `conversationState`, and the `orbz-conversation-state-change` and
+  `orbz-transcript` events for application-owned controls and transcript UI.
+- Provider keys stay on the application backend. Model settings contain public
+  configuration only; endpoint objects reject unknown fields such as `apiKey`,
+  `token`, and `headers`. Neither secrets nor session tokens belong in HTML
+  attributes, component properties, or the configuration JSON.
+
+### Canonical configuration and CLI
+
+- Fork maintainers now edit `src/orbz.config.json` for component, appearance,
+  motion, speech, and Realtime defaults, then rebuild the package. Installed
+  packages use bundled defaults rather than fetching configuration at runtime.
+- Added read-only `orbzConfiguration` and the pure
+  `transformOrbzConfiguration()` utility to validate, clone, transform and freeze
+  complete configuration objects without changing the package singleton.
+- Consolidated Orb CLI command handling and help. Existing public exports,
+  visual attributes, native registration, and explicit `voiceEngine` integrations
+  remain available.
+
+### Upgrading from 0.4.3
+
+Install the published release and update any pinned CDN URLs:
+
+```bash
+npm install @neongate-ai/orbz@1.0.0
+```
+
+Existing visual examples keep the same `<orb-z>` tag and browser entry. New
+structured options use JavaScript properties; no `voice-model` HTML attribute
+exists. Realtime requires application-owned session authorization and
+explicit activation; upgrading the package does not start audio or request a
+microphone. An explicitly assigned `voiceEngine` takes precedence over
+`voiceModel`.
+
+[View `1.0.0` on npm](https://www.npmjs.com/package/@neongate-ai/orbz/v/1.0.0)
+
 ## 0.4.3 — 2026-09-04
 
 ### Highlights since 0.3.1
@@ -391,13 +438,7 @@ that requested flow on the next interaction.
 The documented attributes, properties, methods, events, ports, adapters,
 types, constants, and package exports are public API.
 
-While Orbz remains below version `1.0.0`:
-
-* incompatible public API changes increment the minor version;
-* backward-compatible public capabilities increment the minor version;
-* backward-compatible fixes increment the patch version.
-
-After Orbz reaches version `1.0.0`:
+Starting with Orbz `1.0.0`:
 
 * incompatible public API changes increment the major version;
 * backward-compatible capabilities increment the minor version;
