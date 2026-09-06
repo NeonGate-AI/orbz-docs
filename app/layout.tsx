@@ -72,6 +72,7 @@ function OrbzBrand() {
     <span className="neongate-brand">
       <orb-z
         aria-hidden="true"
+        tabIndex={-1}
         reduced-motion="system"
         size="1.45rem"
         speed={0.78}
@@ -104,6 +105,7 @@ const footer = (
       <Link className="neongate-footer__brand" href="/" key="footer-brand">
         <orb-z
           aria-hidden="true"
+          tabIndex={-1}
           elevated
           preset="magenta"
           reduced-motion="system"
