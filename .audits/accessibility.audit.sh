@@ -76,8 +76,23 @@ if (failures.length) {
 }
 NODE
 
-grep -F 'aria-hidden="true"' "$LAYOUT" >/dev/null || bad 'decorative OrbZ shell orbs must be hidden from assistive technology'
-grep -F 'reduced-motion="system"' "$LAYOUT" >/dev/null || bad 'decorative OrbZ shell orbs must follow reduced-motion preferences'
+node - "$LAYOUT" <<'NODE' || fail=$((fail+1))
+const fs = require('node:fs')
+const source = fs.readFileSync(process.argv[2], 'utf8')
+const orbs = [...source.matchAll(/<orb-z\b[\s\S]*?\/>/g)]
+if (orbs.length !== 2 || orbs.some(([tag]) =>
+  !tag.includes('aria-hidden="true"') ||
+  !tag.includes('tabIndex={-1}') ||
+  !tag.includes('reduced-motion="always"')
+)) {
+  console.error('accessibility FAIL: both decorative shell orbs must be static and outside the accessibility/focus tree')
+  process.exit(2)
+}
+if (!/search=\{<Search\b[^>]*\/>\}/.test(source)) {
+  console.error('accessibility FAIL: built-in mobile navigation must provide Nextra Search')
+  process.exit(2)
+}
+NODE
 grep -F 'aria-label={`Switch to ${nextTheme} theme`}' "$TOGGLE" >/dev/null || bad 'theme toggle must announce its target theme'
 grep -F 'type="button"' "$TOGGLE" >/dev/null || bad 'theme toggle must be a non-submit button'
 grep -F ':focus-visible' "$CSS" >/dev/null || bad 'visible keyboard focus treatment missing'
@@ -86,24 +101,66 @@ grep -F '@media (forced-colors: active)' "$CSS" >/dev/null || bad 'forced-colors
 grep -F -- '-webkit-text-fill-color: CanvasText' "$CSS" >/dev/null || bad 'transparent gradient text must remain readable in forced-colors mode'
 grep -F 'min-block-size: 2rem' "$CSS" >/dev/null || bad 'custom navbar target must meet the 24px WCAG 2.5.8 floor'
 
-# Contrast checks for the stable chrome/content token pairs. Ratios are computed,
-# not asserted by inspection. Threshold is WCAG AA normal text (4.5:1).
-node <<'NODE' || fail=$((fail+1))
+# Read authored CSS rather than a duplicate palette. Solid page/surface colors
+# provide deterministic source evidence; browser review covers composited paint.
+node - "$CSS" "$ROOT/app/home-playground.css" <<'NODE' || fail=$((fail+1))
+const fs = require('node:fs')
+const hasPlayground = fs.existsSync(process.argv[3])
+const css = process.argv.slice(2).filter((file) => fs.existsSync(file)).map((file) => fs.readFileSync(file, 'utf8')).join('\n').replace(/\/\*[\s\S]*?\*\//g, '')
+function block(selector) {
+  const escaped = selector.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const match = css.match(new RegExp(`(?:^|\\})\\s*${escaped}\\s*\\{([^{}]*)\\}`))
+  if (!match) throw new Error(`Missing CSS rule: ${selector}`)
+  return Object.fromEntries([...match[1].matchAll(/([\w-]+)\s*:\s*([^;]+);/g)].map(([, key, value]) => [key, value.trim()]))
+}
+const light = block(':root')
+const dark = { ...light, ...block('html.dark') }
+function color(value, tokens, visited = new Set()) {
+  if (/^#[0-9a-f]{6}$/i.test(value || '')) return value
+  const token = value?.match(/^var\((--[\w-]+)\)$/)?.[1]
+  if (!token || visited.has(token)) throw new Error(`Unresolved audited CSS color: ${value}`)
+  visited.add(token)
+  return color(tokens[token], tokens, visited)
+}
 function rgb(hex){const v=hex.replace('#','');return [0,2,4].map(i=>parseInt(v.slice(i,i+2),16)/255)}
 function lum(hex){return rgb(hex).map(v=>v<=0.04045?v/12.92:((v+0.055)/1.055)**2.4).reduce((s,v,i)=>s+v*[0.2126,0.7152,0.0722][i],0)}
 function ratio(a,b){const x=lum(a),y=lum(b);return (Math.max(x,y)+0.05)/(Math.min(x,y)+0.05)}
-const pairs=[
-  ['light text','#14142b','#f6f7ff'],
-  ['light muted','#515875','#f6f7ff'],
-  ['light link','#3927cc','#f6f7ff'],
-  ['dark text','#f6f7ff','#070810'],
-  ['dark muted','#aeb3c8','#070810'],
-  ['dark link','#8d82ff','#070810'],
-  ['primary button','#ffffff','#5948eb']
-]
-const failures=[]
-for(const [name,fg,bg] of pairs){const r=ratio(fg,bg);if(r<4.5) failures.push(`${name} ${r.toFixed(2)}:1`)}
-if(failures.length){console.error('accessibility FAIL: contrast below 4.5:1: '+failures.join(', '));process.exit(2)}
+const focus = block(':focus-visible').outline?.match(/(var\(--[\w-]+\)|#[0-9a-f]{6})$/i)?.[1]
+const gradient = block('.orbz-gradient-text')['background-image']
+const stops = [...(gradient || '').matchAll(/var\((--[\w-]+)\)|#[0-9a-f]{6}/gi)].map(([value]) => value)
+if (!stops.length) throw new Error('Heading gradient must expose auditable color stops')
+const primary = block('.orbz-button--primary')
+const failures = []
+for (const [theme, tokens] of [['light', light], ['dark', dark]]) {
+  const pairs = []
+  for (const surface of ['--orbz-page', '--orbz-surface-strong']) {
+    for (const text of ['--orbz-text', '--orbz-muted', '--orbz-link']) {
+      pairs.push([`${theme} ${text}/${surface}`, tokens[text], tokens[surface], 4.5])
+    }
+    pairs.push([`${theme} focus/${surface}`, focus, tokens[surface], 3])
+    for (const [index, stop] of stops.entries()) {
+      pairs.push([`${theme} heading stop ${index + 1}/${surface}`, stop, tokens[surface], 3])
+    }
+  }
+  pairs.push([`${theme} primary button`, primary.color, primary.background, 4.5])
+  if (hasPlayground) {
+    const codeString = block(theme === 'dark' ? 'html.dark .orbz-code-string' : '.orbz-code-string').color
+    pairs.push([`${theme} code strings`, codeString, tokens['--orbz-surface-strong'], 4.5])
+    for (const selector of ['.orbz-color-control input', '.orbz-speech-input-row input']) {
+      const boundary = block(selector).border?.match(/(var\(--[\w-]+\)|#[0-9a-f]{6})$/i)?.[1]
+      pairs.push([`${theme} ${selector} boundary`, boundary, tokens['--orbz-page'], 3])
+      pairs.push([`${theme} ${selector} inner boundary`, boundary, tokens['--orbz-surface-strong'], 3])
+    }
+  }
+  for (const [name, fg, bg, minimum] of pairs) {
+    const contrast = ratio(color(fg, tokens), color(bg, tokens))
+    if (contrast < minimum) failures.push(`${name}: ${contrast.toFixed(2)}:1 < ${minimum}:1`)
+  }
+}
+if (failures.length) {
+  console.error('accessibility FAIL: authored CSS contrast: '+failures.join(', '))
+  process.exit(2)
+}
 NODE
 
 [ "$fail" -eq 0 ] || exit 1

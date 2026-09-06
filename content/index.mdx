@@ -1,33 +1,23 @@
 ---
-title: Orbz Docs
+title: Voice components for every framework
 description: One customizable AI voice web component for every framework.
 ---
-
+import { HomePlayground } from '../app/home-playground.client'
+import { HomeVoiceExample } from '../app/home-voice-example'
 
 <div className="orbz-home">
-  <section className="orbz-hero">
-    <div>
-      <p className="orbz-eyebrow">Customizable AI voice web component</p>
+  <section className="orbz-hero orbz-hero--playground">
+    <div className="orbz-hero-heading">
       <h1>One voice component. <span className="orbz-gradient-text">Every framework.</span></h1>
+    </div>
+    <div className="orbz-hero-introduction">
       <p className="orbz-hero__lede">Orbz gives voice assistants a visible pulse without choosing your application stack for you. Use the same strict custom element in a plain page, React, Next.js, Vue, Svelte, or Angular.</p>
       <div className="orbz-actions">
         <a className="orbz-button orbz-button--primary" href="/orbz/getting-started">Get started →</a>
-        <a className="orbz-button orbz-button--secondary" href="https://www.npmjs.com/package/@neongate-ai/orbz">View on npm</a>
+        <a aria-label="View on npm (opens in a new tab)" className="orbz-button orbz-button--secondary" href="https://www.npmjs.com/package/@neongate-ai/orbz" rel="noopener noreferrer" target="_blank">View on npm ↗</a>
       </div>
-      <ul className="orbz-proof">
-        <li>Native custom element</li>
-        <li>Closed Shadow DOM</li>
-        <li>SSR-safe entry points</li>
-      </ul>
     </div>
-    <div aria-hidden="true" className="orbz-hero__visual">
-      <orb-z
-        reduced-motion="system"
-        size="clamp(15rem, 28vw, 22rem)"
-        speed={0.85}
-        state="idle"
-      ></orb-z>
-    </div>
+    <HomePlayground><HomeVoiceExample /></HomePlayground>
   </section>
 
   <section className="orbz-section">

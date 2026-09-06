@@ -6,6 +6,8 @@ ignored by Git and are not canonical engineering context.
 
 Current checkers:
 
+- `public-boundary.audit.sh`: candidate text and editor protected-identifier regression checks.
+- `guardrails.audit.sh`: optional editor protocol, shell syntax and review-agent contracts.
 - `architecture.audit.sh`: standalone Nextra/docs topology and forbidden legacy assumptions.
 - `rules.audit.sh`: rule catalog identities/frontmatter/index coverage.
 - `specs.audit.sh`: numbered spec naming/frontmatter/catalog consistency.
@@ -17,7 +19,7 @@ Current checkers:
 - `security.audit.sh`: CSP/headers, reproducible installs, immutable Actions and dependency/source security contracts.
 - `git-workflow.audit.sh`: Commitlint, lint-staged, Husky hooks and CI wiring.
 
-`pnpm harness:check` runs the committed source-contract suite. `pnpm check` adds
+`pnpm harness:check` runs the committed source-contract suite. `pnpm test` executes isolated behavioral fixtures. `pnpm check` adds
 Biome, TypeScript and a production Nextra/Next.js build. CI additionally runs
 `pnpm security:audit` against the registry for high/critical production-package
 advisories.

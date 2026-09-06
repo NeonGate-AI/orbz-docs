@@ -40,7 +40,9 @@ The default flow is:
 `context -> spec -> implementation -> evidence -> two-axis review -> merge`
 
 For substantial work use `to-spec`, `implement`, `tdd` where a test seam exists,
-and `code-review`. Content-only changes still need applicable SEO, accessibility
+and `code-review`. Use `grilling` to stress-test consequential decisions and
+`grill-me` only for unresolved owner input. Harness edits use
+`harness-maintenance` and `writing-for-agents`. Content-only changes still need applicable SEO, accessibility
 and documentation checks.
 
 ## Quality contract
@@ -62,12 +64,15 @@ or indexing success without the corresponding evidence.
 ## Commands
 
 ```bash
-pnpm install
-pnpm neon
+pnpm install --frozen-lockfile
+pnpm test
 pnpm harness:check
 pnpm check
 pnpm dev
 ```
+
+Use `.agents/workflows/readme.md` for reusable task sequences. Optional Cursor
+adapters under `.cursor/` use the same repository checks. Docs has no custom CLI.
 
 `pnpm check` is the merge gate. `pnpm harness:check` validates durable repository
 contracts without requiring a production server.

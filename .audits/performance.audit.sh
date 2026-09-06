@@ -23,8 +23,42 @@ if grep -RInE "from ['\"]next/(headers|server)['\"]|\b(cookies|headers|connectio
   bad 'request-time Next.js API would make the static docs route dynamic'
 fi
 
-client_files=$(grep -RIl "^['\"]use client['\"]" "$ROOT/app" --include='*.tsx' 2>/dev/null | wc -l | tr -d ' ')
-[ "$client_files" -le 2 ] || bad "client-component budget exceeded in app/ ($client_files > 2)"
+# SPEC-007 admits one interactive playground, not an arbitrary increase in
+# client components. Inspect TypeScript directives so comments and imports
+# cannot accidentally hide or invent a client boundary.
+node - "$ROOT" <<'NODE' || fail=$((fail+1))
+const fs = require('node:fs')
+const path = require('node:path')
+const ts = require('typescript')
+const root = process.argv[2]
+const allowed = new Set([
+  'app/register-element.client.tsx',
+  'app/theme-toggle.client.tsx',
+  'app/home-playground.client.tsx'
+])
+const unexpected = []
+function walk(dir) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const file = path.join(dir, entry.name)
+    if (entry.isDirectory()) walk(file)
+    else if (/\.[cm]?[jt]sx?$/.test(entry.name)) {
+      const source = ts.createSourceFile(file, fs.readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, false)
+      for (const statement of source.statements) {
+        if (!ts.isExpressionStatement(statement) || !ts.isStringLiteral(statement.expression)) break
+        if (statement.expression.text === 'use client') {
+          const relative = path.relative(root, file).split(path.sep).join('/')
+          if (!allowed.has(relative)) unexpected.push(relative)
+        }
+      }
+    }
+  }
+}
+walk(path.join(root, 'app'))
+if (unexpected.length) {
+  console.error('performance FAIL: client entry point needs an approved spec: ' + unexpected.join(', '))
+  process.exit(2)
+}
+NODE
 
 [ "$fail" -eq 0 ] || exit 1
 printf 'performance PASS (source architecture only; field LCP/INP/CLS require production RUM/CrUX evidence)\n'

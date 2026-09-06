@@ -1,9 +1,8 @@
 import { readFileSync } from 'node:fs'
+import { relative, resolve } from 'node:path'
 
-const files = process.argv.slice(2)
 let failed = false
-
-for (const file of files) {
+for (const file of process.argv.slice(2)) {
   const text = readFileSync(file, 'utf8')
   if (!text.endsWith('\n')) {
     console.error(`${file}: must end with a newline`)
@@ -15,12 +14,13 @@ for (const file of files) {
       failed = true
     }
   })
-  if (/^content\//.test(file) && /\.(md|mdx)$/.test(file)) {
-    const fm = text.match(/^---\n([\s\S]*?)\n---/)
+  const localPath = relative(process.cwd(), resolve(file)).replaceAll('\\', '/')
+  if (/^content\//.test(localPath) && /\.(md|mdx)$/.test(file)) {
+    const frontmatter = text.match(/^---\r?\n([\s\S]*?)\r?\n---/)
     if (
-      !fm ||
-      !/^title:\s*\S+/m.test(fm[1]) ||
-      !/^description:\s*\S+/m.test(fm[1])
+      !frontmatter ||
+      !/^title:\s*\S+/m.test(frontmatter[1]) ||
+      !/^description:\s*\S+/m.test(frontmatter[1])
     ) {
       console.error(
         `${file}: content pages require title and description frontmatter`
@@ -29,5 +29,4 @@ for (const file of files) {
     }
   }
 }
-
 if (failed) process.exit(1)

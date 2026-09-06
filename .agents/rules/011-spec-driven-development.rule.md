@@ -17,3 +17,6 @@ tags: [specs, delivery]
 - Temporary output lives in `.audits/`; stable conclusions are promoted to the correct harness layer.
 - Final review evaluates repository standards and spec fidelity independently on the same final head.
 - Retrospective specs clearly identify evidence and do not pretend the current workflow existed historically.
+
+- Implemented specs have checked acceptance, no pending evidence, valid local references and a matching catalog status.
+- Docs changes use pull requests directly to `main`; no staging promotion step is introduced.

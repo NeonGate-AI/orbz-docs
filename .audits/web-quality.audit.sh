@@ -33,6 +33,25 @@ grep -F '<span className="neongate-brand__wordmark">OrbZ</span>' "$LAYOUT" >/dev
 grep -F 'v{siteConfig.products.orbz.version}' "$LAYOUT" >/dev/null || bad 'top-left version badge must render the package-derived OrbZ version'
 grep -F "const orbzVersion = packageJson.dependencies['@neongate-ai/orbz']" "$CONFIG" >/dev/null || bad 'OrbZ version badge must derive from the exact package dependency'
 
+# Page titles receive the brand suffix from the layout; source titles must not
+# repeat it. Keep homepage aliases aligned while preserving their canonical.
+node - "$ROOT/content/index.mdx" "$ROOT/content/orbz/index.mdx" <<'NODE' || fail=$((fail+1))
+const fs = require('node:fs')
+const titles = process.argv.slice(2).map((file) => {
+  const source = fs.readFileSync(file, 'utf8')
+  const title = source.match(/^title:\s*(.+)$/m)?.[1]?.trim()
+  if (!title || /\borbz\s+docs\b/i.test(title)) {
+    console.error('web-quality FAIL: homepage title must describe the product without repeating the OrbZ Docs suffix')
+    process.exit(2)
+  }
+  return title
+})
+if (new Set(titles).size !== 1) {
+  console.error('web-quality FAIL: homepage alias must share its canonical page title')
+  process.exit(2)
+}
+NODE
+
 # Markdown images require non-empty alt; JSX img requires alt attr.
 if grep -RInE '!\[\]\(' "$ROOT/content" --include='*.md' --include='*.mdx' 2>/dev/null; then bad 'empty Markdown image alt found'; fi
 node - "$ROOT/content" <<'NODE' || fail=$((fail+1))

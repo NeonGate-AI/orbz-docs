@@ -1,7 +1,6 @@
 {
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
-
   "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "biomejs.biome",
@@ -19,65 +18,29 @@
   "[javascript]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
-
   "css.lint.unknownAtRules": "ignore",
   "css.lint.emptyRules": "ignore",
-
   "scss.lint.unknownAtRules": "ignore",
   "less.lint.unknownAtRules": "ignore",
   "git.ignoreLimitWarning": true,
-
   "flow-icons.folders.associations": {
-    "ai": "aurelia",
     "agents": "robot",
     ".agents": "robot",
-    "orchestration": "shader",
     "prompts": "prompts",
     "docs": "docs",
     "specs": "tasks",
-    "design-system": "mock",
-    "plans": "strategy",
-    "console": "layout",
-    "landing": "public",
-    "onboarding": "path",
     "skills": "skills",
-    "react": "react-components",
     "adrs": "scripts",
     "rules": "rules",
-    "memory": "activity",
-    "agentic": "cline",
-    "evals": "coverage",
-    "knowledge": "gitbook",
-    "providers": "import",
-    "rag": "archive",
-    "ana": "grype",
-    "isa": "grype",
-    "nico": "grype",
     "context": "gitbook",
-    "memory-nucleus": "quasar",
-    "observability": "activity",
-    "ranking-evaluation": "coverage",
-    "common": "internal",
-    "workspaces": "sky",
-    "cli": "other",
-    ".audit": "benchmark",
-    "evaluation": "chart",
-    "packages": "plastic",
-    "architecture": "project",
-    "memory-sdk": "sdk",
-    "runtime": "rocket",
-    "product": "notification",
-    "state": "atom",
-    "atoms": "atom"
+    ".audits": "benchmark"
   },
-
   "flow-icons.files.associations": {
     "*.spec.md": "plist",
     "*.rule.md": "bbx",
     "*.adr.md": "coding-guidelines",
     "*.audit.sh": "license"
   },
-
   "todohighlight.defaultStyle": {
     "borderRadius": "2px",
     "isWholeLine": true,

@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "sh .cursor/hooks/guard-shell.sh",
+        "timeout": 5,
+        "failClosed": true
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "sh .cursor/hooks/feedback-edit.sh",
+        "timeout": 5
+      }
+    ]
+  }
+}
