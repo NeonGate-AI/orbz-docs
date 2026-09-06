@@ -33,7 +33,7 @@
     "security:audit": "pnpm audit --prod --audit-level=high"
   },
   "dependencies": {
-    "@neongate-ai/orbz": "0.4.1",
+    "@neongate-ai/orbz": "1.0.0",
     "next": "16.3.4",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",

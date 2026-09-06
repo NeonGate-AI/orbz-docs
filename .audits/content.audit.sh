@@ -1,6 +1,20 @@
 #!/bin/sh
 set -eu
 ROOT=${GITHUB_WORKSPACE:-$(CDPATH= cd -P "$(dirname "$0")/.." && pwd)}
+node - "$ROOT" <<'JS_RELEASE'
+const fs = require('node:fs')
+const path = require('node:path')
+const root = process.argv[2]
+const read = (name) => fs.readFileSync(path.join(root, name), 'utf8')
+const version = JSON.parse(read('package.json')).dependencies['@neongate-ai/orbz']
+const latestEntry = read('content/orbz/changelog.mdx').match(/^## (\d+\.\d+\.\d+) — /m)?.[1]
+const cdnPins = [...read('content/orbz/getting-started/cdn.mdx').matchAll(/@neongate-ai\/orbz@(\d+\.\d+\.\d+)/g)].map((match) => match[1])
+if (latestEntry !== version || cdnPins.length === 0 || cdnPins.some((pin) => pin !== version)) {
+  console.error('content FAIL: latest changelog and current CDN examples must match the pinned Orbz dependency')
+  process.exit(1)
+}
+console.log(`content PASS: changelog and CDN examples match Orbz ${version}`)
+JS_RELEASE
 node - "$ROOT" <<'NODE'
 const fs = require('node:fs')
 const path = require('node:path')
