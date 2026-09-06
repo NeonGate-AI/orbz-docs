@@ -3,19 +3,25 @@
   min-block-size: auto;
 }
 
+.orbz-hero-heading {
+  margin-block-end: 2.5rem;
+}
+
 .orbz-hero--playground h1 {
-  font-size: clamp(2.6rem, 4.25vw, 3.65rem);
+  font-size: clamp(2.5rem, 1rem + 5vw, 5rem);
   letter-spacing: -0.065em;
   line-height: 1.12;
   max-inline-size: none;
+  white-space: nowrap;
 }
 
 .orbz-hero-introduction {
-  align-items: center;
+  align-items: start;
   display: flex;
-  gap: 2rem;
-  justify-content: space-between;
-  margin-block: 1.5rem 2.5rem;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-block: 2.5rem 0;
+  max-inline-size: 41rem;
 }
 
 .orbz-hero-introduction .orbz-hero__lede {
@@ -384,12 +390,6 @@ html.dark .orbz-code-string {
 }
 
 @media (max-width: 1050px) {
-  .orbz-hero-introduction {
-    align-items: start;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-
   .orbz-playground {
     gap: 2rem;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
@@ -407,10 +407,7 @@ html.dark .orbz-code-string {
 @media (max-width: 760px) {
   .orbz-hero--playground h1 {
     font-size: clamp(2.5rem, 7.5vw, 3.5rem);
-  }
-
-  .orbz-hero-introduction {
-    margin-block-end: 1.5rem;
+    white-space: normal;
   }
 
   .orbz-playground {

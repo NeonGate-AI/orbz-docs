@@ -51,9 +51,10 @@ useful layout while retaining the site's visual identity and introductory copy.
 
 ## Solution
 
-Move the existing headline across the full hero width, remove its eyebrow, and
+Use “One Voice Component” across the full hero width, remove its eyebrow, and
 present a read-only JavaScript integration example beside a smaller native orb.
-Retain the introduction and primary links. Below the example, provide five color
+Place the introduction and primary links after the complete playground, outside
+the sticky preview's containing area. Below the example, provide five color
 inputs, a size slider, visual state selection, animation pause/resume, and a
 short text-to-speech form. The example explains application-owned Realtime
 authorization; the interactive preview uses browser speech and says so clearly.
@@ -67,8 +68,14 @@ for preview/review; publication and repository visibility are separate actions.
 
 ## Decisions and Constraints
 
-- Preserve the current palette, gradients, type identity, copy, and lower homepage
-  sections. The headline spans both columns and can wrap naturally on narrow screens.
+- Preserve the current palette, gradients, type identity, description, links and
+  lower homepage sections. The exact headline is “One Voice Component”, spanning
+  both columns with fluid sizing and no wrapping above the 760px mobile breakpoint.
+  Mobile may wrap naturally to avoid overflow.
+- The editor and orb begin directly below the headline. Keep the existing desktop
+  sticky preview and mobile stacking. The description and both primary links form
+  a left-aligned block after all controls and outside the hero/playground section,
+  so they appear below the bottom limit of the orb's sticky travel.
 - Interpret the requested final orb size as two-thirds of its previous diameter:
   `clamp(10rem, 18.6667vw, 14.6667rem)` at the default 100% slider position.
 - The npm link opens a new tab with `noopener noreferrer` and an accessible cue.
@@ -110,7 +117,9 @@ WCAG conformance or field Core Web Vitals.
 
 ## Acceptance Criteria
 
-- [ ] Headline spans the hero, the eyebrow is removed, and existing copy/links remain.
+- [ ] “One Voice Component” spans the hero in one fluid line outside mobile; mobile can wrap.
+- [ ] Editor and orb sit beside each other below the headline, with desktop sticky behavior retained.
+- [ ] Description and both links follow every control, outside the sticky area; the eyebrow remains removed.
 - [ ] Default orb diameter is two-thirds of the prior responsive size.
 - [ ] Read-only JavaScript shows the published model/session API and is legible in both themes.
 - [ ] Color, size and state controls update the native orb; pause/resume works.
@@ -185,3 +194,20 @@ head are recorded in the delivery PR.
 The independent source review found and resolved protected-filename logging and
 dangling-symlink handling in the privacy audit. Both gained negative regression
 coverage; the resulting suite passes all 24 behavioral tests.
+
+## Owner preview feedback — 2026-09-06
+
+After inspecting the initial preview, the owner requested the shorter headline,
+viewport-aware single-line desktop typography, and relocation of the description
+and actions below the complete playground. This revision was recorded before
+changing the layout. The owner specifically approved retaining the existing orb
+following effect. This feedback is not blanket browser acceptance of the controls,
+themes, keyboard behavior or the revised layout.
+
+Revision evidence: `pnpm check` passed all audits, 24 behavioral tests, formatting,
+lint, TypeScript and the production build; Pagefind indexed 19 pages. Generated
+HTML for `/` and `/orbz` confirms the exact single h1 text, sibling editor/preview,
+and description/actions after the closed hero and every control. The npm link
+retains its new-tab protections. Fluid desktop sizing and mobile wrapping are
+source-level evidence; the revised preview still needs visual acceptance. The
+delivery PR records the exact reviewed commit and its CI/deployment results.
