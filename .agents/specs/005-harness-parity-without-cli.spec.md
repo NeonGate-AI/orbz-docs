@@ -2,7 +2,7 @@
 id: SPEC-005
 title: Strengthen the documentation harness without a CLI
 type: governance
-status: in-progress
+status: implemented
 mode: prospective
 created: 2026-09-06
 updated: 2026-09-06
@@ -32,7 +32,8 @@ evidence:
   - scripts/harness.test.ts
   - scripts/editor-guardrails.test.ts
   - .github/workflows/ci.yml
-  - pending
+  - https://github.com/NeonGate-AI/docs/actions/runs/34016935765
+  - https://github.com/NeonGate-AI/docs/pull/7
 ---
 
 # SPEC-005: Strengthen the documentation harness without a CLI
@@ -89,8 +90,8 @@ with the same scorer version; report all dimensions and explain genuine gaps.
 - [x] Reusable discovery, harness, documentation, regression and review workflows are locally discoverable.
 - [x] Optional editor hooks enforce their declared safety/feedback behavior under regression tests.
 - [x] No custom CLI or Neon dependency remains; executable repository automation uses shell entrypoints.
-- [ ] Baseline and final score evidence use the same tool version without decorative integrations.
-- [ ] Required quality gates and both review axes pass on the final delivery head.
+- [x] Baseline and final score evidence use the same tool version without decorative integrations.
+- [x] Required quality gates and both review axes pass on the final delivery head.
 
 ## Failure Behavior
 
@@ -111,9 +112,9 @@ Baseline on 2026-09-06: `npx --yes harness-score` resolved version 1.6.5 and rep
 75/108 (69%), L3: Context 20/20, Skills 9/17, Hooks 0/14, Sensors 12/20,
 CI 14/14, Hygiene 20/23. This detector does not credit every existing Husky hook
 or generic role document. New tests and workflows must serve real maintainer
-tasks. Final score, CI and independent reviews remain pending.
+tasks. The final measurement and validated implementation evidence are recorded below.
 
-Local implementation evidence on 2026-09-06: frozen installation completed with
+Earlier local implementation evidence on 2026-09-06: frozen installation completed with
 pnpm 10.32.1 and Node 24.19.0; all harness audits, TypeScript, targeted Biome,
 shell syntax and the 22 current behavioral tests passed. The four new local
 skills passed the skill-creator metadata validator. Final build/CI and both
@@ -166,3 +167,19 @@ The directory README remains documentation rather than a fake agent.
 The independent source review found and resolved protected-filename logging and
 dangling-symlink handling in the privacy audit. Both gained negative regression
 coverage; the resulting suite passes all 24 behavioral tests.
+
+## Closure evidence
+
+[CI run 34016935765](https://github.com/NeonGate-AI/docs/actions/runs/34016935765)
+completed successfully for implementation commit
+`7f01fe42777e015aed831f33277f9fdda0e2ad73`, including all 24 tests, audits,
+formatting, lint, type checks, build, registry audit and hook validation.
+Independent Standards and source Spec-fidelity reviews found no remaining
+blocking findings on the identical reviewed tree
+`92cf2169a65b55630916902eb6797a3e0d173f46`.
+
+This closes the public-source/harness acceptance owned by this spec. The UI's
+remaining browser acceptance belongs to SPEC-006/007, which stay in progress.
+The preview requires Vercel sign-in and the current connector lacks project-team
+access; no preview protection or repository visibility was changed. Final
+documentation-head CI and review are recorded in PR #7 before handoff.

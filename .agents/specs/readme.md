@@ -10,8 +10,8 @@ identity.
 | [001](001-orbz-docs-harness-foundation.spec.md) | SPEC-001 | implemented | Orbz Docs harness foundation |
 | [002](002-docs-quality-hardening.spec.md) | SPEC-002 | implemented | OrbZ docs quality hardening |
 | [003](003-orbz-major-release-adoption.spec.md) | SPEC-003 | implemented | Adopt published Orbz 1.0.0 in the live Docs and changelog |
-| [004](004-public-repository-boundary.spec.md) | SPEC-004 | in-progress | Remove private-project remnants and enforce the public boundary |
-| [005](005-harness-parity-without-cli.spec.md) | SPEC-005 | in-progress | Strengthen harness workflows, guardrails and evidence without a Docs CLI |
+| [004](004-public-repository-boundary.spec.md) | SPEC-004 | implemented | Remove private-project remnants and enforce the public boundary |
+| [005](005-harness-parity-without-cli.spec.md) | SPEC-005 | implemented | Strengthen harness workflows, guardrails and evidence without a Docs CLI |
 | [006](006-homepage-voice-playground.spec.md) | SPEC-006 | in-progress | Interactive homepage with native voice examples and visual controls |
 | [007](007-public-docs-web-quality.spec.md) | SPEC-007 | in-progress | Accessible, searchable and secure public documentation UI |
 

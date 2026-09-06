@@ -2,7 +2,7 @@
 id: SPEC-004
 title: Prepare the repository's public information boundary
 type: governance
-status: in-progress
+status: implemented
 mode: prospective
 created: 2026-09-06
 updated: 2026-09-06
@@ -28,7 +28,8 @@ evidence:
   - scripts/harness.test.ts
   - README.md
   - .vscode/settings.json
-  - pending
+  - https://github.com/NeonGate-AI/docs/actions/runs/34016935765
+  - https://github.com/NeonGate-AI/docs/pull/7
 ---
 
 # SPEC-004: Prepare the repository's public information boundary
@@ -82,7 +83,7 @@ confidentiality. Assets require a separate human or visual content review.
 - [x] Synthetic negative fixtures fail with a nonzero code and no sensitive-value output.
 - [x] README commands, deployment install policy and dependency guidance match maintained source.
 - [x] History and asset review scope and any limitations are recorded before visibility is changed.
-- [ ] Required quality gates and both review axes pass on the final delivery head.
+- [x] Required quality gates and both review axes pass on the final delivery head.
 
 ## Failure Behavior
 
@@ -100,7 +101,7 @@ matching alone. UI layout and runtime security belong to separate specs.
 
 Promote the public boundary into repository context, security rules and a
 deterministic shell audit. Keep raw findings and historical inspection logs out
-of committed content. Exact CI and independent review evidence remain pending.
+of committed content. Final CI and review evidence is linked below.
 
 History review on 2026-09-06 covered four existing branch heads, zero tags and
 30 distinct reachable commits (22 on main and eight on an older release branch).
@@ -111,7 +112,7 @@ The current cleanup does not rewrite those revisions. The asset was visually
 reviewed as a public product graphic. This is scoped inspection, not a guarantee
 that automated matching detects every possible disclosure.
 
-Local implementation evidence on 2026-09-06: frozen installation completed with
+Earlier local implementation evidence on 2026-09-06: frozen installation completed with
 pnpm 10.32.1 and Node 24.19.0; all harness audits, TypeScript, targeted Biome,
 shell syntax and the 22 current behavioral tests passed. The four new local
 skills passed the skill-creator metadata validator. Final build/CI and both
@@ -141,3 +142,19 @@ head are recorded in the delivery PR.
 The independent source review found and resolved protected-filename logging and
 dangling-symlink handling in the privacy audit. Both gained negative regression
 coverage; the resulting suite passes all 24 behavioral tests.
+
+## Closure evidence
+
+[CI run 34016935765](https://github.com/NeonGate-AI/docs/actions/runs/34016935765)
+completed successfully for implementation commit
+`7f01fe42777e015aed831f33277f9fdda0e2ad73`, including all 24 tests, audits,
+formatting, lint, type checks, build, registry audit and hook validation.
+Independent Standards and source Spec-fidelity reviews found no remaining
+blocking findings on the identical reviewed tree
+`92cf2169a65b55630916902eb6797a3e0d173f46`.
+
+This closes the public-source/harness acceptance owned by this spec. The UI's
+remaining browser acceptance belongs to SPEC-006/007, which stay in progress.
+The preview requires Vercel sign-in and the current connector lacks project-team
+access; no preview protection or repository visibility was changed. Final
+documentation-head CI and review are recorded in PR #7 before handoff.
