@@ -54,34 +54,7 @@ export function HomePlayground({ children }: { children: ReactNode }) {
 
   return (
     <div className="orbz-playground">
-      <div className="orbz-playground-editor">
-        {children}
-        <AppearanceControls
-          colors={colors}
-          onColorChange={(channel, value) =>
-            setColors((current) => ({ ...current, [channel]: value }))
-          }
-          onPause={() => setPaused((current) => !current)}
-          onSizeChange={setSize}
-          onStateChange={(state) => controllerRef.current?.selectState(state)}
-          paused={paused}
-          ready={ready}
-          size={size}
-          state={voice.state}
-        />
-        <SpeechControls
-          error={voice.error}
-          onSpeak={() => {
-            void controllerRef.current?.start(text)
-          }}
-          onStop={() => controllerRef.current?.stop()}
-          onTextChange={setText}
-          ready={ready}
-          speaking={voice.speaking}
-          supported={supported}
-          text={text}
-        />
-      </div>
+      <div className="orbz-playground-editor">{children}</div>
       <div className="orbz-playground-preview">
         <div aria-hidden="true" className="orbz-playground-stage">
           <orb-z
@@ -104,6 +77,20 @@ export function HomePlayground({ children }: { children: ReactNode }) {
           <span className="orbz-preview-state">{voice.state}</span>
           {paused ? <span>Motion paused</span> : null}
         </div>
+        <SpeechControls
+          error={voice.error}
+          onPause={() => setPaused((current) => !current)}
+          onSpeak={() => {
+            void controllerRef.current?.start(text)
+          }}
+          onStop={() => controllerRef.current?.stop()}
+          onTextChange={setText}
+          paused={paused}
+          ready={ready}
+          speaking={voice.speaking}
+          supported={supported}
+          text={text}
+        />
         <p className="orbz-preview-tagline">One element. Your voice.</p>
         <ul className="orbz-proof">
           <li>Native custom element</li>
@@ -111,6 +98,17 @@ export function HomePlayground({ children }: { children: ReactNode }) {
           <li>SSR-safe entry points</li>
         </ul>
       </div>
+      <AppearanceControls
+        colors={colors}
+        onColorChange={(channel, value) =>
+          setColors((current) => ({ ...current, [channel]: value }))
+        }
+        onSizeChange={setSize}
+        onStateChange={(state) => controllerRef.current?.selectState(state)}
+        ready={ready}
+        size={size}
+        state={voice.state}
+      />
     </div>
   )
 }

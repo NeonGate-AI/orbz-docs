@@ -466,10 +466,6 @@ html.dark .neongate-theme-toggle__moon {
   display: none;
 }
 
-.neongate-navbar-search {
-  display: none;
-}
-
 .neongate-footer {
   background:
     radial-gradient(circle at 18% 0%, rgb(255 77 222 / 8%), transparent 22rem),
@@ -549,12 +545,6 @@ html.dark .neongate-theme-toggle__moon {
 
 .neongate-footer__meta a:hover {
   color: var(--orbz-link);
-}
-
-@media (min-width: 769px) {
-  .neongate-navbar-search {
-    display: block;
-  }
 }
 
 @media (max-width: 768px) {

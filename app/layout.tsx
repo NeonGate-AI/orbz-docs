@@ -92,9 +92,6 @@ const navbar = (
       Docs
     </Link>
     <ThemeToggle key="theme-toggle" />
-    <div className="neongate-navbar-search" key="docs-search">
-      <Search placeholder="Search docs…" />
-    </div>
   </Navbar>
 )
 

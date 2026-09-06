@@ -4,11 +4,11 @@
 }
 
 .orbz-hero-heading {
-  margin-block-end: 2.5rem;
+  text-align: center;
 }
 
-.orbz-hero--playground h1 {
-  font-size: clamp(2.5rem, 1rem + 5vw, 5rem);
+.orbz-hero.orbz-hero--playground h1 {
+  font-size: clamp(2rem, 0.75rem + 4.5vw, 4.5rem);
   letter-spacing: -0.065em;
   line-height: 1.12;
   max-inline-size: none;
@@ -16,12 +16,13 @@
 }
 
 .orbz-hero-introduction {
-  align-items: start;
+  align-items: center;
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
-  margin-block: 2.5rem 0;
+  margin: 1.25rem auto 2.5rem;
   max-inline-size: 41rem;
+  text-align: center;
 }
 
 .orbz-hero-introduction .orbz-hero__lede {
@@ -33,14 +34,24 @@
 
 .orbz-hero-introduction .orbz-actions {
   flex-shrink: 0;
+  justify-content: center;
   margin: 0;
 }
 
 .orbz-playground {
   align-items: start;
+  column-gap: clamp(2rem, 5vw, 5rem);
   display: grid;
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-areas:
+    "editor preview"
+    "appearance preview";
   grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  grid-template-rows: max-content auto;
+  row-gap: 1.25rem;
+}
+
+.orbz-playground-editor {
+  grid-area: editor;
 }
 
 .orbz-playground-editor,
@@ -62,9 +73,9 @@
   color: var(--orbz-muted);
   display: flex;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   justify-content: space-between;
-  padding: 0.8rem 1.25rem;
+  padding: 0.55rem 1rem;
 }
 
 .orbz-editor-file {
@@ -86,10 +97,10 @@
   background: none;
   color: var(--orbz-text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  font-size: 0.81rem;
-  line-height: 1.7;
+  font-size: 0.78rem;
+  line-height: 1.55;
   margin: 0;
-  padding: 1.25rem;
+  padding: 0.75rem 1rem;
   tab-size: 2;
 }
 
@@ -125,10 +136,10 @@ html.dark .orbz-code-string {
 .orbz-editor-note {
   border-block-start: 1px solid var(--orbz-border);
   color: var(--orbz-muted);
-  font-size: 0.76rem;
-  line-height: 1.65;
+  font-size: 0.72rem;
+  line-height: 1.5;
   margin: 0;
-  padding: 0.8rem 1.25rem;
+  padding: 0.55rem 1rem;
 }
 
 .orbz-editor-note a {
@@ -141,8 +152,8 @@ html.dark .orbz-code-string {
   align-items: start;
   column-gap: 1.5rem;
   display: grid;
+  grid-area: appearance;
   grid-template-columns: minmax(0, 1fr) minmax(7rem, 0.6fr);
-  margin-block-start: 1.25rem;
   row-gap: 1rem;
 }
 
@@ -264,14 +275,9 @@ html.dark .orbz-code-string {
 
 .orbz-motion-button {
   align-items: center;
-  background: none;
-  border-color: transparent;
   display: inline-flex;
   gap: 0.4rem;
-  grid-column: 1 / -1;
-  justify-self: start;
-  margin-block-start: -0.65rem;
-  padding-inline: 0;
+  justify-content: center;
 }
 
 .orbz-state-buttons button:hover,
@@ -284,6 +290,7 @@ html.dark .orbz-code-string {
   border-block-start: 1px solid var(--orbz-border);
   margin-block-start: 0.5rem;
   padding-block-start: 1rem;
+  text-align: start;
 }
 
 .orbz-speech-controls > label {
@@ -300,6 +307,7 @@ html.dark .orbz-code-string {
 
 .orbz-speech-input-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.4rem;
 }
 
@@ -308,9 +316,9 @@ html.dark .orbz-code-string {
   border: 1px solid var(--orbz-muted);
   border-radius: 0.5rem;
   color: var(--orbz-text);
-  flex: 1;
+  flex: 1 0 100%;
   font-family: inherit;
-  font-size: 0.8rem;
+  font-size: 1rem;
   min-block-size: 2.75rem;
   min-inline-size: 0;
   padding: 0.65rem 0.75rem;
@@ -318,7 +326,7 @@ html.dark .orbz-code-string {
 
 .orbz-speech-controls button {
   background: var(--orbz-surface-strong);
-  flex-shrink: 0;
+  flex: 1;
 }
 
 .orbz-speech-controls button[type="submit"] {
@@ -344,6 +352,7 @@ html.dark .orbz-code-string {
 
 .orbz-playground-preview {
   align-self: start;
+  grid-area: preview;
   padding-block-start: 0.25rem;
   position: sticky;
   text-align: center;
@@ -354,7 +363,7 @@ html.dark .orbz-code-string {
   align-items: center;
   display: flex;
   justify-content: center;
-  min-block-size: 25rem;
+  min-block-size: 20rem;
 }
 
 .orbz-preview-caption {
@@ -391,7 +400,7 @@ html.dark .orbz-code-string {
 
 @media (max-width: 1050px) {
   .orbz-playground {
-    gap: 2rem;
+    column-gap: 2rem;
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
   }
 
@@ -400,12 +409,12 @@ html.dark .orbz-code-string {
   }
 
   .orbz-playground-stage {
-    min-block-size: 22rem;
+    min-block-size: 18rem;
   }
 }
 
 @media (max-width: 760px) {
-  .orbz-hero--playground h1 {
+  .orbz-hero.orbz-hero--playground h1 {
     font-size: clamp(2.5rem, 7.5vw, 3.5rem);
     white-space: normal;
   }
@@ -416,11 +425,7 @@ html.dark .orbz-code-string {
     gap: 2rem;
   }
 
-  .orbz-playground-editor {
-    display: contents;
-  }
-
-  .orbz-voice-example,
+  .orbz-playground-editor,
   .orbz-appearance-controls,
   .orbz-speech-controls,
   .orbz-playground-preview {
@@ -428,18 +433,7 @@ html.dark .orbz-code-string {
   }
 
   .orbz-playground-preview {
-    order: 1;
     position: static;
-  }
-
-  .orbz-appearance-controls {
-    margin-block-start: 0;
-    order: 2;
-  }
-
-  .orbz-speech-controls {
-    margin-block-start: -1.5rem;
-    order: 3;
   }
 
   .orbz-playground-stage {
@@ -460,18 +454,12 @@ html.dark .orbz-code-string {
   .orbz-voice-example pre {
     font-size: 0.75rem;
   }
+}
 
-  .orbz-speech-input-row {
-    flex-wrap: wrap;
-  }
-
-  .orbz-speech-input-row input {
-    flex-basis: 100%;
-    font-size: 1rem;
-  }
-
-  .orbz-speech-input-row button {
-    flex: 1;
+/* Keep the controls reachable when the preview is taller than the viewport. */
+@media (max-height: 50rem) {
+  .orbz-playground-preview {
+    position: static;
   }
 }
 

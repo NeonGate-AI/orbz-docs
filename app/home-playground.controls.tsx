@@ -21,28 +21,39 @@ interface AppearanceControlsProps {
   colors: OrbzColors
   size: number
   state: OrbzState
-  paused: boolean
   ready: boolean
   onColorChange: (channel: keyof OrbzColors, value: string) => void
   onSizeChange: (value: number) => void
   onStateChange: (value: OrbzState) => void
-  onPause: () => void
 }
 
 export function AppearanceControls({
   colors,
   size,
   state,
-  paused,
   ready,
   onColorChange,
   onSizeChange,
-  onStateChange,
-  onPause
+  onStateChange
 }: AppearanceControlsProps) {
   const id = useId()
   return (
     <div className="orbz-appearance-controls">
+      <fieldset className="orbz-state-controls" disabled={!ready}>
+        <legend>Preview a state</legend>
+        <div className="orbz-state-buttons">
+          {states.map((value) => (
+            <button
+              aria-pressed={state === value}
+              key={value}
+              onClick={() => onStateChange(value)}
+              type="button"
+            >
+              {value}
+            </button>
+          ))}
+        </div>
+      </fieldset>
       <fieldset className="orbz-color-controls" disabled={!ready}>
         <legend>Make it yours</legend>
         <div className="orbz-color-grid">
@@ -75,36 +86,13 @@ export function AppearanceControls({
           value={size}
         />
       </div>
-      <fieldset className="orbz-state-controls" disabled={!ready}>
-        <legend>Preview a state</legend>
-        <div className="orbz-state-buttons">
-          {states.map((value) => (
-            <button
-              aria-pressed={state === value}
-              key={value}
-              onClick={() => onStateChange(value)}
-              type="button"
-            >
-              {value}
-            </button>
-          ))}
-        </div>
-      </fieldset>
-      <button
-        className="orbz-motion-button"
-        disabled={!ready}
-        onClick={onPause}
-        type="button"
-      >
-        <span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span>
-        {paused ? 'Resume motion' : 'Pause motion'}
-      </button>
     </div>
   )
 }
 
 interface SpeechControlsProps {
   text: string
+  paused: boolean
   ready: boolean
   supported: boolean
   speaking: boolean
@@ -112,17 +100,20 @@ interface SpeechControlsProps {
   onTextChange: (value: string) => void
   onSpeak: () => void
   onStop: () => void
+  onPause: () => void
 }
 
 export function SpeechControls({
   text,
+  paused,
   ready,
   supported,
   speaking,
   error,
   onTextChange,
   onSpeak,
-  onStop
+  onStop,
+  onPause
 }: SpeechControlsProps) {
   const id = useId()
   const message =
@@ -165,6 +156,15 @@ export function SpeechControls({
         </button>
         <button disabled={!speaking} onClick={onStop} type="button">
           Stop
+        </button>
+        <button
+          className="orbz-motion-button"
+          disabled={!ready}
+          onClick={onPause}
+          type="button"
+        >
+          <span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span>
+          {paused ? 'Resume motion' : 'Pause motion'}
         </button>
       </div>
       <output

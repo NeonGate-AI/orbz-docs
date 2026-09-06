@@ -84,6 +84,8 @@ separate coordinated specs.
   security, SEO and accessibility improvements on 2026-09-06.
 - Use Nextra's existing Search in its built-in mobile navigation; do not add a
   custom search implementation or runtime dependency.
+- Supply Search once through Layout. Nextra owns its desktop navbar and mobile
+  menu placements; do not render an additional Search in Navbar children.
 - Decorative header/footer orbs use the published `reduced-motion="always"`
   setting. The main demo follows the user's system preference and offers pause.
 - Light-theme focus needs at least 3:1 against adjacent authored surfaces;
@@ -126,7 +128,7 @@ headings and static decorative shell. Root integration owns browser execution.
 ## Acceptance Criteria
 
 - [x] Actual authored CSS passes text/focus/gradient contrast thresholds.
-- [ ] Mobile and desktop visitors can open and use documentation search.
+- [ ] Mobile and desktop visitors can use native documentation search, with only one desktop navbar search.
 - [ ] Decorative shell orbs remain static in both system motion preferences.
 - [ ] Homepage title and social title avoid repeated branding.
 - [ ] Static rendering, canonical discovery and security headers remain intact.
@@ -204,3 +206,18 @@ head are recorded in the delivery PR.
 The independent source review found and resolved protected-filename logging and
 dangling-symlink handling in the privacy audit. Both gained negative regression
 coverage; the resulting suite passes all 24 behavioral tests.
+
+## Owner preview regression — 2026-09-06
+
+The owner identified two desktop search bars. Inspection of the installed Nextra
+4.6.1 Navbar confirms it renders Layout's Search automatically; the manually
+added Navbar child duplicates it. Remove that child and its unused CSS, retain
+the single Layout search configuration for both native placements, and extend
+the existing accessibility audit to reject duplicate authored Search instances.
+This revision preserves mobile search instead of disabling it to hide the duplicate.
+
+The strengthened audit first failed against the duplicated Search instances, then
+passed after removing the manual Navbar child. Generated HTML on `/`, `/orbz` and
+`/orbz/getting-started` contains exactly one search input inside the native desktop
+navbar and one in Nextra's separate mobile menu. No custom search widget or new
+runtime dependency was introduced. Browser search interaction remains pending.

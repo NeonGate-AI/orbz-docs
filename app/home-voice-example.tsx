@@ -1,19 +1,14 @@
 import './home-playground.css'
 
 const example = `import '@neongate-ai/orbz/browser'
-
 const orb = document.querySelector('orb-z')
 
 orb.voiceModel = {
   provider: 'openai-realtime',
   model: 'gpt-realtime-2'
 }
-
-orb.realtimeSession = {
-  endpoint: '/api/voice/session'
-}
-
-// Connect this to your Start button.
+orb.realtimeSession = { endpoint: '/api/voice/session' }
+// From your Start button:
 const startVoice = () => orb.startConversation()`
 
 function highlightExample() {

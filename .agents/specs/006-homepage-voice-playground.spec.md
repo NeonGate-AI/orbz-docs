@@ -51,12 +51,11 @@ useful layout while retaining the site's visual identity and introductory copy.
 
 ## Solution
 
-Use “One Voice Component” across the full hero width, remove its eyebrow, and
-present a read-only JavaScript integration example beside a smaller native orb.
-Place the introduction and primary links after the complete playground, outside
-the sticky preview's containing area. Below the example, provide five color
-inputs, a size slider, visual state selection, animation pause/resume, and a
-short text-to-speech form. The example explains application-owned Realtime
+Center “One Voice Web Component” across the full hero width, with the description
+and primary links centered below it. Present a compact read-only JavaScript
+integration example beside a smaller native orb. Below the example, provide
+visual states, followed by five color inputs and a size slider. Place the speech
+form and animation pause/resume below the orb. The example explains application-owned Realtime
 authorization; the interactive preview uses browser speech and says so clearly.
 
 ## Scope
@@ -69,13 +68,22 @@ for preview/review; publication and repository visibility are separate actions.
 ## Decisions and Constraints
 
 - Preserve the current palette, gradients, type identity, description, links and
-  lower homepage sections. The exact headline is “One Voice Component”, spanning
-  both columns with fluid sizing and no wrapping above the 760px mobile breakpoint.
-  Mobile may wrap naturally to avoid overflow.
-- The editor and orb begin directly below the headline. Keep the existing desktop
-  sticky preview and mobile stacking. The description and both primary links form
-  a left-aligned block after all controls and outside the hero/playground section,
-  so they appear below the bottom limit of the orb's sticky travel.
+  lower homepage sections. The exact headline is “One Voice Web Component”, centered
+  across both columns with the gradient on “Web Component”. Use fluid sizing and
+  no wrapping above the 760px mobile breakpoint; mobile may wrap to avoid overflow.
+- Center the description below the headline and both primary links below the
+  description. The editor and orb follow this introductory block side by side.
+- Compact the editor to approximately 60% of its previous desktop height through
+  fewer blank lines and reduced type spacing/padding, without clipping the example
+  or making it unreasonably small. It remains secondary to interactive controls.
+- Place visual states first below the editor, then colors and size. Put the text
+  input, Speak, Stop and the existing motion pause/resume control below the orb.
+  Pause continues to control animation; it does not claim to pause speech.
+- Keep native orb behavior and sticky positioning within the available space;
+  short viewports use normal flow so the newly colocated controls stay reachable.
+  Mobile stacks editor, orb with speech/motion controls, then states/colors/size,
+  with the same DOM and keyboard order. Avoid rearranging focusable controls with CSS.
+- Disable Nextra's page-copy toolbar on the homepage and its canonical alias only.
 - Interpret the requested final orb size as two-thirds of its previous diameter:
   `clamp(10rem, 18.6667vw, 14.6667rem)` at the default 100% slider position.
 - The npm link opens a new tab with `noopener noreferrer` and an accessible cue.
@@ -117,9 +125,11 @@ WCAG conformance or field Core Web Vitals.
 
 ## Acceptance Criteria
 
-- [ ] “One Voice Component” spans the hero in one fluid line outside mobile; mobile can wrap.
-- [ ] Editor and orb sit beside each other below the headline, with desktop sticky behavior retained.
-- [ ] Description and both links follow every control, outside the sticky area; the eyebrow remains removed.
+- [ ] Centered “One Voice Web Component” uses a gradient on “Web Component”, stays on one desktop line and can wrap on mobile.
+- [ ] Description and action buttons are centered in consecutive rows under the headline.
+- [ ] The complete, readable editor occupies approximately 60% of its previous desktop height and sits beside the orb.
+- [ ] States precede colors/size; speech and motion controls sit below the orb with logical mobile focus order.
+- [ ] The page-copy toolbar is absent from `/` and `/orbz` and retained on documentation pages.
 - [ ] Default orb diameter is two-thirds of the prior responsive size.
 - [ ] Read-only JavaScript shows the published model/session API and is legible in both themes.
 - [ ] Color, size and state controls update the native orb; pause/resume works.
@@ -211,3 +221,24 @@ and description/actions after the closed hero and every control. The npm link
 retains its new-tab protections. Fluid desktop sizing and mobile wrapping are
 source-level evidence; the revised preview still needs visual acceptance. The
 delivery PR records the exact reviewed commit and its CI/deployment results.
+
+## Second owner preview revision — 2026-09-06
+
+The owner superseded the first revision's below-playground introduction with a
+centered title/description/actions stack. They requested “One Voice Web Component”,
+the gradient on its last two words, a roughly 60%-height editor, speech/motion
+controls under the orb, and states before colors/size. The homepage page-copy row
+is removed through Nextra's route configuration. The duplicate search regression
+is tracked by SPEC-007. This contract was revised before implementation; visual
+acceptance of the new arrangement remains pending.
+
+Revision source/build evidence: the example now has 10 displayed lines instead
+of 15, with reduced line spacing and padding targeting roughly 60% of its former
+desktop height. Generated HTML for `/` and `/orbz` verifies the exact headline and
+gradient span, description/actions before the playground, speech/motion controls
+inside the orb preview, and states before colors/size. It also confirms the absent
+page-copy toolbar on both home routes while `/orbz/getting-started` retains it.
+The native speech controller and its six behavioral tests are unchanged. Source
+review covers centered CSS, matching mobile DOM/focus order and normal flow on
+short viewports. Exact visual proportions, rendered themes and browser interaction
+remain pending; final command results and reviewed head belong to the delivery PR.
