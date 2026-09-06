@@ -16,6 +16,10 @@ rather than loaded all at once.
 
 | Skill | Use |
 |---|---|
+| `grilling` | Stress-test the decision tree using repository evidence. |
+| `grill-me` | Resolve consequential unanswered owner decisions only when needed. |
+| `writing-for-agents` | Keep agent-facing ownership, routing and evidence precise. |
+| `harness-maintenance` | Reconcile harness gaps and meaningful score findings. |
 | `context-engineering` | Select and maintain the smallest useful context. |
 | `documentation-and-adrs` | Write durable documentation and ADRs. |
 | `tdd` | Drive behavior through an observable test seam. |

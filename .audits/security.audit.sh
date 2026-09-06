@@ -28,6 +28,47 @@ done
 
 grep -F "'wasm-unsafe-eval'" "$CONFIG" >/dev/null || bad 'Pagefind CSP requires wasm-unsafe-eval'
 grep -F "...(isDevelopment ? [\"'unsafe-eval'\"] : [])" "$CONFIG" >/dev/null || bad 'unsafe-eval must be development-only'
+
+# Exercise the exported response-header contract in both deploy modes. Checking
+# source strings alone cannot detect a later header override or widened origin.
+for deploy_mode in production preview; do
+  NODE_ENV=production VERCEL_ENV="$deploy_mode" node --input-type=module - "$CONFIG" <<'JS_HEADERS' || fail=$((fail+1))
+import { pathToFileURL } from 'node:url'
+const { default: config } = await import(pathToFileURL(process.argv[2]).href)
+const groups = await config.headers()
+const baseline = groups.find(({ source }) => source === '/(.*)')
+const headers = new Map((baseline?.headers ?? []).map(({ key, value }) => [key.toLowerCase(), value]))
+const directives = new Map((headers.get('content-security-policy') ?? '').split(';').filter(Boolean).map((part) => {
+  const [name, ...sources] = part.trim().split(/\s+/)
+  return [name, sources]
+}))
+const failures = []
+if (groups.length !== 1 || !baseline) failures.push('unreviewed header route group')
+for (const [name, expected] of Object.entries({
+  'default-src': ["'self'"],
+  'script-src': ["'self'", "'unsafe-inline'", "'wasm-unsafe-eval'"],
+  'script-src-attr': ["'none'"],
+  'connect-src': ["'self'"],
+  'frame-src': ["'none'"],
+  'frame-ancestors': ["'none'"],
+  'object-src': ["'none'"]
+})) {
+  if (JSON.stringify(directives.get(name)) !== JSON.stringify(expected)) failures.push(name)
+}
+for (const permission of ['microphone=()', 'camera=()', 'geolocation=()']) {
+  if (!(headers.get('permissions-policy') ?? '').split(/,\s*/).includes(permission)) failures.push(permission)
+}
+if (!directives.has('upgrade-insecure-requests')) failures.push('upgrade-insecure-requests')
+if (process.env.VERCEL_ENV === 'preview') {
+  if (headers.get('x-robots-tag') !== 'noindex, nofollow, noarchive') failures.push('preview noindex')
+} else if (headers.has('x-robots-tag')) failures.push('production indexing header')
+if (failures.length) {
+  console.error(`security FAIL: ${process.env.VERCEL_ENV} exported header contract: ${failures.join(', ')}`)
+  process.exit(2)
+}
+JS_HEADERS
+done
+
 grep -F 'pnpm install --frozen-lockfile' "$CI" >/dev/null || bad 'CI must use the frozen lockfile'
 grep -F 'pnpm install --frozen-lockfile' "$VERCEL" >/dev/null || bad 'Vercel must use the frozen lockfile'
 if grep -RIn -- '--no-frozen-lockfile' "$CI" "$VERCEL" >/dev/null 2>&1; then bad 'non-frozen installs are forbidden in CI/deploy'; fi

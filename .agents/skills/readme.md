@@ -14,6 +14,10 @@ the catalog unless a superseding spec explicitly retires a capability.
 
 ## Harness and architecture
 
+- `grilling`
+- `grill-me`
+- `writing-for-agents`
+- `harness-maintenance`
 - `context-engineering`
 - `documentation-and-adrs`
 - `frontend-ui-engineering`

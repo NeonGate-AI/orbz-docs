@@ -15,3 +15,7 @@ tags: [harness, context]
 - Do not duplicate the same normative statement across layers. Link to the owner instead.
 - Temporary observations belong in `.audits/`, not context. Promote a conclusion only after it is supported by evidence.
 - Every directory under `.agents/` has a README describing its purpose and ownership.
+
+- Reusable sequences live in `.agents/workflows/` and compose the canonical spec lifecycle.
+- Executable repository automation uses `.sh` entrypoints. Typed backends are allowed; framework configuration modules remain configuration.
+- Use package scripts for this repository; no custom engineering CLI is required.

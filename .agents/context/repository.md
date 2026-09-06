@@ -51,3 +51,12 @@ repository. Do not silently redefine the product contract in documentation.
 `pnpm harness:check` validates harness/content contracts.
 `pnpm check` is the full local merge gate.
 `pnpm build` must continue to generate the Pagefind index through `postbuild`.
+
+## Public source boundary
+
+The repository documents the published component. Keep private application
+strategy, operational records and copied editor assumptions outside it. The
+public-boundary audit checks candidate text, including editor settings. It does
+not inspect binary meaning or erase earlier Git revisions. Visibility is a
+separate owner action after review. Local test/audit scripts require Node 24 and
+run through shell entrypoints; no project CLI is installed.

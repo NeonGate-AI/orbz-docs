@@ -2,10 +2,10 @@
 id: SPEC-002
 title: OrbZ docs quality hardening
 type: feature
-status: in-progress
+status: implemented
 mode: prospective
 created: 2026-09-04
-updated: 2026-09-04
+updated: 2026-09-06
 owners:
   - NeonGate AI
 targets:
@@ -32,6 +32,7 @@ skills:
   - .agents/skills/performance/SKILL.md
   - .agents/skills/best-practices/SKILL.md
 evidence:
+  - https://github.com/NeonGate-AI/docs/actions/runs/34007387895
   - .audits/accessibility.audit.sh
   - .audits/security.audit.sh
   - .audits/performance.audit.sh
@@ -151,7 +152,7 @@ CI configuration.
       dependency updates are configured.
 - [x] React/Next Biome domains are explicit and security/a11y recommended rules
       remain active.
-- [ ] Full pinned-toolchain gate (`pnpm check` and registry advisory audit) passes in CI; local source-contract gates pass.
+- [x] Full pinned-toolchain gate (`pnpm check` and registry advisory audit) passes in CI; local source-contract gates pass.
 
 ## Failure Behavior
 
@@ -176,11 +177,16 @@ CI configuration.
 
 ## Verification Note
 
-The implementation and committed source-contract gates are complete locally. The
-current sandbox cannot resolve `registry.npmjs.org`, so Corepack cannot obtain the
-pinned pnpm binary and the frozen install, Biome, full TypeScript check, production
-build, and registry advisory audit cannot be executed here. SPEC-002 remains
-`in-progress` until that pinned-toolchain CI evidence is green.
+The original 2026-09-04 environment could not resolve the package registry, so
+this spec originally remained in progress. That limitation was resolved in CI:
+[run 34007387895](https://github.com/NeonGate-AI/docs/actions/runs/34007387895)
+passed on main commit `15190bec40e04fa75a2d8e46c089bf0b87526318`, including the
+frozen installation, harness, Biome, TypeScript, production build, production
+dependency audit and Git hook checks. The successful job and every required
+step were rechecked on 2026-09-06 before closing this historical delivery.
+
+This records the original baseline. SPEC-006 and SPEC-007 own the subsequently
+authorized layout, motion and contrast changes; they require their own evidence.
 
 ## Evidence and Promotion
 

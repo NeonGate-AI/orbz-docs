@@ -1,103 +1,80 @@
 # Orbz Docs
 
-Technical documentation for the `@neongate-ai/orbz` Web Component, built as a
-standalone Next.js 16 + Nextra 4 application.
+Public documentation and an interactive playground for the
+[`@neongate-ai/orbz`](https://www.npmjs.com/package/@neongate-ai/orbz)
+Web Component. Built with Next.js 16, Nextra 4, React and TypeScript.
 
-## Repository boundaries
-
-- Product implementation: `NeonGate-AI/orbz`
-- Framework sandboxes: `NeonGate-AI/orbz-sandbox`
-- Public documentation, search, metadata and docs quality gates: this repository
-
-The docs consume the published `@neongate-ai/orbz` package. Do not introduce
-`workspace:*` coupling to product repositories.
+[Read the documentation](https://orbz.site) ·
+[Component repository](https://github.com/NeonGate-AI/orbz) ·
+[Framework examples](https://github.com/NeonGate-AI/orbz-sandbox)
 
 ## Local development
 
-```bash
-pnpm install
-pnpm neon
-pnpm dev
+Use Node.js 24 and the pnpm version pinned in `package.json`.
+
+```sh
+corepack pnpm install --frozen-lockfile
+corepack pnpm dev
 ```
 
-`pnpm neon` reconciles the local Neon engineering harness when needed. It is
-explicit rather than an install/build lifecycle side effect.
+The exact published Orbz dependency in `package.json` drives the version badge.
+Docs own content, navigation, examples, search, metadata and documentation UI;
+component implementation and package publishing belong to the component repo.
+
+## Contributing
+
+Start with [AGENTS.md](AGENTS.md). Substantial changes use a numbered specification
+before implementation, reproducible evidence and independent standards/spec
+review. Pull requests target `main`; this repository has no staging branch flow.
+
+```sh
+corepack pnpm test
+corepack pnpm harness:check
+corepack pnpm check
+corepack pnpm security:audit
+```
+
+`check` runs the deterministic harness, behavioral tests, formatting, lint,
+TypeScript and production build. `security:audit` separately checks production
+package advisories. Git hooks validate staged source/Markdown and Conventional
+Commit messages. There is no custom engineering CLI.
 
 ## Engineering harness
 
-Start with `AGENTS.md`.
+| Area | Ownership |
+|---|---|
+| `.agents/context/` | Repository facts and task maps |
+| `.agents/rules/` | Durable constraints |
+| `.agents/specs/` | Numbered contracts and acceptance evidence |
+| `.agents/adrs/` | Consequential architecture decisions |
+| `.agents/skills/` | Local execution and review procedures |
+| `.agents/roles/` | Specialized review responsibilities |
+| `.agents/workflows/` | Reusable development and review sequences |
+| `.agents/prompts/` | Artifact templates |
+| `.audits/` | Deterministic shell checks and ignored temporary reports |
+| `.cursor/` | Optional tested editor hooks and a review-only agent |
 
-- `.agents/context/`: repository facts and maps.
-- `.agents/rules/`: durable constraints.
-- `.agents/specs/`: spec-driven delivery contracts.
-- `.agents/adrs/`: architectural decisions.
-- `.agents/skills/`: local execution/review procedures.
-- `.agents/roles/`: specialized review lenses.
-- `.audits/`: reproducible harness/content/web-quality checks.
+Run the diagnostic explicitly with `npx harness-score`, or `corepack pnpm harness`
+for the recorded scorer version. Evaluate the actual gaps and evidence instead
+of treating the number as a security or quality certification.
 
-The harness is specialized for Nextra documentation, technical SEO,
-accessibility, performance/Core Web Vitals and public-contract accuracy.
+The public-boundary check covers tracked and new candidate text, including editor
+settings. Additional owner-maintained protected terms can be supplied through
+`DOCS_PRIVATE_TERMS_FILE` pointing to a local file outside the repository; findings
+print paths/categories without matched text. Binary assets and Git history need
+separate review before a repository visibility change.
 
-## Quality gates
+## Quality and deployment
 
-Fast harness checks:
+Authored pages target WCAG 2.2 AA and consistent titles, canonicals, sitemaps and
+search discovery. Browser/assistive-technology evidence complements automated
+checks. Core Web Vitals claims require representative field measurements.
 
-```bash
-pnpm harness:check
-```
+The Vercel project uses repository root `.`, Node.js 24,
+`pnpm install --frozen-lockfile` and `pnpm build`. Pagefind indexes the static
+output after each production build. `NEXT_PUBLIC_SITE_URL` optionally overrides
+the canonical host; preview deployments remain non-indexable.
 
-Complete merge gate:
-
-```bash
-pnpm check
-```
-
-The full gate validates harness rules/specs, MDX metadata/internal links, SEO
-wiring, formatting, lint, types and the production Nextra build. Web-quality
-source checks do not claim WCAG conformance or production Core Web Vitals.
-
-## Commit convention
-
-Commits use Conventional Commits and are checked by Commitlint. Husky runs
-`lint-staged` at `pre-commit` and Commitlint at `commit-msg`.
-
-Examples:
-
-```text
-feat(docs): add locale switching guide
-fix(seo): restore canonical for nested docs pages
-docs(orbz): document preset palette behavior
-perf(layout): reduce client-side navigation work
-feat(api)!: document renamed public attribute
-```
-
-`feat`/`fix` provide the normal semantic-versioning signal; `!` or a
-`BREAKING CHANGE:` footer marks a breaking change.
-
-## Deployment
-
-The repository deploys as a standalone Vercel application.
-
-- Root Directory: `.`
-- Install Command: `pnpm install --no-frozen-lockfile`
-- Build Command: `pnpm build`
-- Node.js: `24.x`
-- Optional canonical URL override: `NEXT_PUBLIC_SITE_URL`
-
-The build runs Pagefind after Next.js so Nextra search can use the generated
-static index.
-
-### Dependency-lock bootstrap
-
-This harness adds Commitlint, lint-staged and Husky as exact dev dependencies.
-The archive was assembled in an isolated environment where the npm registry was
-not reachable, so the new dependency graph could not be materialized into
-`pnpm-lock.yaml`. CI and Vercel therefore use `--no-frozen-lockfile` for this
-bootstrap. On the first networked checkout, run `pnpm install`, commit the
-updated lockfile, then restore `--frozen-lockfile` in CI and `vercel.json`.
-
-## Orbz dependency
-
-The site currently consumes `@neongate-ai/orbz@0.3.1`, including the optional
-`@neongate-ai/orbz/react-types` JSX augmentation. Publish the referenced product
-version before deploying docs that depend on its new public contract.
+Provider credentials belong to the consuming application's server. Examples use
+public model settings and application-owned authorization boundaries. The local
+speech playground does not require a provider key.

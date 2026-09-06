@@ -73,7 +73,7 @@ function OrbzBrand() {
       <orb-z
         aria-hidden="true"
         tabIndex={-1}
-        reduced-motion="system"
+        reduced-motion="always"
         size="1.45rem"
         speed={0.78}
         state="thinking"
@@ -92,9 +92,6 @@ const navbar = (
       Docs
     </Link>
     <ThemeToggle key="theme-toggle" />
-    <div className="neongate-navbar-search" key="docs-search">
-      <Search placeholder="Search docs…" />
-    </div>
   </Navbar>
 )
 
@@ -108,7 +105,7 @@ const footer = (
           tabIndex={-1}
           elevated
           preset="magenta"
-          reduced-motion="system"
+          reduced-motion="always"
           size="2.4rem"
           speed={0.78}
           state="idle"
@@ -163,7 +160,7 @@ export default async function RootLayout(
             storageKey: 'neongate-docs-theme'
           }}
           pageMap={await getPageMap()}
-          search={null}
+          search={<Search placeholder="Search docs…" />}
           sidebar={{ defaultMenuCollapseLevel: 1 }}
         >
           {children}

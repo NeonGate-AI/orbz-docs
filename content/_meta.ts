@@ -7,6 +7,7 @@ const meta: MetaRecord = {
     type: 'page',
     theme: {
       breadcrumb: false,
+      copyPage: false,
       footer: true,
       layout: 'full',
       navbar: true,

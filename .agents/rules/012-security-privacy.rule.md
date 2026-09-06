@@ -20,3 +20,6 @@ tags: [security, privacy]
 - Runtime/tool dependencies use exact versions in this repository; automated dependency updates and registry advisory checks provide maintenance evidence.
 - Known-vulnerable framework versions are merge blockers; Next.js and React stay on security-supported patch releases.
 - Browser permissions remain denied unless a documented live feature requires them; adding microphone/camera/geolocation access requires threat-model review.
+
+- Public-readiness review includes editor configuration, new candidate files and available Git history, not only application pages.
+- A protected-term scanner is a regression tripwire; binary assets and historical visibility require separate review.

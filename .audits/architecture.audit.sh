@@ -11,9 +11,7 @@ done
 grep -F "from 'nextra/pages'" "$ROOT/app/[[...mdxPath]]/page.tsx" >/dev/null || bad 'catch-all route must use nextra/pages'
 grep -F "from 'nextra/page-map'" "$ROOT/app/layout.tsx" >/dev/null || bad 'root layout must load Nextra page map'
 grep -F '"@neongate-ai/orbz"' "$ROOT/package.json" >/dev/null || bad 'docs must consume published Orbz package'
-if grep -RInE 'Memory Nucleus|Chatterbox|@nucleus/|workspaces/ai/|cli/elo|Elo audit|Amarelo' "$ROOT/.agents" "$ROOT/AGENTS.md" "$ROOT/.github" 2>/dev/null; then
-  bad 'legacy cross-project harness assumptions remain'
-fi
+sh "$ROOT/.audits/public-boundary.audit.sh" || fail=$((fail+1))
 if grep -RIn 'workspace:\*' "$ROOT/package.json" "$ROOT/pnpm-workspace.yaml" 2>/dev/null; then
   bad 'product workspace coupling is forbidden'
 fi

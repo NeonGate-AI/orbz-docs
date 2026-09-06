@@ -12,6 +12,7 @@ separate from product content in `content/` and temporary audit output in
 | `adrs/` | Accepted architectural decisions and trade-offs. |
 | `skills/` | Reusable procedures for execution and review. |
 | `roles/` | Review lenses and responsibility boundaries. |
+| `workflows/` | Reusable sequences for development, review and delivery. |
 | `prompts/` | Skeletons for creating harness artifacts. |
 
 Do not store transient command output here. Put temporary evidence under

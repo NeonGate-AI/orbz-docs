@@ -10,7 +10,8 @@ while preserving the facts needed to make a correct change.
 | Current documented Orbz public API snapshot | `orbz-public-contract.md` |
 | SEO, A11y, CWV evidence rules | `web-quality.md` |
 | How local skills compose | `workflow-skills.md` |
-| Delivery lifecycle overview | `workflows/overview.md` |
+| Canonical delivery lifecycle | `../specs/workflow.md` |
+| Reusable task sequences | `../workflows/readme.md` |
 | Documentation-specific workflow | `workflows/docs.md` |
 | Performance engineering principles | `addy-osmani.md` |
 
