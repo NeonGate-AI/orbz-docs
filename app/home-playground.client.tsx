@@ -67,6 +67,14 @@ export function HomePlayground({ children }: { children: ReactNode }) {
           size={size}
           state={voice.state}
         />
+        <div className="orbz-component-proof">
+          <p className="orbz-component-proof-title">Your text input to Voice</p>
+          <ul className="orbz-proof">
+            <li>Native custom element, no third-party libs</li>
+            <li>Closed Shadow DOM</li>
+            <li>SSR-safe entry points</li>
+          </ul>
+        </div>
       </div>
       <div className="orbz-playground-preview">
         <div aria-hidden="true" className="orbz-playground-stage">

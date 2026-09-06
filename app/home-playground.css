@@ -373,7 +373,7 @@ html.dark .orbz-code-string {
   align-self: start;
   max-block-size: calc(100dvh - 6rem);
   overflow-y: auto;
-  padding-block-start: 0.25rem;
+  padding-block-start: 2rem;
   position: sticky;
   text-align: center;
   top: 5rem;
@@ -406,11 +406,11 @@ html.dark .orbz-code-string {
 }
 
 .orbz-component-proof {
-  padding-block: 2rem;
-  text-align: center;
+  padding-block: 0.5rem 2rem;
+  text-align: start;
 }
 
-.orbz-component-proof h2 {
+.orbz-component-proof-title {
   color: var(--orbz-text);
   font-size: 1.25rem;
   font-weight: 650;
@@ -420,7 +420,7 @@ html.dark .orbz-code-string {
 
 .orbz-component-proof .orbz-proof {
   align-items: baseline;
-  justify-content: center;
+  justify-content: flex-start;
   margin-block-start: 0.75rem;
 }
 
