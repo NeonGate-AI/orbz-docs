@@ -15,6 +15,10 @@ recipe renders the same tag rather than a framework-specific Orbz component.
 Internal closed-Shadow-DOM nodes and CSS variables are not documented extension
 points.
 
+The published 1.0.0 manifest declares no third-party runtime dependencies. This
+describes the component runtime; its development tooling and the Docs site have
+their own dependencies.
+
 ### Visual state
 
 `state` accepts five documented values:

@@ -122,7 +122,7 @@ export function SpeechControls({
       ? 'Browser speech is unavailable here. You can still customize the orb.'
       : speaking
         ? 'Browser speech active.'
-        : 'Uses your browser’s speech voices. Availability varies by browser.')
+        : '')
 
   return (
     <form

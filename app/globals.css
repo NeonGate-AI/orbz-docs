@@ -69,7 +69,7 @@ html.dark ::selection {
 .orbz-home {
   margin-inline: auto;
   max-inline-size: 76rem;
-  padding: clamp(2.2rem, 6vw, 5.5rem) clamp(1.25rem, 4vw, 3rem) 5rem;
+  padding: clamp(1.4667rem, 4vw, 3.6667rem) clamp(1.25rem, 4vw, 3rem) 5rem;
 }
 
 .orbz-hero {

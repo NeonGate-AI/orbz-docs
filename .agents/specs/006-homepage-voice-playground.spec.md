@@ -73,6 +73,8 @@ for preview/review; publication and repository visibility are separate actions.
   no wrapping above the 760px mobile breakpoint; mobile may wrap to avoid overflow.
 - Center the description below the headline and both primary links below the
   description. The editor and orb follow this introductory block side by side.
+- Reduce the homepage's top padding by one-third so the whole introduction moves
+  toward the navbar. Use a smaller Get started action and a plain npm text link.
 - Compact the editor to approximately 60% of its previous desktop height through
   fewer blank lines and reduced type spacing/padding, without clipping the example
   or making it unreasonably small. It remains secondary to interactive controls.
@@ -83,6 +85,15 @@ for preview/review; publication and repository visibility are separate actions.
   short viewports use normal flow so the newly colocated controls stay reachable.
   Mobile stacks editor, orb with speech/motion controls, then states/colors/size,
   with the same DOM and keyboard order. Avoid rearranging focusable controls with CSS.
+- Compact the right preview frame so it fits common desktop viewports and can
+  travel within the taller controls section. A taller preview must not inflate
+  the editor row; keep only the normal gap before appearance controls.
+- Remove the idle browser-voice availability sentence, retaining the live region
+  and all speaking/error/unsupported feedback. No blank idle status space remains.
+- Move the tagline/proof copy outside the right preview to a full-width footer
+  below the playground. Use “Your text input to Voice”, with the three proof items
+  in a baseline-aligned wrapping row beneath it. The first item reads
+  “Native custom element, no third-party libs”, referring to the component runtime.
 - Disable Nextra's page-copy toolbar on the homepage and its canonical alias only.
 - Interpret the requested final orb size as two-thirds of its previous diameter:
   `clamp(10rem, 18.6667vw, 14.6667rem)` at the default 100% slider position.
@@ -130,6 +141,9 @@ WCAG conformance or field Core Web Vitals.
 - [ ] The complete, readable editor occupies approximately 60% of its previous desktop height and sits beside the orb.
 - [ ] States precede colors/size; speech and motion controls sit below the orb with logical mobile focus order.
 - [ ] The page-copy toolbar is absent from `/` and `/orbz` and retained on documentation pages.
+- [ ] The introduction is closer to the navbar, actions are compact, and npm is a plain text link.
+- [ ] The compact desktop preview can scroll within its section without expanding the editor/control gap.
+- [ ] Idle speech helper copy is absent; status/error feedback and the full-width tagline/proof footer remain accessible.
 - [ ] Default orb diameter is two-thirds of the prior responsive size.
 - [ ] Read-only JavaScript shows the published model/session API and is legible in both themes.
 - [ ] Color, size and state controls update the native orb; pause/resume works.
@@ -242,3 +256,13 @@ The native speech controller and its six behavioral tests are unchanged. Source
 review covers centered CSS, matching mobile DOM/focus order and normal flow on
 short viewports. Exact visual proportions, rendered themes and browser interaction
 remain pending; final command results and reviewed head belong to the delivery PR.
+
+## Third owner preview revision — 2026-09-06
+
+The owner requested a denser introduction and sticky preview, removal of the idle
+speech sentence, a normal editor/control gap, and relocation/rewriting of the
+tagline and inline proof items beneath the complete playground. The above contract
+was amended before implementation. The installed Orbz 1.0.0 manifest declares no
+runtime dependencies, supporting the component-specific proof copy. This remains
+a revision to the active homepage spec, not a new product feature. The delivery
+PR will record final source/build/CI evidence; visual acceptance remains pending.

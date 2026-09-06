@@ -19,8 +19,8 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 1.25rem;
-  margin: 1.25rem auto 2.5rem;
+  gap: 1rem;
+  margin: 1rem auto 2rem;
   max-inline-size: 41rem;
   text-align: center;
 }
@@ -33,9 +33,27 @@
 }
 
 .orbz-hero-introduction .orbz-actions {
+  align-items: center;
   flex-shrink: 0;
   justify-content: center;
   margin: 0;
+}
+
+.orbz-hero-introduction .orbz-button {
+  font-size: 0.82rem;
+  min-block-size: 2.4rem;
+  padding: 0.5rem 0.8rem;
+}
+
+.orbz-npm-link {
+  align-items: center;
+  color: var(--orbz-link);
+  display: inline-flex;
+  font-size: 0.82rem;
+  min-block-size: 2.4rem;
+  padding: 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 
 .orbz-playground {
@@ -46,8 +64,8 @@
     "editor preview"
     "appearance preview";
   grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
-  grid-template-rows: max-content auto;
-  row-gap: 1.25rem;
+  grid-template-rows: max-content minmax(0, 1fr);
+  row-gap: 1rem;
 }
 
 .orbz-playground-editor {
@@ -289,7 +307,7 @@ html.dark .orbz-code-string {
 .orbz-speech-controls {
   border-block-start: 1px solid var(--orbz-border);
   margin-block-start: 0.5rem;
-  padding-block-start: 1rem;
+  padding-block-start: 0.75rem;
   text-align: start;
 }
 
@@ -350,20 +368,27 @@ html.dark .orbz-code-string {
   min-block-size: 2.4em;
 }
 
+.orbz-speech-status:empty {
+  margin: 0;
+  min-block-size: 0;
+}
+
 .orbz-playground-preview {
   align-self: start;
   grid-area: preview;
+  max-block-size: calc(100dvh - 6rem);
+  overflow-y: auto;
   padding-block-start: 0.25rem;
   position: sticky;
   text-align: center;
-  top: 7rem;
+  top: 5rem;
 }
 
 .orbz-playground-stage {
   align-items: center;
   display: flex;
   justify-content: center;
-  min-block-size: 20rem;
+  min-block-size: 16rem;
 }
 
 .orbz-preview-caption {
@@ -385,17 +410,23 @@ html.dark .orbz-code-string {
   padding: 0.15rem 0.6rem;
 }
 
+.orbz-playground-summary {
+  margin-block-start: 1.5rem;
+  text-align: center;
+}
+
 .orbz-preview-tagline {
   color: var(--orbz-text);
   font-size: 1.25rem;
   font-weight: 650;
   letter-spacing: -0.04em;
-  margin-block: 1.25rem 0;
+  margin: 0;
 }
 
-.orbz-playground-preview .orbz-proof {
+.orbz-playground-summary .orbz-proof {
+  align-items: baseline;
   justify-content: center;
-  margin-block-start: 1rem;
+  margin-block-start: 0.75rem;
 }
 
 @media (max-width: 1050px) {
@@ -408,9 +439,6 @@ html.dark .orbz-code-string {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .orbz-playground-stage {
-    min-block-size: 18rem;
-  }
 }
 
 @media (max-width: 760px) {
@@ -433,16 +461,13 @@ html.dark .orbz-code-string {
   }
 
   .orbz-playground-preview {
+    max-block-size: none;
+    overflow: visible;
     position: static;
   }
 
   .orbz-playground-stage {
     min-block-size: 16rem;
-  }
-
-  .orbz-playground-preview .orbz-proof,
-  .orbz-preview-tagline {
-    display: none;
   }
 
   .orbz-editor-heading,
@@ -457,8 +482,10 @@ html.dark .orbz-code-string {
 }
 
 /* Keep the controls reachable when the preview is taller than the viewport. */
-@media (max-height: 50rem) {
+@media (max-height: 38rem) {
   .orbz-playground-preview {
+    max-block-size: none;
+    overflow: visible;
     position: static;
   }
 }
