@@ -68,6 +68,7 @@ const responseHeaders = [
       'geolocation=()',
       'gyroscope=()',
       'magnetometer=()',
+      // biome-ignore lint/nursery/noSecrets: Public Permissions-Policy directive denying microphone access.
       'microphone=()',
       'payment=()',
       'usb=()',
@@ -80,6 +81,7 @@ const responseHeaders = [
   },
   {
     key: 'Strict-Transport-Security',
+    // biome-ignore lint/nursery/noSecrets: Public HSTS response-header value.
     value: 'max-age=63072000; includeSubDomains'
   },
   {

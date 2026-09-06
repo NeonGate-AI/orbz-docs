@@ -1,7 +1,7 @@
 # Orbz Public Contract Snapshot
 
 This is a navigation aid for agents working on the documentation. It summarizes
-what the current docs say about the published `@neongate-ai/orbz@0.4.3`
+the published `@neongate-ai/orbz@1.0.0`
 contract. It is not an independent source of product truth.
 
 When changing public API documentation, verify the published package and the
@@ -74,7 +74,7 @@ string attributes. The documented properties include `speech`, `voiceEngine`,
 
 Talking is explicit: connecting the element does not start speech. Hosts provide
 the desired speech or talk flow, configure a voice engine, and call
-`startTalking()` after the visitor opts in. Orbz `0.4.3` ships without a canned
+`startTalking()` after the visitor opts in. Orbz `1.0.0` ships without a canned
 greeting, persona, or default conversation flow.
 
 `WebSpeechAdapter` defaults to Brazilian Portuguese (`pt-BR`). Applications can
@@ -83,7 +83,31 @@ required. Browser or external speech integrations must preserve user activation
 and privacy/security requirements. OpenAI credentials belong behind an
 implementer-owned secure endpoint, never in browser-delivered docs examples.
 
-## Methods
+## Voice models and Realtime conversations
+
+Version 1.0.0 adds `voiceModel` for `web-speech`, `openai-speech`, and
+`openai-realtime`. Assignment is silent; an explicit `voiceEngine` takes
+precedence. `realtimeSession` is an application-owned endpoint object or async
+SDP authorizer, supplied through JavaScript, never an HTML attribute.
+Endpoint objects accept only `endpoint`, Fetch `credentials` policy and an
+optional `fetch` implementation; unknown fields are rejected. Provider keys
+remain on the backend. Browser memory is not a secure store for permanent keys.
+
+`startConversation()`, `stopConversation()`, `interruptConversation()` and
+read-only `conversationState` support direct Realtime WebRTC audio after explicit
+activation. `orbz-conversation-state-change`, `orbz-transcript`,
+`orbz-speaking-change` and `orbz-talk-error` expose state, text and errors to the
+host. Documentation rendering does not exercise microphones or paid providers.
+
+## Configuration
+
+`orbzConfiguration` is read-only. `transformOrbzConfiguration()` validates,
+clones, derives and freezes a complete configuration without changing the
+package singleton. Fork maintainers edit `src/orbz.config.json` and rebuild;
+the installed package does not fetch or discover a host configuration file.
+Public configuration never contains credentials.
+
+## Existing talk and presentation methods
 
 The current element reference documents:
 
