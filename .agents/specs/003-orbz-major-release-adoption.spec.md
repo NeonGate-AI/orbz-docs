@@ -151,3 +151,10 @@ not voice-provider behavior, full WCAG conformance or field CWV.
 
 This documentation-only closure records the completed post-deployment criteria.
 Its final head must independently pass the existing CI and both review axes.
+
+Durable evidence links:
+
+- [Implementation and production review](https://github.com/NeonGate-AI/docs/pull/5)
+- [Final implementation PR validation](https://github.com/NeonGate-AI/docs/actions/runs/34006367800)
+- [Final implementation push validation](https://github.com/NeonGate-AI/docs/actions/runs/34006366028)
+- [Production acceptance closure](https://github.com/NeonGate-AI/docs/pull/6)
