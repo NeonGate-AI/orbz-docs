@@ -6,6 +6,7 @@ import { Layout, Navbar } from 'nextra-theme-docs'
 import type { ReactNode } from 'react'
 
 import { siteConfig } from '../site.config'
+import { GitHubStar } from './github-star'
 import { RegisterElement } from './register-element.client'
 import { ThemeToggle } from './theme-toggle.client'
 
@@ -91,7 +92,10 @@ const navbar = (
     <Link className="neongate-navbar-link" href="/orbz/getting-started">
       Docs
     </Link>
-    <ThemeToggle key="theme-toggle" />
+    <span className="neongate-desktop-theme">
+      <ThemeToggle key="theme-toggle" />
+    </span>
+    <GitHubStar />
   </Navbar>
 )
 

@@ -78,6 +78,7 @@ html.dark ::selection {
   gap: clamp(2.5rem, 7vw, 6rem);
   grid-template-columns: minmax(0, 1.08fr) minmax(18rem, 0.72fr);
   min-block-size: min(42rem, calc(100dvh - 8rem));
+  padding-bottom: 1rem;
 }
 
 .orbz-eyebrow {
@@ -413,6 +414,56 @@ a.orbz-card:hover {
 
 .neongate-navbar-link:hover {
   color: var(--orbz-text);
+}
+
+.neongate-desktop-theme {
+  display: inline-flex;
+}
+
+.neongate-github-star {
+  align-items: center;
+  background: var(--orbz-surface-strong);
+  border: 1px solid var(--orbz-border);
+  border-radius: 999px;
+  color: var(--orbz-text);
+  display: inline-flex;
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  font-weight: 650;
+  gap: 0.4rem;
+  min-block-size: 2.25rem;
+  padding: 0.35rem 0.65rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.neongate-github-star:hover {
+  border-color: var(--orbz-link);
+}
+
+.neongate-github-star__icon {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Nextra owns drawer search and theme selection below its 768px breakpoint. */
+@media (width < 768px) {
+  .neongate-desktop-theme,
+  .neongate-navbar-link {
+    display: none;
+  }
+}
+
+@media (width < 400px) {
+  .neongate-brand__version {
+    display: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .neongate-github-star {
+    border-color: LinkText;
+  }
 }
 
 .neongate-theme-toggle {

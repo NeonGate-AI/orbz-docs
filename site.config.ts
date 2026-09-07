@@ -43,7 +43,7 @@ export const siteConfig = Object.freeze({
         vanilla: 'https://www.vanilla.orbz.site',
         vue: 'https://www.vue.orbz.site'
       }),
-      github: 'https://github.com/NeonGate-AI/orbz',
+      github: 'https://github.com/gojhonny/orbz',
       npm: 'https://www.npmjs.com/package/@neongate-ai/orbz',
       path: '/orbz',
       version: orbzVersion

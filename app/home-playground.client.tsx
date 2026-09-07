@@ -9,6 +9,7 @@ import {
 } from '@neongate-ai/orbz'
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AppearanceControls, SpeechControls } from './home-playground.controls'
+import { HOME_SPEECH_EXAMPLE } from './home-playground.data'
 import {
   createHomeVoiceController,
   type HomeVoiceController,
@@ -77,6 +78,14 @@ export function HomePlayground({ children }: { children: ReactNode }) {
         </div>
       </div>
       <div className="orbz-playground-preview">
+        <div className="orbz-preview-caption">
+          <span className="orbz-live-label">
+            <span aria-hidden="true" className="orbz-live-dot" />
+            Live component
+          </span>
+          <span className="orbz-preview-state">{voice.state}</span>
+          {paused ? <span>Motion paused</span> : null}
+        </div>
         <div aria-hidden="true" className="orbz-playground-stage">
           <orb-z
             color-accent={colors.accent}
@@ -93,11 +102,22 @@ export function HomePlayground({ children }: { children: ReactNode }) {
             tabIndex={-1}
           />
         </div>
-        <div className="orbz-preview-caption">
-          <span>Live component</span>
-          <span className="orbz-preview-state">{voice.state}</span>
-          {paused ? <span>Motion paused</span> : null}
-        </div>
+        <dl
+          aria-label="OpenAI speech example settings"
+          className="orbz-voice-badges"
+        >
+          <div>
+            <dt>Model</dt>
+            <dd>{HOME_SPEECH_EXAMPLE.model}</dd>
+          </div>
+          <div>
+            <dt>Voice</dt>
+            <dd>{HOME_SPEECH_EXAMPLE.voice}</dd>
+          </div>
+        </dl>
+        <p className="orbz-voice-example-note">
+          OpenAI example settings · Preview uses your browser’s voice.
+        </p>
         <SpeechControls
           error={voice.error}
           onPause={() => setPaused((current) => !current)}

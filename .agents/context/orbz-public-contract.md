@@ -103,6 +103,13 @@ activation. `orbz-conversation-state-change`, `orbz-transcript`,
 `orbz-speaking-change` and `orbz-talk-error` expose state, text and errors to the
 host. Documentation rendering does not exercise microphones or paid providers.
 
+## Homepage voice example
+
+The code sample uses the published `openai-speech` voiceModel with an
+application-owned endpoint, `gpt-4o-mini-tts` and `marin`, followed by explicit
+`startTalking()`. The displayed model/voice badges identify these example settings.
+The interactive preview still selects browser Web Speech and discloses that fact.
+
 ## Configuration
 
 `orbzConfiguration` is read-only. `transformOrbzConfiguration()` validates,
