@@ -122,7 +122,7 @@ const footer = (
       <div className="neongate-footer__meta" key="footer-meta">
         <span>© {new Date().getFullYear()}</span>
         <span aria-hidden="true">•</span>
-        <a href="https://github.com/NeonGate-AI/docs/blob/main/LICENSE">
+        <a href="https://github.com/gojhonny/orbz-docs/blob/main/LICENSE">
           MIT License
         </a>
         <span aria-hidden="true">•</span>
@@ -151,7 +151,7 @@ export default async function RootLayout(
       <body>
         <RegisterElement />
         <Layout
-          docsRepositoryBase="https://github.com/NeonGate-AI/docs/tree/main/content"
+          docsRepositoryBase="https://github.com/gojhonny/orbz-docs/tree/main/content"
           editLink="Edit this page on GitHub"
           feedback={{
             content: 'Suggest a documentation improvement',

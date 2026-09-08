@@ -10,10 +10,50 @@ This page records user-facing changes to the public
 supported integration paths.
 
 The implementation source of truth is the
-[GitHub repository](https://github.com/NeonGate-AI/orbz). Published releases
+[GitHub repository](https://github.com/gojhonny/orbz). Published releases
 are available on [npm](https://www.npmjs.com/package/@neongate-ai/orbz), and
 the complete documentation is available at
 [orbz.site](https://orbz.site).
+
+## 1.0.1 — 2026-09-08
+
+### Cleanup and compact configuration
+
+- Fixed `orb cleanup` (alias `orb clean`) in the Orbz source checkout to remove
+  root and nested untracked `node_modules` and generated output by default.
+  `--dry-run` previews the targets; `--keep-dependencies` retains dependencies.
+  Tracked content, source/assets, harness metadata and nested repositories are
+  preserved, and cleanup does not follow directory symlinks.
+- Simplified the authored configuration JSON. The transformer now fills omitted
+  internal appearance, motion and speech groups from typed defaults, then
+  validates, clones and freezes the runtime configuration. Explicit overrides
+  for those groups remain supported.
+- Updated GitHub ownership links to `gojhonny` and refreshed the README, CLI guide
+  and engineering checks. The npm package remains `@neongate-ai/orbz`.
+
+### Upgrading from 1.0.0
+
+Install the patch and update pinned CDN URLs:
+
+```bash
+npm install @neongate-ai/orbz@1.0.1
+```
+
+The default preset is now named `gojhonny`, with the same five colors as the
+former `neongate` preset. Update explicit preset literals, typed preset names
+and named preset access to `gojhonny`:
+
+```html
+<orb-z preset="gojhonny"></orb-z>
+```
+
+The old name is no longer a supported preset literal. If you maintain an Orbz
+source checkout, use `orb cleanup --keep-dependencies` to retain `node_modules`;
+plain `orb cleanup` now removes it. These migration details apply even though
+the published version is a patch release.
+
+[View `1.0.1` on npm](https://www.npmjs.com/package/@neongate-ai/orbz/v/1.0.1)
+· [Compare the tagged source](https://github.com/gojhonny/orbz/compare/v1.0.0...v1.0.1)
 
 ## 1.0.0 — 2026-09-06
 

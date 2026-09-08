@@ -27,7 +27,7 @@ export const siteConfig = Object.freeze({
   companyUrl: 'https://neongate.com.br',
   description:
     'Technical documentation for the @neongate-ai/orbz web component.',
-  github: 'https://github.com/NeonGate-AI/docs',
+  github: 'https://github.com/gojhonny/orbz-docs',
   name: 'OrbZ Docs',
   publisher: 'NeonGate AI',
   searchIndexable,

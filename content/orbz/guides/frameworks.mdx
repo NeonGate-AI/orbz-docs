@@ -20,7 +20,7 @@ if (orb) orb.state = "listening";
 ```
 
 ```html
-<orb-z state="idle" preset="neongate" size="300px"></orb-z>
+<orb-z state="idle" preset="gojhonny" size="300px"></orb-z>
 ```
 
 ## React
@@ -35,7 +35,7 @@ export function Assistant() {
 
   return (
     <>
-      <orb-z state={state} preset="neongate" size="300px" />
+      <orb-z state={state} preset="gojhonny" size="300px" />
       <button type="button" onClick={() => setState("listening")}>Listen</button>
     </>
   );
@@ -53,7 +53,7 @@ Declare `orb-z` in `React.JSX.IntrinsicElements` as shown in the
 import "@neongate-ai/orbz/browser";
 
 export function AssistantPresence() {
-  return <orb-z state="thinking" preset="neongate" size="300px" />;
+  return <orb-z state="thinking" preset="gojhonny" size="300px" />;
 }
 ```
 
@@ -71,7 +71,7 @@ createApp(App).mount("#app");
 ```
 
 ```vue
-<orb-z :state="state" :size="`${size}px`" preset="neongate" />
+<orb-z :state="state" :size="`${size}px`" preset="gojhonny" />
 ```
 
 ## Svelte
@@ -81,7 +81,7 @@ import "@neongate-ai/orbz/browser";
 ```
 
 ```svelte
-<orb-z {state} size={`${size}px`} preset="neongate"></orb-z>
+<orb-z {state} size={`${size}px`} preset="gojhonny"></orb-z>
 ```
 
 ## Angular
@@ -95,7 +95,7 @@ import { Component, CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 @Component({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   selector: "app-root",
-  template: `<orb-z [attr.state]="state" preset="neongate"></orb-z>`
+  template: `<orb-z [attr.state]="state" preset="gojhonny"></orb-z>`
 })
 export class AppComponent {
   state = "idle";

@@ -24,7 +24,7 @@ export function AssistantPresence() {
 
   return (
     <div role="status" aria-live="polite">
-      <orb-z state={state} preset="neongate" size="300px" />
+      <orb-z state={state} preset="gojhonny" size="300px" />
       <span>Assistant is {state}</span>
       <button type="button" onClick={() => setState("listening")}>
         Listen
@@ -46,7 +46,7 @@ import "@neongate-ai/orbz/react-types";
 import "@neongate-ai/orbz/browser";
 
 export function AssistantPresence() {
-  return <orb-z state="thinking" preset="neongate" size="300px" />;
+  return <orb-z state="thinking" preset="gojhonny" size="300px" />;
 }
 ```
 
@@ -96,7 +96,7 @@ export function ProductPresence(props: ProductPresenceProps) {
     [props.voiceEngine]
   );
 
-  return <orb-z ref={setElement} state="idle" preset="neongate" />;
+  return <orb-z ref={setElement} state="idle" preset="gojhonny" />;
 }
 ```
 
