@@ -132,12 +132,8 @@ export function SpeechControls({
         onSpeak()
       }}
     >
-      <label htmlFor={`${id}-speech`}>
-        Give it a voice <span>Browser voice preview</span>
-      </label>
       <div className="orbz-speech-input-row">
         <input
-          aria-describedby={`${id}-status`}
           autoComplete="off"
           disabled={!ready || !supported}
           id={`${id}-speech`}
