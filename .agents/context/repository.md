@@ -60,3 +60,22 @@ public-boundary audit checks candidate text, including editor settings. It does
 not inspect binary meaning or erase earlier Git revisions. Visibility is a
 separate owner action after review. Local test/audit scripts require Node 24 and
 run through shell entrypoints; no project CLI is installed.
+
+## Responsive navigation and homepage
+
+`app/github-star.tsx` links to `siteConfig.products.orbz.github`, the package
+repository at https://github.com/gojhonny/orbz. The star remains in the right-hand
+header controls on all widths. Below Nextra's 768px breakpoint the custom header
+theme toggle and Docs link are hidden; Nextra owns drawer search and theme
+selection through the existing Layout search/dark-mode configuration. Do not add
+a second custom mobile search or hide the star with desktop-only controls.
+
+The live label and decorative green dot sit above the orb. Model and voice
+badges below it describe `app/home-playground.data.ts` OpenAI example settings,
+shared with the rendered TTS code example. The actual interactive preview uses
+Web Speech, with explicit activation and visible disclosure. No provider endpoint
+is deployed here. The root README stays compact; development guidance lives in
+this harness and AGENTS.md.
+
+SPEC-009 is an owner-authorized local ZIP handoff on a separate branch. Normal
+future PR policy is unchanged; this task does not authorize remote operations.

@@ -1,15 +1,19 @@
+import { HOME_SPEECH_EXAMPLE } from './home-playground.data'
+
 import './home-playground.css'
 
 const example = `import '@neongate-ai/orbz/browser'
 const orb = document.querySelector('orb-z')
 
 orb.voiceModel = {
-  provider: 'openai-realtime',
-  model: 'gpt-realtime-2'
+  provider: '${HOME_SPEECH_EXAMPLE.provider}',
+  endpoint: '${HOME_SPEECH_EXAMPLE.endpoint}',
+  model: '${HOME_SPEECH_EXAMPLE.model}',
+  voice: '${HOME_SPEECH_EXAMPLE.voice}'
 }
-orb.realtimeSession = { endpoint: '/api/voice/session' }
-// From your Start button:
-const startVoice = () => orb.startConversation()`
+orb.speech = 'Hello from Orbz.'
+// From your Speak button:
+const speak = () => orb.startTalking()`
 
 function highlightExample() {
   const pattern = /(\/\/[^\n]*|'[^'\n]*'|\b(?:import|const)\b)/g
@@ -55,7 +59,7 @@ export function HomeVoiceExample() {
         </pre>
       </section>
       <p className="orbz-editor-note">
-        Your server authorizes the session. Provider keys stay on the server.{' '}
+        Your server generates the speech. Provider keys stay on the server.{' '}
         <a href="/orbz/guides/voice-assistant">Voice integration guide ↗</a>
       </p>
     </figure>
