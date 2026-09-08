@@ -61,15 +61,15 @@ import `/browser` when a page should upgrade the tag.
 | `ORBZ_OBSERVED_ATTRIBUTES` | Reactive native attribute names |
 | `ORBZ_STATES` | All supported assistant states |
 | `ORBZ_REDUCED_MOTION_MODES` | `system`, `always`, and `never` |
-| `ORBZ_PRESET_NAMES` | All six preset names |
-| `ORBZ_PRESETS` | Frozen color values for every preset |
+| `ORBZ_PRESET_NAMES` | Six canonical preset names, starting with `neongate` |
+| `ORBZ_PRESETS` | Frozen color values for every canonical preset; retains the deprecated, non-enumerable `gojhonny` alias |
 | `ORBZ_COLOR_ATTRIBUTES` | Map from color keys to native attribute names |
 | `ORBZ_COLOR_KEYS` | The five color keys |
 | `DEFAULT_ORBZ_STATE` | `idle` |
 | `DEFAULT_ORBZ_SIZE` | `16rem` |
 | `DEFAULT_ORBZ_SPEED` | `1` |
 | `DEFAULT_ORBZ_REDUCED_MOTION` | `system` |
-| `DEFAULT_ORBZ_PRESET` | Name of the default NeonGate preset; see [preset naming](/orbz/concepts/appearance#neongate-preset-name) |
+| `DEFAULT_ORBZ_PRESET` | `neongate`; see [preset naming](/orbz/concepts/appearance#neongate-preset-name) |
 | `DEFAULT_ORBZ_COLORS` | The NeonGate preset colors |
 | `config` | Frozen namespace exposing the package constants, including `config.ORBZ_STATES` |
 | `talk` | Frozen built-in deterministic talk-step catalog |
@@ -97,7 +97,7 @@ for (const preset of ORBZ_PRESET_NAMES) {
 | --- | --- |
 | `OrbzState` | Union of the five state names |
 | `OrbzReducedMotion` | `"system" \| "always" \| "never"` |
-| `OrbzPresetName` | Union of the six preset names |
+| `OrbzPresetName` | Union of the six canonical names and the deprecated `"gojhonny"` input alias |
 | `OrbzSize` | `number \| string` |
 | `OrbzColors` | Required `primary`, `secondary`, `accent`, `highlight`, and `background` strings |
 | `OrbzColorOverrides` | Partial `OrbzColors` |
@@ -131,10 +131,10 @@ OpenAI API key stays on the endpoint and is never included in browser code.
 | Export | Purpose |
 | --- | --- |
 | `isOrbzState()` | Type guard for a supported state |
-| `isOrbzPresetName()` | Type guard for a preset name |
+| `isOrbzPresetName()` | Type guard accepting canonical names and the deprecated `gojhonny` alias |
 | `isOrbzReducedMotion()` | Type guard for a reduced-motion value |
 | `normalizeOrbzState()` | Unsupported input becomes `idle` |
-| `normalizeOrbzPreset()` | Unsupported input becomes `DEFAULT_ORBZ_PRESET` |
+| `normalizeOrbzPreset()` | Converts `gojhonny` to `neongate`; unsupported input becomes `DEFAULT_ORBZ_PRESET` |
 | `normalizeOrbzReducedMotion()` | Unsupported input becomes `system` |
 | `normalizeOrbzSize()` | Numbers become pixels; invalid numeric or empty input becomes `16rem` |
 | `normalizeOrbzSpeed()` | Non-positive or non-finite input becomes `1` |

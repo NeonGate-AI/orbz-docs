@@ -2,7 +2,7 @@
 
 ## Purpose
 
-`NeonGate-AI/docs` publishes the public technical documentation for
+`gojhonny/orbz-docs` publishes the public technical documentation for
 `@neongate-ai/orbz`.
 
 ## Technology

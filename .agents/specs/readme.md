@@ -18,6 +18,7 @@ identity.
 | [009](009-playground-badges-and-navigation.spec.md) | SPEC-009 | implemented | Playground status/badges and responsive package star navigation |
 | [010](010-orbz-patch-release-adoption.spec.md) | SPEC-010 | implemented | Adopt published Orbz 1.0.1 and align release labels, examples and changelog |
 | [011](011-docs-metadata-and-neongate-brand.spec.md) | SPEC-011 | implemented | Real favicons, consistent titles, accessible controls and NeonGate branding |
+| [012](012-orbz-patch-correction-adoption.spec.md) | SPEC-012 | implemented | Adopt Orbz 1.0.2 and align release labels, NeonGate guidance, changelog and harness |
 
 Support files:
 

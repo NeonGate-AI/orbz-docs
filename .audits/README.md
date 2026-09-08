@@ -12,9 +12,14 @@ Current checkers:
 - `rules.audit.sh`: rule catalog identities/frontmatter/index coverage.
 - `specs.audit.sh`: numbered spec naming/frontmatter/catalog consistency.
 - `workflow-skills.audit.sh`: local skill catalog/invocation references.
-- `content.audit.sh`: MDX metadata and internal-route validity.
+- `content.audit.sh`: MDX metadata, internal routes and current release alignment
+  with the installed package: dependency, newest changelog, CDN introduction/pins
+  and public-contract version/default/canonical preset list. Historical releases
+  remain outside the current-version check.
 - `accessibility.audit.sh`: source semantics, controls, focus/motion/forced-colors and stable contrast contracts.
 - `web-quality.audit.sh`: deterministic canonical, social metadata, indexing, sitemap and image contracts.
+- `built-web-quality.audit.sh`: post-build generated metadata, served icon links
+  and accessible form-label contracts across authored pages.
 - `performance.audit.sh`: static-rendering, client-boundary and heavyweight-runtime source budgets.
 - `security.audit.sh`: CSP/headers, reproducible installs, immutable Actions and dependency/source security contracts.
 - `git-workflow.audit.sh`: Commitlint, lint-staged, Husky hooks and CI wiring.

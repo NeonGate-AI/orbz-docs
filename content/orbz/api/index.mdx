@@ -19,7 +19,7 @@ nodes and CSS variables are intentionally not public customization points.
 | `paused` | `paused` | Boolean presence / `boolean` property | `false` |
 | `elevated` | `elevated` | Boolean presence / `boolean` property | `false` |
 | `reduced-motion` | `reducedMotion` | `system`, `always`, `never` | `system` |
-| `preset` | `preset` | Names exported by `ORBZ_PRESET_NAMES`; see [preset naming](/orbz/concepts/appearance#neongate-preset-name) | NeonGate (`DEFAULT_ORBZ_PRESET`) colors |
+| `preset` | `preset` | Canonical `ORBZ_PRESET_NAMES` values and the deprecated `gojhonny` alias; see [preset naming](/orbz/concepts/appearance#neongate-preset-name) | `neongate` (`DEFAULT_ORBZ_PRESET`) |
 | `color-primary` | — | CSS color | NeonGate primary |
 | `color-secondary` | — | CSS color | NeonGate secondary |
 | `color-accent` | — | CSS color | NeonGate accent |
@@ -117,7 +117,7 @@ presentation.
 
 | Name | Primary | Secondary | Accent | Highlight | Background |
 | --- | --- | --- | --- | --- | --- |
-| NeonGate (default) | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
+| `neongate` (default) | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
 | `periwinkle` | `#6667AB` | `#8FB8FF` | `#E66FA9` | `#F3ECFF` | `#111226` |
 | `magenta` | `#BB2649` | `#F06A82` | `#29B8A6` | `#FFDCE4` | `#250A12` |
 | `peach` | `#FFBE98` | `#FF8F70` | `#D987A3` | `#FFF0E7` | `#2A1516` |
@@ -129,7 +129,9 @@ presentation.
 ```
 
 An invalid preset normalizes to `DEFAULT_ORBZ_PRESET`. The public API is named `preset`;
-there is no `palette` attribute or property.
+there is no `palette` attribute or property. See
+[NeonGate preset naming](/orbz/concepts/appearance#neongate-preset-name) for the
+deprecated alias and canonical normalization behavior.
 
 ## Custom palette
 

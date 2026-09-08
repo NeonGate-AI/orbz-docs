@@ -1,6 +1,6 @@
 {
   "name": "@neongate-ai/orbz-docs",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
   "description": "Technical documentation for @neongate-ai/orbz.",
   "type": "module",
@@ -34,7 +34,7 @@
     "test": "sh scripts/test.sh && sh scripts/test-playground.sh"
   },
   "dependencies": {
-    "@neongate-ai/orbz": "1.0.1",
+    "@neongate-ai/orbz": "1.0.2",
     "next": "16.3.4",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",

@@ -20,9 +20,9 @@ one concern.
 
 ## Product boundaries
 
-- `NeonGate-AI/orbz` owns the Web Component implementation and package release.
+- `gojhonny/orbz` owns the Web Component implementation and package release.
 - `NeonGate-AI/orbz-sandbox` owns framework-specific demonstration applications.
-- `NeonGate-AI/docs` owns documentation content, navigation, metadata, search,
+- `gojhonny/orbz-docs` owns documentation content, navigation, metadata, search,
   deployment configuration, documentation-specific UI and quality assurance.
 - Consume the published `@neongate-ai/orbz` package. Do not use `workspace:*`
   links to product repositories.
