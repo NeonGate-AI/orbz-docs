@@ -12,7 +12,7 @@ export function GitHubStar() {
       target="_blank"
     >
       <GitHubIcon aria-hidden="true" height="16" />
-      <span>Star on GitHub</span>
+      <span></span>
       <span aria-hidden="true" className="neongate-github-star__icon">
         ☆
       </span>

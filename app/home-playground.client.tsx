@@ -115,9 +115,6 @@ export function HomePlayground({ children }: { children: ReactNode }) {
             <dd>{HOME_SPEECH_EXAMPLE.voice}</dd>
           </div>
         </dl>
-        <p className="orbz-voice-example-note">
-          OpenAI example settings · Preview uses your browser’s voice.
-        </p>
         <SpeechControls
           error={voice.error}
           onPause={() => setPaused((current) => !current)}

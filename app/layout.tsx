@@ -89,13 +89,13 @@ function OrbzBrand() {
 
 const navbar = (
   <Navbar key="neongate-navbar" logo={<OrbzBrand />} logoLink="/">
+    <GitHubStar />
     <Link className="neongate-navbar-link" href="/orbz/getting-started">
       Docs
     </Link>
     <span className="neongate-desktop-theme">
       <ThemeToggle key="theme-toggle" />
     </span>
-    <GitHubStar />
   </Navbar>
 )
 
