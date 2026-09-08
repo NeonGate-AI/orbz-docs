@@ -23,7 +23,7 @@ const socialImage = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: 'OrbZ Docs | NeonGate AI',
+    default: siteConfig.homeTitle,
     template: '%s | OrbZ Docs'
   },
   description: siteConfig.description,
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     images: [socialImage],
     locale: 'en_US',
     siteName: siteConfig.name,
-    title: 'OrbZ Docs | NeonGate AI',
+    title: siteConfig.homeTitle,
     type: 'website',
     url: siteConfig.url
   },
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     description: siteConfig.description,
     images: [socialImage],
-    title: 'OrbZ Docs | NeonGate AI'
+    title: siteConfig.homeTitle
   }
 }
 
@@ -122,7 +122,7 @@ const footer = (
       <div className="neongate-footer__meta" key="footer-meta">
         <span>© {new Date().getFullYear()}</span>
         <span aria-hidden="true">•</span>
-        <a href="https://github.com/NeonGate-AI/docs/blob/main/LICENSE">
+        <a href="https://github.com/gojhonny/orbz-docs/blob/main/LICENSE">
           MIT License
         </a>
         <span aria-hidden="true">•</span>
@@ -146,12 +146,11 @@ export default async function RootLayout(
           lightness: { dark: 72, light: 50 },
           saturation: 100
         }}
-        faviconGlyph="◉"
       />
       <body>
         <RegisterElement />
         <Layout
-          docsRepositoryBase="https://github.com/NeonGate-AI/docs/tree/main/content"
+          docsRepositoryBase="https://github.com/gojhonny/orbz-docs/tree/main/content"
           editLink="Edit this page on GitHub"
           feedback={{
             content: 'Suggest a documentation improvement',
@@ -164,7 +163,12 @@ export default async function RootLayout(
             storageKey: 'neongate-docs-theme'
           }}
           pageMap={await getPageMap()}
-          search={<Search placeholder="Search docs…" />}
+          search={
+            <Search
+              aria-label="Search documentation"
+              placeholder="Search docs…"
+            />
+          }
           sidebar={{ defaultMenuCollapseLevel: 1 }}
         >
           {children}

@@ -132,8 +132,10 @@ export function SpeechControls({
         onSpeak()
       }}
     >
+      <label htmlFor={`${id}-speech`}>Text to speak</label>
       <div className="orbz-speech-input-row">
         <input
+          aria-describedby={`${id}-status`}
           autoComplete="off"
           disabled={!ready || !supported}
           id={`${id}-speech`}

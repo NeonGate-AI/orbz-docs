@@ -52,8 +52,9 @@ conflicting attributes.
 <orb-z preset="magenta"></orb-z>
 ```
 
-Available names are `neongate`, `periwinkle`, `magenta`, `peach`, `mocha`, and
-`ivory`.
+Built-in appearances are NeonGate (default), `periwinkle`, `magenta`, `peach`,
+`mocha`, and `ivory`. Read accepted keys from `ORBZ_PRESET_NAMES`; see
+[preset naming](/orbz/concepts/appearance#neongate-preset-name).
 
 ## A custom color does not appear
 
@@ -109,7 +110,7 @@ Unsupported runtime values normalize to safe defaults:
 | --- | --- |
 | `state` | `idle` |
 | `speed` | `1` |
-| `preset` | `neongate` |
+| `preset` | `DEFAULT_ORBZ_PRESET` (NeonGate) |
 | `reduced-motion` | `system` |
 | `size` | `16rem` for an empty value or invalid numeric property |
 
@@ -155,7 +156,7 @@ registration. See [Orbz in microfrontends](/orbz/guides/microfrontends).
 The shadow root is closed by design. Public CSS variables, parts, internal
 classes, and layer references are not supported. Use the strict documented
 attributes. If the public appearance controls cannot express a valid shared
-use case, open a focused proposal in [GitHub Issues](https://github.com/NeonGate-AI/orbz/issues).
+use case, open a focused proposal in [GitHub Issues](https://github.com/gojhonny/orbz/issues).
 
 ## Still stuck?
 
@@ -167,4 +168,4 @@ When opening an issue, include:
 - the smallest `<orb-z>` markup that reproduces the problem
 - relevant build or console output
 
-[Open an Orbz issue](https://github.com/NeonGate-AI/orbz/issues) · [View the npm package](https://www.npmjs.com/package/@neongate-ai/orbz)
+[Open an Orbz issue](https://github.com/gojhonny/orbz/issues) · [View the npm package](https://www.npmjs.com/package/@neongate-ai/orbz)

@@ -8,5 +8,6 @@ Check security/privacy, accessibility, SEO and performance only at the evidence
 class the change requires; automation is not WCAG or field-CWV conformance.
 
 A changed head invalidates the final review. Required CI and deployment checks
-must pass before an authorized merge. Ordinary work targets main; this repository
-has no staging promotion step. Existing user authorization remains authoritative.
+must pass before an authorized merge. Use the branch target recorded in the spec
+and rule 011, including an explicit owner-requested staging target. A PR alone
+does not authorize promotion or merge. Existing user authorization remains authoritative.

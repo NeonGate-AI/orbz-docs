@@ -19,12 +19,12 @@ nodes and CSS variables are intentionally not public customization points.
 | `paused` | `paused` | Boolean presence / `boolean` property | `false` |
 | `elevated` | `elevated` | Boolean presence / `boolean` property | `false` |
 | `reduced-motion` | `reducedMotion` | `system`, `always`, `never` | `system` |
-| `preset` | `preset` | `neongate`, `periwinkle`, `magenta`, `peach`, `mocha`, `ivory` | Neongate colors |
-| `color-primary` | — | CSS color | Neongate primary |
-| `color-secondary` | — | CSS color | Neongate secondary |
-| `color-accent` | — | CSS color | Neongate accent |
-| `color-highlight` | — | CSS color | Neongate highlight |
-| `color-background` | — | CSS color | Neongate core color |
+| `preset` | `preset` | Names exported by `ORBZ_PRESET_NAMES`; see [preset naming](/orbz/concepts/appearance#neongate-preset-name) | NeonGate (`DEFAULT_ORBZ_PRESET`) colors |
+| `color-primary` | — | CSS color | NeonGate primary |
+| `color-secondary` | — | CSS color | NeonGate secondary |
+| `color-accent` | — | CSS color | NeonGate accent |
+| `color-highlight` | — | CSS color | NeonGate highlight |
+| `color-background` | — | CSS color | NeonGate core color |
 
 The five custom colors are native attributes. They are not separate native element properties.
 
@@ -117,7 +117,7 @@ presentation.
 
 | Name | Primary | Secondary | Accent | Highlight | Background |
 | --- | --- | --- | --- | --- | --- |
-| `neongate` | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
+| NeonGate (default) | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
 | `periwinkle` | `#6667AB` | `#8FB8FF` | `#E66FA9` | `#F3ECFF` | `#111226` |
 | `magenta` | `#BB2649` | `#F06A82` | `#29B8A6` | `#FFDCE4` | `#250A12` |
 | `peach` | `#FFBE98` | `#FF8F70` | `#D987A3` | `#FFF0E7` | `#2A1516` |
@@ -128,7 +128,7 @@ presentation.
 <orb-z preset="ivory"></orb-z>
 ```
 
-An invalid preset normalizes to `neongate`. The public API is named `preset`;
+An invalid preset normalizes to `DEFAULT_ORBZ_PRESET`. The public API is named `preset`;
 there is no `palette` attribute or property.
 
 ## Custom palette
@@ -145,13 +145,13 @@ Omit the `preset` attribute and set one or more custom colors:
 ></orb-z>
 ```
 
-Empty values are removed and missing colors use the Neongate defaults. An
+Empty values are removed and missing colors use the NeonGate defaults. An
 explicit preset and custom colors are mutually exclusive. When both are
 present, the preset wins, the custom colors are ignored, and Orbz logs one
 conflict error. Removing `preset` activates the still-present custom colors.
 
 The `preset` property getter always returns a normalized preset name, including
-`neongate` when the attribute is absent. Use `hasAttribute("preset")` when you
+`DEFAULT_ORBZ_PRESET` when the attribute is absent. Use `hasAttribute("preset")` when you
 need to distinguish explicit preset mode from custom-color mode. Assigning
 `null` or `undefined` to the preset setter removes the attribute.
 

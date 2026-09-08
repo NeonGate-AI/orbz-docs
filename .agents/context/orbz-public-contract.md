@@ -1,7 +1,7 @@
 # Orbz Public Contract Snapshot
 
 This is a navigation aid for agents working on the documentation. It summarizes
-the published `@neongate-ai/orbz@1.0.0`
+the published `@neongate-ai/orbz@1.0.1`
 contract. It is not an independent source of product truth.
 
 When changing public API documentation, verify the published package and the
@@ -15,7 +15,7 @@ recipe renders the same tag rather than a framework-specific Orbz component.
 Internal closed-Shadow-DOM nodes and CSS variables are not documented extension
 points.
 
-The published 1.0.0 manifest declares no third-party runtime dependencies. This
+The published 1.0.1 manifest declares no third-party runtime dependencies. This
 describes the component runtime; its development tooling and the Docs site have
 their own dependencies.
 
@@ -49,14 +49,26 @@ presentation; reduced motion selects a calmer presentation policy.
 
 The public appearance selector is `preset`, not `palette`.
 
-Documented presets are:
+The default appearance is branded NeonGate, independent of the GitHub owner
+`gojhonny`. The canonical preset name is `neongate`. The published 1.0.1 package
+accidentally changed its API key to `gojhonny` without changing its colors.
+The product correction is pending publication; do not describe it as installed.
 
-- `neongate`
+The installed 1.0.1 `ORBZ_PRESET_NAMES` values are:
+
+- `gojhonny`
 - `periwinkle`
 - `magenta`
 - `peach`
 - `mocha`
 - `ivory`
+
+In 1.0.1, `DEFAULT_ORBZ_PRESET` and the default preset getter return `gojhonny`.
+Current docs use NeonGate as the brand, omit `preset` for default HTML examples,
+and use `DEFAULT_ORBZ_PRESET` / `ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` in typed code.
+The canonical user-facing explanation is the NeonGate preset name section in
+`content/orbz/concepts/appearance.mdx`. Reverify the published exports and update
+that version note when adopting the corrected package.
 
 Custom appearance uses five native color attributes:
 
@@ -113,8 +125,10 @@ The interactive preview still selects browser Web Speech and discloses that fact
 ## Configuration
 
 `orbzConfiguration` is read-only. `transformOrbzConfiguration()` validates,
-clones, derives and freezes a complete configuration without changing the
-package singleton. Fork maintainers edit `src/orbz.config.json` and rebuild;
+clones, fills omitted internal appearance/motion/speech groups and freezes a
+complete configuration without changing the package singleton. Version 1.0.1
+supports compact authored configuration; explicit internal overrides remain
+supported. Fork maintainers edit `src/orbz.config.json` and rebuild;
 the installed package does not fetch or discover a host configuration file.
 Public configuration never contains credentials.
 
@@ -141,6 +155,12 @@ npx -y --package=@neongate-ai/orbz@latest orb
 Project setup detects npm, pnpm, Yarn, or Bun from project metadata and
 lockfiles, installs the executing Orbz version into an existing JavaScript
 project, and does not generate or overwrite application source files.
+
+In the Orbz source checkout, `orb cleanup` (alias `orb clean`) removes untracked
+root/nested dependencies and generated output by default. `--dry-run` previews
+targets and `--keep-dependencies` retains dependencies. Tracked content and nested
+repositories are preserved. This is a source-maintenance command, not a cleanup
+command for arbitrary consumer projects.
 
 ## Package entry points
 
