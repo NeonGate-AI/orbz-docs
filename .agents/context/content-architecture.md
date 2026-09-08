@@ -22,6 +22,11 @@ Do not duplicate navigation truth in unrelated configuration.
 
 ## Page contract
 
+The catch-all metadata function owns the final browser/Open Graph/Twitter title
+using an absolute Next.js title. Home and its /orbz alias use siteConfig.homeTitle;
+leaf titles include the Docs brand once. Nextra navigation labels do not own
+document titles. App Router metadata files own the favicon and touch icons.
+
 Every indexable documentation page must have:
 
 - a unique, human-readable `title`;

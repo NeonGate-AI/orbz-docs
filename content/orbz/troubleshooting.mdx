@@ -52,8 +52,9 @@ conflicting attributes.
 <orb-z preset="magenta"></orb-z>
 ```
 
-Available names are `gojhonny`, `periwinkle`, `magenta`, `peach`, `mocha`, and
-`ivory`.
+Built-in appearances are NeonGate (default), `periwinkle`, `magenta`, `peach`,
+`mocha`, and `ivory`. Read accepted keys from `ORBZ_PRESET_NAMES`; see
+[preset naming](/orbz/concepts/appearance#neongate-preset-name).
 
 ## A custom color does not appear
 
@@ -109,7 +110,7 @@ Unsupported runtime values normalize to safe defaults:
 | --- | --- |
 | `state` | `idle` |
 | `speed` | `1` |
-| `preset` | `gojhonny` |
+| `preset` | `DEFAULT_ORBZ_PRESET` (NeonGate) |
 | `reduced-motion` | `system` |
 | `size` | `16rem` for an empty value or invalid numeric property |
 

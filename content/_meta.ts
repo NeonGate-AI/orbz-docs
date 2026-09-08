@@ -3,7 +3,7 @@ import type { MetaRecord } from 'nextra'
 const meta: MetaRecord = {
   index: {
     display: 'hidden',
-    title: 'Orbz Docs',
+    title: 'Home',
     type: 'page',
     theme: {
       breadcrumb: false,

@@ -88,7 +88,7 @@ if (orbs.length !== 2 || orbs.some(([tag]) =>
   console.error('accessibility FAIL: both decorative shell orbs must be static and outside the accessibility/focus tree')
   process.exit(2)
 }
-if (!/search=\{<Search\b[^>]*\/>\}/.test(source) || [...source.matchAll(/<Search\b/g)].length !== 1) {
+if (!/search=\{\s*<Search\b[^>]*\/>\s*\}/.test(source) || [...source.matchAll(/<Search\b/g)].length !== 1) {
   console.error('accessibility FAIL: provide one Search through Layout; Nextra owns desktop and mobile placement')
   process.exit(2)
 }

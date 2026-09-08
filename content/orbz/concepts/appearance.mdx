@@ -16,7 +16,7 @@ There is no `palette` attribute or property. The public name is `preset`.
 
 | Preset | Primary | Secondary | Accent | Highlight | Core |
 | --- | --- | --- | --- | --- | --- |
-| `gojhonny` | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
+| NeonGate (default) | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
 | `periwinkle` | `#6667AB` | `#8FB8FF` | `#E66FA9` | `#F3ECFF` | `#111226` |
 | `magenta` | `#BB2649` | `#F06A82` | `#29B8A6` | `#FFDCE4` | `#250A12` |
 | `peach` | `#FFBE98` | `#FF8F70` | `#D987A3` | `#FFF0E7` | `#2A1516` |
@@ -27,14 +27,15 @@ There is no `palette` attribute or property. The public name is `preset`.
 <orb-z preset="periwinkle"></orb-z>
 ```
 
-`gojhonny` is the default appearance. This remains true when the `preset`
-attribute is absent, which lets custom mode inherit `gojhonny` colors for any
+NeonGate is the default appearance. This remains true when the `preset`
+attribute is absent, which lets custom mode inherit NeonGate colors for any
 custom color you do not provide.
 
 Use the exported names and values when building a picker:
 
 ```ts
 import {
+  DEFAULT_ORBZ_PRESET,
   ORBZ_PRESET_NAMES,
   ORBZ_PRESETS,
   type OrbzPresetName,
@@ -43,7 +44,30 @@ import {
 function getPreview(name: OrbzPresetName) {
   return ORBZ_PRESETS[name];
 }
+
+const neonGateColors = getPreview(DEFAULT_ORBZ_PRESET);
 ```
+
+## NeonGate preset name
+
+The preset's name is NeonGate (`neongate`), independent of the GitHub account
+that hosts Orbz. Version 1.0.1 accidentally published its API key as `gojhonny`;
+the colors did not change. Restoring the `neongate` key is pending a package
+release.
+
+These docs currently use `@neongate-ai/orbz@1.0.1`. In that version,
+`DEFAULT_ORBZ_PRESET` and the default `preset` getter return `gojhonny`, and
+`ORBZ_PRESET_NAMES` includes that key. Use `DEFAULT_ORBZ_PRESET` in typed code
+and `ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` to read its colors. For default HTML,
+omit `preset`:
+
+```html
+<orb-z></orb-z>
+```
+
+These examples work with the published package without depending on the
+accidental key. Generate accepted keys from your installed package's
+`ORBZ_PRESET_NAMES`; do not assume an unpublished correction is already installed.
 
 ## Custom palette
 
@@ -67,7 +91,7 @@ Remove or omit `preset`, then set one or more valid CSS colors:
 | `color-highlight` | Warm or bright highlight |
 | `color-background` | Sphere core color |
 
-Custom colors are partial. Missing values inherit the default `gojhonny` color,
+Custom colors are partial. Missing values inherit the default NeonGate color,
 so a one-color adjustment is valid:
 
 ```html

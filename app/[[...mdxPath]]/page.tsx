@@ -31,7 +31,13 @@ export async function generateMetadata({
     typeof metadata.description === 'string'
       ? metadata.description
       : siteConfig.description
-  const socialTitle = `${title} | OrbZ Docs`
+  const topic = title.replace(/(?:\s*[|—–-]\s*OrbZ Docs)+$/i, '').trim()
+  const pageTitle =
+    canonical === '/'
+      ? siteConfig.homeTitle
+      : /^orbz docs$/i.test(topic)
+        ? siteConfig.name
+        : `${topic} | ${siteConfig.name}`
   const socialImage = {
     alt: 'OrbZ documentation',
     height: 630,
@@ -41,13 +47,14 @@ export async function generateMetadata({
 
   return {
     ...metadata,
+    title: { absolute: pageTitle },
     alternates: { canonical },
     openGraph: {
       description,
       images: [socialImage],
       locale: 'en_US',
       siteName: siteConfig.name,
-      title: socialTitle,
+      title: pageTitle,
       type: 'website',
       url: new URL(canonical, siteConfig.url)
     },
@@ -66,7 +73,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       description,
       images: [socialImage],
-      title: socialTitle
+      title: pageTitle
     }
   }
 }

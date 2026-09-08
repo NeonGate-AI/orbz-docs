@@ -49,7 +49,12 @@ presentation; reduced motion selects a calmer presentation policy.
 
 The public appearance selector is `preset`, not `palette`.
 
-Documented presets are:
+The default appearance is branded NeonGate, independent of the GitHub owner
+`gojhonny`. The canonical preset name is `neongate`. The published 1.0.1 package
+accidentally changed its API key to `gojhonny` without changing its colors.
+The product correction is pending publication; do not describe it as installed.
+
+The installed 1.0.1 `ORBZ_PRESET_NAMES` values are:
 
 - `gojhonny`
 - `periwinkle`
@@ -58,8 +63,12 @@ Documented presets are:
 - `mocha`
 - `ivory`
 
-The default preset is `gojhonny`. Version 1.0.1 renamed `neongate` without
-changing its colors; current literals and typed preset access use `gojhonny`.
+In 1.0.1, `DEFAULT_ORBZ_PRESET` and the default preset getter return `gojhonny`.
+Current docs use NeonGate as the brand, omit `preset` for default HTML examples,
+and use `DEFAULT_ORBZ_PRESET` / `ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` in typed code.
+The canonical user-facing explanation is the NeonGate preset name section in
+`content/orbz/concepts/appearance.mdx`. Reverify the published exports and update
+that version note when adopting the corrected package.
 
 Custom appearance uses five native color attributes:
 

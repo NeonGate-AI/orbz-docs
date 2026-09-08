@@ -9,6 +9,9 @@ native TypeScript support. These are bounded tasks, not a custom project CLI.
 - `check-specs.ts`: implementation of the spec audit's metadata/evidence checks.
 - `check-skills.ts`: implementation of skill metadata/reference checks.
 - `check-public-boundary.ts`: candidate-text protected-identifier tripwire.
+- `check-built-web-quality.ts`: generated metadata, favicon and form-label checks,
+  invoked by `.audits/built-web-quality.audit.sh` after the production build.
+- `rendered-web-quality.test.ts`: isolated positive/negative metadata and label fixtures.
 
 Call durable invariants through `.audits/*.audit.sh`. Tests use isolated synthetic
 fixtures and do not modify repository records or call external services.

@@ -25,7 +25,7 @@ You can render the tag before or after the module loads. The browser upgrades
 existing tags when the custom element is defined.
 
 ```html
-<orb-z state="idle" preset="gojhonny" size="18rem"></orb-z>
+<orb-z state="idle" size="18rem"></orb-z>
 ```
 
 Connecting or upgrading the element never starts speech. The host must
@@ -152,8 +152,9 @@ Choose a built-in color preset with the `preset` attribute:
 <orb-z preset="magenta"></orb-z>
 ```
 
-Available values are `gojhonny`, `periwinkle`, `magenta`, `peach`, `mocha`,
-and `ivory`. The default colors are `gojhonny`.
+The default appearance is **NeonGate**; omit `preset` to select it across package
+versions. Other presets are `periwinkle`, `magenta`, `peach`, `mocha` and `ivory`.
+See [preset names and version compatibility](/orbz/concepts/appearance#neongate-preset-name).
 
 For a custom palette, omit `preset` and set any of the five color attributes:
 
@@ -167,7 +168,7 @@ For a custom palette, omit `preset` and set any of the five color attributes:
 ></orb-z>
 ```
 
-Missing custom colors fall back to their `gojhonny` defaults. Do not combine an
+Missing custom colors fall back to their NeonGate defaults. Do not combine an
 explicit `preset` attribute with `color-*` attributes. If both modes are
 present, the preset wins and Orbz reports the conflict to the console.
 

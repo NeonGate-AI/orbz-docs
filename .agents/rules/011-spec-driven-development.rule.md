@@ -19,4 +19,6 @@ tags: [specs, delivery]
 - Retrospective specs clearly identify evidence and do not pretend the current workflow existed historically.
 
 - Implemented specs have checked acceptance, no pending evidence, valid local references and a matching catalog status.
-- Docs changes use pull requests directly to `main`; no staging promotion step is introduced.
+- Docs changes normally use pull requests directly to `main`. An explicit owner
+  request may target `staging`; record that target in the spec and retain the same
+  required CI checks. A staging PR does not authorize promotion or merge.
