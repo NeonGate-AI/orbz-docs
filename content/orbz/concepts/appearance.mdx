@@ -16,7 +16,7 @@ There is no `palette` attribute or property. The public name is `preset`.
 
 | Preset | Primary | Secondary | Accent | Highlight | Core |
 | --- | --- | --- | --- | --- | --- |
-| NeonGate (default) | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
+| `neongate` (default) | `#6C5CFF` | `#00E9FF` | `#FF4DDE` | `#FFB07A` | `#14142B` |
 | `periwinkle` | `#6667AB` | `#8FB8FF` | `#E66FA9` | `#F3ECFF` | `#111226` |
 | `magenta` | `#BB2649` | `#F06A82` | `#29B8A6` | `#FFDCE4` | `#250A12` |
 | `peach` | `#FFBE98` | `#FF8F70` | `#D987A3` | `#FFF0E7` | `#2A1516` |
@@ -52,22 +52,35 @@ const neonGateColors = getPreview(DEFAULT_ORBZ_PRESET);
 
 The preset's name is NeonGate (`neongate`), independent of the GitHub account
 that hosts Orbz. Version 1.0.1 accidentally published its API key as `gojhonny`;
-the colors did not change. Restoring the `neongate` key is pending a package
-release.
+version 1.0.2 restores `neongate` without changing its colors. These docs use
+the published `@neongate-ai/orbz@1.0.2` package.
 
-These docs currently use `@neongate-ai/orbz@1.0.1`. In that version,
-`DEFAULT_ORBZ_PRESET` and the default `preset` getter return `gojhonny`, and
-`ORBZ_PRESET_NAMES` includes that key. Use `DEFAULT_ORBZ_PRESET` in typed code
-and `ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` to read its colors. For default HTML,
-omit `preset`:
+`DEFAULT_ORBZ_PRESET` and the default `preset` getter return `neongate`.
+Use the canonical name in new explicit markup:
+
+```html
+<orb-z preset="neongate"></orb-z>
+```
+
+The deprecated `gojhonny` input remains accepted by preset attributes,
+properties, types and guards. It normalizes to `neongate`, including the
+reflected attribute and property getter. Existing compact or complete
+configuration objects using the old name are normalized by
+`transformOrbzConfiguration()` without mutating the input.
+
+`ORBZ_PRESET_NAMES` lists the six canonical names. `ORBZ_PRESETS.gojhonny`
+remains a non-enumerable, immutable alias of `ORBZ_PRESETS.neongate`, so existing
+direct reads still work without creating a seventh picker option. Prefer
+`DEFAULT_ORBZ_PRESET` and `ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` when code should
+follow the package default. For default HTML, omit `preset`:
 
 ```html
 <orb-z></orb-z>
 ```
 
-These examples work with the published package without depending on the
-accidental key. Generate accepted keys from your installed package's
-`ORBZ_PRESET_NAMES`; do not assume an unpublished correction is already installed.
+Omitting `preset` also lets custom colors take effect. Generate new picker
+options from your installed package's `ORBZ_PRESET_NAMES`, and see the
+[1.0.2 release notes](/orbz/changelog#102--2026-09-08) when upgrading from 1.0.1.
 
 ## Custom palette
 

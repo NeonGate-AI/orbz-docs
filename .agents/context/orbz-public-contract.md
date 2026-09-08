@@ -1,7 +1,7 @@
 # Orbz Public Contract Snapshot
 
 This is a navigation aid for agents working on the documentation. It summarizes
-the published `@neongate-ai/orbz@1.0.1`
+the published `@neongate-ai/orbz@1.0.2`
 contract. It is not an independent source of product truth.
 
 When changing public API documentation, verify the published package and the
@@ -15,7 +15,7 @@ recipe renders the same tag rather than a framework-specific Orbz component.
 Internal closed-Shadow-DOM nodes and CSS variables are not documented extension
 points.
 
-The published 1.0.1 manifest declares no third-party runtime dependencies. This
+The published 1.0.2 manifest declares no third-party runtime dependencies. This
 describes the component runtime; its development tooling and the Docs site have
 their own dependencies.
 
@@ -50,25 +50,33 @@ presentation; reduced motion selects a calmer presentation policy.
 The public appearance selector is `preset`, not `palette`.
 
 The default appearance is branded NeonGate, independent of the GitHub owner
-`gojhonny`. The canonical preset name is `neongate`. The published 1.0.1 package
-accidentally changed its API key to `gojhonny` without changing its colors.
-The product correction is pending publication; do not describe it as installed.
+`gojhonny`. Version 1.0.2 restores its canonical API name after the accidental
+rename in 1.0.1, without changing its colors.
 
-The installed 1.0.1 `ORBZ_PRESET_NAMES` values are:
+| Contract | Value |
+| --- | --- |
+| Default preset | `neongate` |
+| Deprecated input alias | `gojhonny`, normalized to `neongate` |
 
-- `gojhonny`
+The installed `ORBZ_PRESET_NAMES` lists six canonical values:
+
+- `neongate`
 - `periwinkle`
 - `magenta`
 - `peach`
 - `mocha`
 - `ivory`
 
-In 1.0.1, `DEFAULT_ORBZ_PRESET` and the default preset getter return `gojhonny`.
-Current docs use NeonGate as the brand, omit `preset` for default HTML examples,
-and use `DEFAULT_ORBZ_PRESET` / `ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` in typed code.
-The canonical user-facing explanation is the NeonGate preset name section in
-`content/orbz/concepts/appearance.mdx`. Reverify the published exports and update
-that version note when adopting the corrected package.
+`DEFAULT_ORBZ_PRESET` and the default preset getter return the canonical default.
+`OrbzPresetName` and `isOrbzPresetName()` retain the deprecated alias as accepted
+input. The element reflects its normalized canonical name in the attribute and
+getter. `ORBZ_PRESETS.gojhonny` is a non-enumerable, immutable reference to
+`ORBZ_PRESETS.neongate`; it does not add a seventh enumerated palette.
+
+Default examples may omit `preset` in HTML and use `DEFAULT_ORBZ_PRESET` /
+`ORBZ_PRESETS[DEFAULT_ORBZ_PRESET]` in typed code. The canonical user-facing
+explanation is the NeonGate preset name section in
+`content/orbz/concepts/appearance.mdx`.
 
 Custom appearance uses five native color attributes:
 
@@ -128,7 +136,10 @@ The interactive preview still selects browser Web Speech and discloses that fact
 clones, fills omitted internal appearance/motion/speech groups and freezes a
 complete configuration without changing the package singleton. Version 1.0.1
 supports compact authored configuration; explicit internal overrides remain
-supported. Fork maintainers edit `src/orbz.config.json` and rebuild;
+supported. Version 1.0.2 also normalizes legacy compact and complete configuration
+objects that used the accidental `gojhonny` name, preserving supplied colors and
+the caller's input before freezing the result. Fork maintainers edit
+`src/orbz.config.json` and rebuild;
 the installed package does not fetch or discover a host configuration file.
 Public configuration never contains credentials.
 
