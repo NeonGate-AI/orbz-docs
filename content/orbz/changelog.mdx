@@ -15,6 +15,43 @@ are available on [npm](https://www.npmjs.com/package/@neongate-ai/orbz), and
 the complete documentation is available at
 [orbz.site](https://orbz.site).
 
+## 1.0.2 — 2026-09-08
+
+### NeonGate preset correction
+
+- Restored `neongate` as the canonical default preset name, including
+  `DEFAULT_ORBZ_PRESET`, `ORBZ_PRESET_NAMES` and the element's normalized preset
+  getter. The NeonGate colors are unchanged.
+- Retained the accidental `gojhonny` name from 1.0.1 as a deprecated input alias.
+  Existing attributes, property assignments, typed inputs and guards still
+  accept it; normalization and attribute reflection use `neongate`.
+- Preserved `ORBZ_PRESETS.gojhonny` as an immutable, non-enumerable alias of
+  `ORBZ_PRESETS.neongate`. The canonical preset list still contains six entries.
+- Normalized legacy compact and complete configuration objects without mutating
+  caller input, while preserving supplied colors and strict validation.
+
+### Upgrading from 1.0.1
+
+Install the published patch and update pinned CDN URLs:
+
+```bash
+npm install @neongate-ai/orbz@1.0.2
+```
+
+Use `neongate` in new explicit preset values. Existing `gojhonny` inputs remain
+compatible; migrate them when convenient. Code that reads a normalized preset
+name should expect `neongate`. See
+[NeonGate preset naming](/orbz/concepts/appearance#neongate-preset-name) for
+default examples and palette access.
+
+This correction supersedes the 1.0.1 naming guidance retained below as release
+history. The npm scope remains `@neongate-ai/orbz`, and the GitHub owner remains
+`gojhonny`.
+
+[View `1.0.2` on npm](https://www.npmjs.com/package/@neongate-ai/orbz/v/1.0.2)
+· [Browse the `v1.0.2` source tag](https://github.com/gojhonny/orbz/tree/v1.0.2)
+· [Compare the tagged source](https://github.com/gojhonny/orbz/compare/v1.0.1...v1.0.2)
+
 ## 1.0.1 — 2026-09-08
 
 ### Cleanup and compact configuration
