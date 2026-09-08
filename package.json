@@ -1,6 +1,6 @@
 {
   "name": "@neongate-ai/orbz-docs",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": true,
   "description": "Technical documentation for @neongate-ai/orbz.",
   "type": "module",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/NeonGate-AI/docs.git"
+    "url": "git+https://github.com/gojhonny/orbz-docs.git"
   },
   "scripts": {
     "dev": "next dev",
@@ -34,7 +34,7 @@
     "test": "sh scripts/test.sh && sh scripts/test-playground.sh"
   },
   "dependencies": {
-    "@neongate-ai/orbz": "1.0.0",
+    "@neongate-ai/orbz": "1.0.1",
     "next": "16.3.4",
     "nextra": "4.6.1",
     "nextra-theme-docs": "4.6.1",

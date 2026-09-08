@@ -42,7 +42,7 @@ import {
 defineOrbz();
 
 const nextState: OrbzState = "listening";
-const preset: OrbzPresetName = "neongate";
+const preset: OrbzPresetName = "gojhonny";
 const colors = ORBZ_PRESETS[preset];
 const orb = document.querySelector<OrbzElement>("orb-z");
 
@@ -68,8 +68,8 @@ import `/browser` when a page should upgrade the tag.
 | `DEFAULT_ORBZ_SIZE` | `16rem` |
 | `DEFAULT_ORBZ_SPEED` | `1` |
 | `DEFAULT_ORBZ_REDUCED_MOTION` | `system` |
-| `DEFAULT_ORBZ_PRESET` | `neongate` |
-| `DEFAULT_ORBZ_COLORS` | The Neongate preset colors |
+| `DEFAULT_ORBZ_PRESET` | `gojhonny` |
+| `DEFAULT_ORBZ_COLORS` | The `gojhonny` preset colors |
 | `config` | Frozen namespace exposing the package constants, including `config.ORBZ_STATES` |
 | `talk` | Frozen built-in deterministic talk-step catalog |
 | `DEFAULT_TALK_FLOW` | Welcome, ask-name, help, and optional response sequence |
@@ -132,7 +132,7 @@ OpenAI API key stays on the endpoint and is never included in browser code.
 | `isOrbzPresetName()` | Type guard for a preset name |
 | `isOrbzReducedMotion()` | Type guard for a reduced-motion value |
 | `normalizeOrbzState()` | Unsupported input becomes `idle` |
-| `normalizeOrbzPreset()` | Unsupported input becomes `neongate` |
+| `normalizeOrbzPreset()` | Unsupported input becomes `gojhonny` |
 | `normalizeOrbzReducedMotion()` | Unsupported input becomes `system` |
 | `normalizeOrbzSize()` | Numbers become pixels; invalid numeric or empty input becomes `16rem` |
 | `normalizeOrbzSpeed()` | Non-positive or non-finite input becomes `1` |
@@ -180,4 +180,4 @@ Both helpers avoid evaluating an `HTMLElement` subclass when the DOM is not
 available.
 
 - [Package on npm](https://www.npmjs.com/package/@neongate-ai/orbz)
-- [Source on GitHub](https://github.com/NeonGate-AI/orbz)
+- [Source on GitHub](https://github.com/gojhonny/orbz)

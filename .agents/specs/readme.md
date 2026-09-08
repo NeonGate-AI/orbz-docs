@@ -16,6 +16,7 @@ identity.
 | [007](007-public-docs-web-quality.spec.md) | SPEC-007 | in-progress | Accessible, searchable and secure public documentation UI |
 | [008](008-homepage-spacing-and-proof.spec.md) | SPEC-008 | implemented | Compact homepage spacing and simplify component proof |
 | [009](009-playground-badges-and-navigation.spec.md) | SPEC-009 | implemented | Playground status/badges and responsive package star navigation |
+| [010](010-orbz-patch-release-adoption.spec.md) | SPEC-010 | implemented | Adopt published Orbz 1.0.1 and align release labels, examples and changelog |
 
 Support files:
 
