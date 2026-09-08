@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - staging
       - feat/**
       - fix/**
       - docs/**
@@ -13,6 +14,7 @@ on:
   pull_request:
     branches:
       - main
+      - staging
 
 permissions:
   contents: read

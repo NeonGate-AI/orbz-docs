@@ -16,7 +16,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind",
+    "postbuild": "pagefind --site .next/server/app --output-path public/_pagefind && sh .audits/built-web-quality.audit.sh",
     "start": "next start",
     "harness": "npx --yes harness-score@1.6.5",
     "typecheck": "tsc --noEmit",

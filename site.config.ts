@@ -28,6 +28,7 @@ export const siteConfig = Object.freeze({
   description:
     'Technical documentation for the @neongate-ai/orbz web component.',
   github: 'https://github.com/gojhonny/orbz-docs',
+  homeTitle: 'Orbz — AI Voice Web Component',
   name: 'OrbZ Docs',
   publisher: 'NeonGate AI',
   searchIndexable,
