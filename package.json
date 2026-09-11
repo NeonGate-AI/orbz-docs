@@ -50,7 +50,7 @@
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
     "husky": "9.1.7",
-    "lint-staged": "17.3.0",
+    "lint-staged": "17.5.0",
     "pagefind": "1.5.2",
     "typescript": "5.9.3"
   }
